@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MACAWeb.Models.FeatureType>
+
+@{
+    ViewBag.Title = "Feature Types";
+}
+
+<div class="main-content">
+    <h2>@ViewBag.Title</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "Create")
+                </div>
+            </div>
+
+            <!--Search Form-->
+
+        </div>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td class="column-glyph">
+                            <a href="@Url.Action("Edit", "FeatureTypes", new { id=item.FeatureTypeId })">
+                                <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
+                            </a>&nbsp;
+                            <a href="@Url.Action("Details", "FeatureTypes", new { id=item.FeatureTypeId })">
+                                <span title="Details" class="glyphicon glyphicon-info-sign action-icons" />
+                            </a>&nbsp;
+                            <a href="@Url.Action("Delete", "FeatureTypes", new { id=item.FeatureTypeId })">
+                                <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!--Pagination-->
+
+    </div>
+</div>

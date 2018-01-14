@@ -1,0 +1,26 @@
+﻿@model IEnumerable<MACAWeb.Models.FAQ>
+
+@{
+    ViewBag.Title = "FAQ";
+}
+
+<div class="main-content">
+    <h2>Frequently Asked Questions</h2>
+
+    <hr />
+
+    @{        
+    foreach (var item in Model)
+        {
+            <div class="row faq-row inner-rectangle">
+                <h3>@item.Title</h3>
+                <hr />
+                <p style="font-weight:bold;text-align:justify;">@item.Question</p>
+                <hr />
+                <p style="text-align:justify; color:black;">
+                    @item.Answer
+                </p>
+            </div>
+        }
+    }
+</div>

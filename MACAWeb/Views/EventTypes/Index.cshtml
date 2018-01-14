@@ -1,0 +1,68 @@
+﻿@model PagedList.IPagedList<MACAWeb.Models.EventType>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Tipi dogodkov";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tipi dogodkov</h2>
+
+<hr />
+
+<div class="row index-row">
+    <div class="col col-md-6">
+        <div class="input-group">
+            @Html.ActionLink("Dodaj nov", "Create")
+        </div>
+    </div>
+
+    <div class="col col-md-4 search-box">
+        @using (Html.BeginForm("Index", "EventTypes", FormMethod.Get))
+        {
+            <div class="input-group">
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        }
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().DateCreated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.ActionLink("Podrobnosti", "Details", new { id=item.EventTypeID })
+        </td>
+    </tr>
+}
+
+</table>
+
+Stran @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) od @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

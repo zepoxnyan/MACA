@@ -1,0 +1,21 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Napaka";
+}
+
+<h1 class="text-danger">Prišlo je do napake</h1>
+
+<hr />
+<p class="narrow-paragraph">
+    @{
+        if (String.IsNullOrEmpty(ViewBag.errorMessage))
+        {
+            <span class="text-danger">Pri obdelavi poslanih ukazov je prišlo do napake. Poskusite osvežiti stran.</span>
+        }
+        else
+        {
+            <span class="text-danger">@ViewBag.errorMessage</span>
+        }
+    }
+</p>

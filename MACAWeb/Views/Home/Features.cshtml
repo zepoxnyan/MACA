@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MACAWeb.Models.Function>
+
+@{
+    ViewBag.Title = "Features";
+}
+
+<div class="main-content">
+    <h2>Features</h2>
+
+    <hr />
+
+    @foreach (var item in Model)
+    {
+        <div class="row faq-row inner-rectangle">
+            <h3>@item.Name</h3>
+            <hr />
+            <h4>Description</h4>
+            <p style="font-weight:bold;text-align:justify;">@item.Description</p>
+            <hr />
+            <h4>Input</h4>
+            <p style="text-align:justify; color:black;">
+                @item.InputDescription
+            </p>
+            <hr />
+            <h4>Output</h4>
+            <p style="text-align:justify; color:black;">
+                @item.OutputDescription
+            </p>
+        </div>
+    }
+</div>

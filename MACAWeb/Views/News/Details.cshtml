@@ -1,0 +1,115 @@
+﻿@model MACAWeb.Models.News
+
+@{
+    ViewBag.Title = "News";
+}
+
+<div class="main-content">
+    <h2>News Details</h2>
+
+    <hr />
+
+    <div class="inner-rectangle">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Abstract)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Abstract)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Text)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Text)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Author)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Author)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Source)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Source)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SourceLink)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SourceLink)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DatePublished)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DatePublished)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                @{
+                    if (Model.Image != null && Model.Image.Length > 0)
+                    {
+                        var base64 = Convert.ToBase64String(Model.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        @:<img src="@imgSrc" width="300" />
+                }
+                }
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageAuthor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ImageAuthor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageDescription)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ImageDescription)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+        </dl>
+    </div>
+    
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.NewsID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Administration";
+}
+
+<div class="main-content">
+    <h2>Administration</h2>
+
+    <hr />
+
+    <div class="row inner-rectangle">
+        @if (User.IsInRole("Admin"))
+        {
+            <h3 style="margin-top:-5px;">Technical Entities</h3>
+            <div class="row-administration">                
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    <div>@Html.ActionLink("Position Types", "Index", "PositionTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                    <div>@Html.ActionLink("Data Formats", "Index", "DataFormats", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                }                
+                <div>@Html.ActionLink("Functions", "Index", "Functions", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                <div>@Html.ActionLink("Parameters", "Index", "Parameters", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    <div>@Html.ActionLink("Task Status", "Index", "TaskStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                }                
+            </div>
+        }
+    </div>
+
+    <div class="row inner-rectangle">
+        @if (User.IsInRole("Admin"))
+        {
+            <h3 style="margin-top:-5px;">Content Management</h3>
+            <div class="row-administration">
+                <div>@Html.ActionLink("News", "Index", "News", null, new { @class = "big-button-link" })</div>
+                <div>@Html.ActionLink("Papers", "Index", "Papers", null, new { @class = "big-button-link" })</div>
+                <div>@Html.ActionLink("Frequently Asked Questions", "Index", "FAQs", null, new { @class = "big-button-link" })</div>
+                <div>@Html.ActionLink("Team Members", "Index", "TeamMembers", null, new { @class = "big-button-link" })</div>
+            </div>
+        }
+    </div>
+
+    <div class="row inner-rectangle">
+        @if (User.IsInRole("SuperAdmin"))
+        {
+            <h3 style="margin-top:-5px;">User Data</h3>
+            <div class="row-administration">
+                <div>@Html.ActionLink("Instances", "Index", "Instances", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                <div>@Html.ActionLink("Tasks", "Index", "UserTasks", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                <div>@Html.ActionLink("Results", "Index", "Results", null, htmlAttributes: new { @class = "big-button-link" })</div>
+            </div>
+        }
+    </div>
+
+    <div class="row inner-rectangle">
+        @if (User.IsInRole("SuperAdmin"))
+        {
+            <h3 style="margin-top:-5px;">Users & Events</h3>
+            <div class="row-administration">
+                <div>@Html.ActionLink("Users", "Index", "Users", null, new { @class = "big-button-link" })</div>
+                <div>@Html.ActionLink("Event Types", "Index", "EventTypes", null, new { @class = "big-button-link" })</div>
+            </div>
+        }
+    </div>
+
+</div>

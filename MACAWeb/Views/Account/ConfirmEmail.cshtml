@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Potrditev uspešna";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr />
+<div>    
+    <p>
+        Uporabniški račun je zdaj veljaven. 
+        @Html.ActionLink("Kliknite tukaj za vpis", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    </p>
+</div>

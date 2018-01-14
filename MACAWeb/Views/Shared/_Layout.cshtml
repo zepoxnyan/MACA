@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta itemprop="name" content="MACA" />
+    <meta property="og:title" content="MACA" />
+    <meta itemprop="description" content="Web platform for monitoring academic activities." />
+    <meta id="meta-tag-description" property="og:description" content="Web platform for monitoring academic activities." />
+    <meta name="description" content="Web platform for monitoring academic activities." />
+    <meta name="keywords" content="MACA,UPJŠ,Prirodovedecka fakulta" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/macaicon.ico" />
+    <title>@ViewBag.Title - MACA</title>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                    <img src="~/Images/macaIcon.png" width="40" />
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.About, "About", "Home", null, new { @class = "navbar-link" })</li>
+                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Features, "Features", "Home", null, new { @class = "navbar-link" })</li>
+                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.WhoWeAre, "Team", "Home", null, new { @class = "navbar-link" })</li>                                           
+                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Papers, "Papers", "Home", null, new { @class = "navbar-link" })</li>
+                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.News, "News", "Home", null, new { @class = "navbar-link" })</li>
+                    @if (Context.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Administration", "Administration", "Home", null, new { @class = "navbar-link" })</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        @RenderBody()        
+        <hr />
+        <footer style="margin-top:-10px; background-color:white;padding:10px;">
+            <div class="container" style="">
+                <div style="float:left !important;">
+                    <a href="http://www.fis.unm.si" target="_new" class="block-link">&copy; @DateTime.Now.Year - Faculty of Information Studies</a>
+                </div>
+                <div style="float:right !important;color:#086723;">                    
+                    <!--<a href="@Url.Action("SelectLanguage", "Language", new { Lang = "si" })" class="block-link">
+                        <img src="~/Images/si.png" class="flags" />
+                    </a>
+                    <a href="@Url.Action("SelectLanguage", "Language", new { Lang = "en" })" class="block-link">
+                        <img src="~/Images/gb.png" class="flags" />&nbsp;
+                    </a>-->
+                    <a href="https://www.fwf.ac.at/en/" class="block-link" target="_new">
+                        <img src="~/Images/logoFwf.jpg" style="height:20px;" />&nbsp;
+                    </a>
+                    <a href="https://www.arrs.gov.si/sl/" class="block-link" target="_new">
+                        <img src="~/Images/logoARRS.gif" style="height:20px;" />&nbsp;
+                    </a>
+                    @Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Faq, "FAQs", "Home", null, new { @class = "block-link" })
+                    @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "block-link" })
+                    @Html.ActionLink("Press", "Press", "Home", null, new { @class = "block-link" })
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

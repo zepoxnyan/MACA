@@ -1,0 +1,36 @@
+﻿.navbar-inverse {
+    background-color: white;
+    border-radius: 0;
+    border: none;
+    border-bottom: solid 1px black;
+}
+
+.navbar-brand {
+    padding: 0px;
+    padding-top: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.navbar-header {
+    color: var(--orange);
+}
+
+.navbar-nav li > a.navbar-link:focus {
+    color: var(--dark);
+}
+
+.navbar-nav li > a.navbar-link:hover {
+    background-color: var(--grey);
+    color: var(--orange);
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: red;
+    outline: none;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: black;
+}

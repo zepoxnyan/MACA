@@ -1,0 +1,84 @@
+﻿@model MACAWeb.Models.UserTask
+
+@{
+    ViewBag.Title = "Tasks";
+}
+
+<div class="main-content">
+    <h2>Task Details</h2>
+
+    <hr />
+
+    <div class="inner-rectangle">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Remark)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Remark)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.InstanceId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Instance.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FunctionId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Function.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TaskStatusId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TaskStatus.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeStarted)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TimeStarted)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeFinished)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TimeFinished)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+        </dl>
+    </div>
+
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.TaskId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

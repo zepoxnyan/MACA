@@ -1,0 +1,73 @@
+﻿@model PagedList.IPagedList<MACAWeb.Models.ApplicationUser>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<div class="main-content">
+    <h2>Registered Users</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "Create")
+                </div>
+            </div>
+
+            <!--Search Form-->
+            <div class="col col-md-4 search-box">
+                @using (Html.BeginForm("Index", "Instances", FormMethod.Get))
+                {
+                    <div class="input-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Username
+                </th>
+                <th>
+                    E-mail
+                </th>
+                <th>
+                    Registration Date
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @{
+                            string dateCreated = item.DateCreated.ToString("dd. MM. yyyy");
+                        }
+                        @Html.DisplayFor(modelItem => dateCreated)
+                    </td>
+                </tr>
+                            }
+        </table>
+        <!--Pagination-->
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>
