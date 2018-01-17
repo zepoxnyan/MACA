@@ -243,6 +243,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\GrantMemberTypesController.cs" />
+    <Compile Include="Controllers\GrantsController.cs" />
+    <Compile Include="Controllers\GrantStatusController.cs" />
     <Compile Include="Controllers\PositionTypesController.cs" />
     <Compile Include="Controllers\TeamMembersController.cs" />
     <Compile Include="FeatureFunctions.cs" />
@@ -265,33 +268,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710141604466_Initial.cs" />
-    <Compile Include="Migrations\201710141604466_Initial.Designer.cs">
-      <DependentUpon>201710141604466_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710161446463_TaskStatus.cs" />
-    <Compile Include="Migrations\201710161446463_TaskStatus.Designer.cs">
-      <DependentUpon>201710161446463_TaskStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710190935509_UserTasks.cs" />
-    <Compile Include="Migrations\201710190935509_UserTasks.Designer.cs">
-      <DependentUpon>201710190935509_UserTasks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710202242058_FAQ.cs" />
-    <Compile Include="Migrations\201710202242058_FAQ.Designer.cs">
-      <DependentUpon>201710202242058_FAQ.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710261101135_TeamMembers.cs" />
-    <Compile Include="Migrations\201710261101135_TeamMembers.Designer.cs">
-      <DependentUpon>201710261101135_TeamMembers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710261239077_TeamMemberPosition.cs" />
-    <Compile Include="Migrations\201710261239077_TeamMemberPosition.Designer.cs">
-      <DependentUpon>201710261239077_TeamMemberPosition.cs</DependentUpon>
+    <Compile Include="Migrations\201801152246404_Grants.cs" />
+    <Compile Include="Migrations\201801152246404_Grants.Designer.cs">
+      <DependentUpon>201801152246404_Grants.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataFormatModel.cs" />
+    <Compile Include="Models\GrantBudgetsModel.cs" />
+    <Compile Include="Models\GrantMemberTypesModel.cs" />
+    <Compile Include="Models\GrantStatusModel.cs" />
+    <Compile Include="Models\GrantsModel.cs" />
     <Compile Include="Models\PositionTypesModel.cs" />
     <Compile Include="Models\EventTypesModel.cs" />
     <Compile Include="Models\EventModel.cs" />
@@ -373,8 +360,11 @@
     <None Include="Properties\PublishProfiles\MACA-profile.pubxml" />
     <None Include="Properties\PublishProfiles\MainBiqBin.pubxml" />
     <None Include="Properties\PublishProfiles\MainServer.pubxml" />
+    <Content Include="Images\logomaca.jpg" />
+    <Content Include="Images\logomaca2.jpg" />
     <Content Include="Images\macaicon.ico" />
     <Content Include="Images\macaIcon.png" />
+    <Content Include="Images\math.jpg" />
     <Content Include="Images\paperIcon.png" />
     <Content Include="Images\si.png" />
     <Content Include="macaicon.ico" />
@@ -507,6 +497,21 @@
     <Content Include="Views\PositionTypes\Details.cshtml" />
     <Content Include="Views\PositionTypes\Edit.cshtml" />
     <Content Include="Views\PositionTypes\Index.cshtml" />
+    <Content Include="Views\Grants\Create.cshtml" />
+    <Content Include="Views\Grants\Delete.cshtml" />
+    <Content Include="Views\Grants\Details.cshtml" />
+    <Content Include="Views\Grants\Edit.cshtml" />
+    <Content Include="Views\Grants\Index.cshtml" />
+    <Content Include="Views\GrantMemberTypes\Create.cshtml" />
+    <Content Include="Views\GrantMemberTypes\Delete.cshtml" />
+    <Content Include="Views\GrantMemberTypes\Details.cshtml" />
+    <Content Include="Views\GrantMemberTypes\Edit.cshtml" />
+    <Content Include="Views\GrantMemberTypes\Index.cshtml" />
+    <Content Include="Views\GrantStatus\Create.cshtml" />
+    <Content Include="Views\GrantStatus\Delete.cshtml" />
+    <Content Include="Views\GrantStatus\Details.cshtml" />
+    <Content Include="Views\GrantStatus\Edit.cshtml" />
+    <Content Include="Views\GrantStatus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -518,23 +523,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710141604466_Initial.resx">
-      <DependentUpon>201710141604466_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710161446463_TaskStatus.resx">
-      <DependentUpon>201710161446463_TaskStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710190935509_UserTasks.resx">
-      <DependentUpon>201710190935509_UserTasks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710202242058_FAQ.resx">
-      <DependentUpon>201710202242058_FAQ.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710261101135_TeamMembers.resx">
-      <DependentUpon>201710261101135_TeamMembers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710261239077_TeamMemberPosition.resx">
-      <DependentUpon>201710261239077_TeamMemberPosition.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801152246404_Grants.resx">
+      <DependentUpon>201801152246404_Grants.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

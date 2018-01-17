@@ -7,13 +7,13 @@ namespace MACAWeb.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class FAQ : IMigrationMetadata
+    public sealed partial class Grants : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FAQ));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Grants));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710202242058_FAQ"; }
+            get { return "201801152246404_Grants"; }
         }
         
         string IMigrationMetadata.Source

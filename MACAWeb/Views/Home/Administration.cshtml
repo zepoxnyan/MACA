@@ -15,9 +15,9 @@
                 @if (User.IsInRole("SuperAdmin"))
                 {
                     <div>@Html.ActionLink("Position Types", "Index", "PositionTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                    <div>@Html.ActionLink("Data Formats", "Index", "DataFormats", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                    <div>@Html.ActionLink("Grant Statuses", "Index", "GrantStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 }                
-                <div>@Html.ActionLink("Functions", "Index", "Functions", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                <div>@Html.ActionLink("Grants", "Index", "Grants", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Parameters", "Index", "Parameters", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 @if (User.IsInRole("SuperAdmin"))
                 {

@@ -3,11 +3,12 @@ namespace MACAWeb.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class TeamMemberPosition : DbMigration
+    public partial class Grants : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.TeamMembers", "PagePosition", c => c.Int(nullable: false, defaultValueSql: "10"));
+            AddColumn("dbo.Grants", "GrantStatusID", c => c.Guid(nullable: false));
+            AddForeignKey("dbo.Grants", "GrantStatusID", "dbo.GrantStatus", "GrantStatusID");
         }
         
         public override void Down()

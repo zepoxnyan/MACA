@@ -142,16 +142,6 @@ namespace MACAWeb.Controllers
                 return HttpNotFound();
             }
 
-            /*FunctionViewModel viewModel = new FunctionViewModel()
-            {
-                FunctionId = model.FunctionId,
-                FeatureTypeId = model.FeatureTypeId,
-                Name = model.Name,
-                InputDescription = model.InputDescription,
-                OutputDescription = model.OutputDescription,
-                Description = model.Description
-            };*/
-
             PopulateFeaturesDropDownList(function.FeatureTypeId);
             return View(function);
         }
