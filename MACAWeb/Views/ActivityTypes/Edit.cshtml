@@ -1,9 +1,9 @@
-﻿@model MACAWeb.Models.GrantBudgetsType
+﻿@model MACAWeb.Models.ActivityType
 @{
-    ViewBag.Title = "Grant Budget Types";
+    ViewBag.Title = "Activity Types";
 }
 <div class="main-content">
-    <h2>Edit Grant Budget Type</h2>
+    <h2>Edit Activity Type</h2>
 
     <hr />
 
@@ -13,7 +13,7 @@
 
         <div class="form-horizontal inner-rectangle">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.GrantBudgetsTypeID)
+            @Html.HiddenFor(model => model.ActivityTypeID)
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">

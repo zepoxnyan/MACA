@@ -243,6 +243,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ActivityTypesController.cs" />
     <Compile Include="Controllers\GrantBudgetsTypesController.cs" />
     <Compile Include="Controllers\GrantMemberTypesController.cs" />
     <Compile Include="Controllers\GrantsController.cs" />
@@ -280,6 +281,7 @@
     <Compile Include="Models\GrantBudgetsTypesModel.cs" />
     <Compile Include="Models\GrantBudgetsModel.cs" />
     <Compile Include="Models\GrantMemberTypesModel.cs" />
+    <Compile Include="Models\ActivityTypesModel.cs" />
     <Compile Include="Models\ThesisTypesModel.cs" />
     <Compile Include="Models\GrantStatusModel.cs" />
     <Compile Include="Models\GrantsModel.cs" />
@@ -526,6 +528,11 @@
     <Content Include="Views\GrantBudgetsTypes\Details.cshtml" />
     <Content Include="Views\GrantBudgetsTypes\Edit.cshtml" />
     <Content Include="Views\GrantBudgetsTypes\Index.cshtml" />
+    <Content Include="Views\ActivityTypes\Create.cshtml" />
+    <Content Include="Views\ActivityTypes\Delete.cshtml" />
+    <Content Include="Views\ActivityTypes\Details.cshtml" />
+    <Content Include="Views\ActivityTypes\Edit.cshtml" />
+    <Content Include="Views\ActivityTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

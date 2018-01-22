@@ -1,6 +1,6 @@
-﻿@model IEnumerable<MACAWeb.Models.GrantBudgetsType>
+﻿@model IEnumerable<MACAWeb.Models.ActivityType>
 @{
-    ViewBag.Title = "Grant Budget Types";
+    ViewBag.Title = "Activity Types";
 }
 <div class="main-content">
     <h2>@ViewBag.Title</h2>
@@ -14,7 +14,7 @@
             </div>
             <!--Search Form-->
         </div>
-        <table class="table"> 
+        <table class="table">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
@@ -34,13 +34,13 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td class="column-glyph">
-                        <a href="@Url.Action("Edit", "GrantBudgetsTypes", new { id=item.GrantBudgetsTypeID })">
+                        <a href="@Url.Action("Edit", "ActivityTypes", new { id=item.ActivityTypeID })">
                             <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
                         </a>&nbsp;
-                        <a href="@Url.Action("Details", "GrantBudgetsTypes", new { id=item.GrantBudgetsTypeID })">
+                        <a href="@Url.Action("Details", "ActivityTypes", new { id=item.ActivityTypeID })">
                             <span title="Details" class="glyphicon glyphicon-info-sign action-icons" />
                         </a>&nbsp;
-                        <a href="@Url.Action("Delete", "GrantBudgetsTypes", new { id=item.GrantBudgetsTypeID })">
+                        <a href="@Url.Action("Delete", "ActivityTypes", new { id=item.ActivityTypeID })">
                             <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
                         </a>
                     </td>
