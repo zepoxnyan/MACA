@@ -13,17 +13,17 @@
             <h3 style="margin-top:-5px;">Technical Entities</h3>
             <div class="row-administration">
                 @if (User.IsInRole("SuperAdmin"))
-    {
-            <div>@Html.ActionLink("Position Types", "Index", "PositionTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-            <div>@Html.ActionLink("Grant Statuses", "Index", "GrantStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
-            <div>@Html.ActionLink("Thesis Types", "Index", "ThesisTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-            <div>@Html.ActionLink("Grant Budget Types", "Index", "GrantBudgetsTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-}
+                {
+                    <div>@Html.ActionLink("Position Types", "Index", "PositionTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                    <div>@Html.ActionLink("Grant Statuses", "Index", "GrantStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                    <div>@Html.ActionLink("Thesis Types", "Index", "ThesisTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                    <div>@Html.ActionLink("Grant Budget Types", "Index", "GrantBudgetsTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                }
                 <div>@Html.ActionLink("Grants", "Index", "Grants", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 @if (User.IsInRole("SuperAdmin"))
-    {
-            <div>@Html.ActionLink("Task Status", "Index", "TaskStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
-}
+                {
+                    <div>@Html.ActionLink("Task Status", "Index", "TaskStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                }
             </div>
         }
     </div>
