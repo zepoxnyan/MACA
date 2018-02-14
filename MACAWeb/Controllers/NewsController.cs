@@ -166,7 +166,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                News news = db.News.Find(newsView.NewsID); ;
+                News news = db.News.Find(newsView.NewsID);
                 news.Title = newsView.Title;
                 news.Abstract = newsView.Abstract;
                 news.Text = newsView.Text;

@@ -248,6 +248,7 @@
     <Compile Include="Controllers\GrantMemberTypesController.cs" />
     <Compile Include="Controllers\GrantsController.cs" />
     <Compile Include="Controllers\GrantStatusController.cs" />
+    <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Controllers\PositionTypesController.cs" />
     <Compile Include="Controllers\PublicationStatusController.cs" />
     <Compile Include="Controllers\TeachingTypesController.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Models\GrantBudgetsModel.cs" />
     <Compile Include="Models\GrantMemberTypesModel.cs" />
     <Compile Include="Models\ActivityTypesModel.cs" />
+    <Compile Include="Models\PersonsModel.cs" />
     <Compile Include="Models\TeachingType.cs" />
     <Compile Include="Models\PublicationStatusModel.cs" />
     <Compile Include="Models\ThesisTypesModel.cs" />
@@ -547,6 +549,11 @@
     <Content Include="Views\PublicationStatus\Details.cshtml" />
     <Content Include="Views\PublicationStatus\Edit.cshtml" />
     <Content Include="Views\PublicationStatus\Index.cshtml" />
+    <Content Include="Views\Persons\Create.cshtml" />
+    <Content Include="Views\Persons\Delete.cshtml" />
+    <Content Include="Views\Persons\Details.cshtml" />
+    <Content Include="Views\Persons\Edit.cshtml" />
+    <Content Include="Views\Persons\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
