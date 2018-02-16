@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MACAWeb.Models;
+using Microsoft.AspNet.Identity;
 
 namespace MACAWeb.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class GrantMemberTypesController : Controller
     {
         private GrantMemberTypeDbContext db = new GrantMemberTypeDbContext();
@@ -46,11 +48,18 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GrantMemberTypeID,Name,Description,Coefficient,DateCreated,DateModified,UserCreatedID,UserModifiedID")] GrantMemberType grantMemberType)
+        public ActionResult Create([Bind(Include = "Name,Description,Coefficient")] GrantMemberType grantMemberType)
         {
             if (ModelState.IsValid)
             {
                 grantMemberType.GrantMemberTypeID = Guid.NewGuid();
+
+                grantMemberType.DateCreated = DateTime.Now;
+                grantMemberType.DateModified = grantMemberType.DateCreated;
+
+                grantMemberType.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
+                grantMemberType.UserModifiedID = grantMemberType.UserCreatedID;
+
                 db.GrantMemberTypes.Add(grantMemberType);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -79,15 +88,24 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "GrantMemberTypeID,Name,Description,Coefficient,DateCreated,DateModified,UserCreatedID,UserModifiedID")] GrantMemberType grantMemberType)
+        public ActionResult Edit([Bind(Include = "GrantMemberTypeID,Name,Description,Coefficient")] GrantMemberTypeViewModel grantMemberTypeView)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(grantMemberType).State = EntityState.Modified;
+                GrantMemberType model = db.GrantMemberTypes.Find(grantMemberTypeView.GrantMemberTypeID);
+
+                model.Name = grantMemberTypeView.Name;
+                model.Description = grantMemberTypeView.Description;
+                model.Coefficient = grantMemberTypeView.Coefficient;
+
+                model.DateModified = DateTime.Now;
+                model.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
+
+                db.Entry(model).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(grantMemberType);
+            return View(grantMemberTypeView);
         }
 
         // GET: GrantMemberTypes/Delete/5

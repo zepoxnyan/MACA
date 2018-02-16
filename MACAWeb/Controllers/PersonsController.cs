@@ -17,12 +17,42 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class PersonsController : Controller
     {
-        private PersonsDbContext db = new PersonsDbContext();
+        private PersonsDbContext dbPersons = new PersonsDbContext();
+        private PositionDbContext dbPositions = new PositionDbContext();
 
         // GET: Persons
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var persons = db.Persons.OrderByDescending(x => x.Surname).ThenBy(x => x.Name);
+            var persons = dbPersons.Persons.OrderByDescending(x => x.Surname).ThenBy(x => x.Name);
+            /*var positions = (from pos in dbPositions.Positions
+                             orderby pos.Year, pos.Semester
+                             group pos by pos.PersonID
+                             into y
+                             select y.First())                           
+                    .ToArray();
+
+            var persons = (from p in dbPersons.Persons
+                           join s in positions
+                           on p.PersonID equals s.PersonID                           
+                           orderby s.Year descending
+                           select new {
+                               Surname = p.Surname,
+                               Name = p.Name,
+                               Position = s.PositionType.Name
+                           }).OrderBy(x => x.Surname).ThenBy(x => x.Name);*/
+
+            /*
+            select P.PersonID, P.SurName, Y.year, T.Name
+            from People P
+            left outer join
+            (SELECT X.PersonID, max(X.Year) as Year FROM Positions X
+
+                group by X.PersonID
+            ) O
+                inner join Positions Y on Y.PersonID = O.PersonID and O.Year = Y.Year
+                inner join PositionTypes T on T.PositionTypeID = Y.PositionTypeID
+            on O.PersonID = P.PersonID
+            */
 
             if (searchString != null)
             {
@@ -40,7 +70,7 @@ namespace MACAWeb.Controllers
                                       || m.Name.Contains(searchString)
                                       || m.FullName.Contains(searchString)
                                       || m.Description.Contains(searchString))
-                                      .OrderByDescending(x => x.Surname).ThenBy(x => x.Name);
+                                      .OrderBy(x => x.Surname).ThenBy(x => x.Name);
             }
 
             int pageSize = int.Parse(ConfigurationManager.AppSettings["generalItemsOnPage"]);
@@ -56,7 +86,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.Persons.Find(id);
+            Person person = dbPersons.Persons.Find(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -107,8 +137,8 @@ namespace MACAWeb.Controllers
                     }
                 }
 
-                db.Persons.Add(person);
-                db.SaveChanges();
+                dbPersons.Persons.Add(person);
+                dbPersons.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -122,7 +152,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.Persons.Find(id);
+            Person person = dbPersons.Persons.Find(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -156,7 +186,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Person person = db.Persons.Find(personView.PersonID) ;
+                Person person = dbPersons.Persons.Find(personView.PersonID) ;
                 person.Surname = personView.Surname;
                 person.Name = personView.Name;
                 person.FullName = personView.FullName;
@@ -181,8 +211,8 @@ namespace MACAWeb.Controllers
                     }
                 }
 
-                db.Entry(person).State = EntityState.Modified;
-                db.SaveChanges();
+                dbPersons.Entry(person).State = EntityState.Modified;
+                dbPersons.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(personView);
@@ -195,7 +225,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.Persons.Find(id);
+            Person person = dbPersons.Persons.Find(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -208,9 +238,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Person person = db.Persons.Find(id);
-            db.Persons.Remove(person);
-            db.SaveChanges();
+            Person person = dbPersons.Persons.Find(id);
+            dbPersons.Persons.Remove(person);
+            dbPersons.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -218,9 +248,141 @@ namespace MACAWeb.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                dbPersons.Dispose();
             }
             base.Dispose(disposing);
         }
+
+
+        #region Positions
+
+        private bool IsUserAuthorized(String id)
+        {
+            return User.IsInRole("Admin"); //|| User.Identity.GetUserId().Contains(id);
+        }
+
+        public ActionResult PositionsIndex(Guid personId)
+        {
+            var positions = dbPositions.Positions.Where(x => x.PersonID == personId).OrderByDescending(x => x.Year).ThenBy(x => x.Semester);
+
+            Person person = dbPersons.Persons.Where(p => p.PersonID == personId).Single();
+            /*if (!IsUserAuthorized(company.UserCreatedID))
+            {
+                ViewBag.errorMessage = "Nimate dovoljenja za ogled podrobnosti ponudb tega podjetja.";
+                return View("Error");
+            }*/
+
+            ViewBag.PersonID = personId;
+            return View(positions);
+        }
+
+        // GET: Grants/Create
+        public ActionResult PositionsCreate(Guid personId)
+        {
+            PopulatePositionTypesDropDownList();
+            ViewBag.PersonID = personId;
+
+            return View();
+        }
+
+        private void PopulatePositionTypesDropDownList(object selectedPositionType = null)
+        {
+            var positionTypesQuery = from c in dbPositions.PositionTypes
+                                   orderby c.Name
+                                   select c;
+            ViewBag.PositionTypeID = new SelectList(positionTypesQuery, "PositionTypeID", "Name", selectedPositionType);
+        }
+
+        // POST: Grants/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PositionsCreate([Bind(Include = "PositionTypeID,Description,Year,Semester,PersonID")] Position position, string personId)
+        {
+            if (ModelState.IsValid)
+            {
+                position.PositionID = Guid.NewGuid();
+
+                position.DateCreated = DateTime.Now;
+                position.DateModified = position.DateCreated;
+
+                position.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
+                position.UserModifiedID = position.UserCreatedID;
+
+                dbPositions.Positions.Add(position);
+                dbPositions.SaveChanges();
+                return RedirectToAction("PositionsIndex", new { personId = personId});
+            }
+
+            return View(position);
+        }
+
+        public ActionResult PositionsEdit(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Position position = dbPositions.Positions.Find(id);
+            if (position == null)
+            {
+                return HttpNotFound();
+            }
+            PopulatePositionTypesDropDownList(position.PositionTypeID);
+            return View(position);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PositionsEdit([Bind(Include = "PositionID,PositionTypeID,Year,Semester,Description,PersonID")] PositionViewModel positionViewModel, string personId)
+        {
+            if (ModelState.IsValid)
+            {
+                Position position = dbPositions.Positions.Find(positionViewModel.PositionID);
+
+                position.PositionID = positionViewModel.PositionID;
+                position.PositionTypeID = positionViewModel.PositionTypeID;
+                position.Description = positionViewModel.Description;
+                position.Year = positionViewModel.Year;
+                position.Semester = positionViewModel.Semester;
+
+                position.DateModified = DateTime.Now;
+                position.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
+
+                dbPositions.Entry(position).State = EntityState.Modified;
+                dbPositions.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(positionViewModel);
+        }
+
+        public ActionResult PositionsDelete(Guid? id, Guid personId)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Position position = dbPositions.Positions.Find(id);
+            if (position == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.PersonID = personId;
+
+            return View(position);
+        }
+
+        [HttpPost, ActionName("PositionsDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult PositionsDeleteConfirmed(Guid id)
+        {
+            Position position = dbPositions.Positions.Find(id);
+            dbPositions.Positions.Remove(position);
+            dbPositions.SaveChanges();
+            return RedirectToAction("PositionsIndex", routeValues: new { personId = position.PersonID });
+        }
+
+        #endregion
     }
 }

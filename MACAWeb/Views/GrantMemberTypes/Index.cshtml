@@ -1,69 +1,57 @@
 ﻿@model IEnumerable<MACAWeb.Models.GrantMemberType>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Grant Member Types";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Coefficient)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateModified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserCreatedID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserModifiedID)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Coefficient)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateModified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserCreatedID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserModifiedID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GrantMemberTypeID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GrantMemberTypeID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GrantMemberTypeID })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="main-content">
+    <h2>@ViewBag.Title</h2>
+    <hr />
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "Create")
+                </div>
+            </div>
+            <!--Search Form-->
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Coefficient)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Coefficient)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td class="column-glyph">
+                        <a href="@Url.Action("Edit", "GrantMemberTypes", new { id=item.GrantMemberTypeID })">
+                            <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("Details", "GrantMemberTypes", new { id=item.GrantMemberTypeID })">
+                            <span title="Details" class="glyphicon glyphicon-info-sign action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("Delete", "GrantMemberTypes", new { id=item.GrantMemberTypeID })">
+                            <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

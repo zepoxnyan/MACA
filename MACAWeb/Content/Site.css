@@ -1,7 +1,7 @@
 ﻿:root{
     --blue:#CDDEC8;
     --orange:#5e8669;
-    --grey:#999999;
+    --grey:#aaaaaa;
     --dark:#888888;
 }
 
@@ -11,6 +11,10 @@ body {
     background-image:url(../Images/math.jpg);
     background-repeat:repeat;    
     font-family:Verdana;
+}
+
+a {
+    font-weight:600;
 }
 
 /* Set padding to keep content from hitting the edges */

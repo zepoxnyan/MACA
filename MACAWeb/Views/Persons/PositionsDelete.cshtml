@@ -1,39 +1,59 @@
-﻿@model MACAWeb.Models.GrantMemberType
+﻿@model MACAWeb.Models.Position
+
 @{
-    ViewBag.Title = "Grant Member Types";
+    ViewBag.Title = "Persons";
 }
+
 <div class="main-content">
-    <h2>Delete Grant Member Type</h2>
+    <h2>Delete Person's Position</h2>
+
     <hr />
 
     <div class="inner-rectangle">
-        <h3>Are you sure you want to delete this member type?</h3>
+        <h3>Are you sure you want to delete this position?</h3>
+
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.PositionType.Name)
             </dt>
+
             <dd>
-                @Html.DisplayFor(model => model.Name)
+                @Html.DisplayFor(model => model.PositionType.Name)
             </dd>
+
             <dt>
-                @Html.DisplayNameFor(model => model.Coefficient)
+                @Html.DisplayNameFor(model => model.Year)
             </dt>
+
             <dd>
-                @Html.DisplayFor(model => model.Coefficient)
+                @Html.DisplayFor(model => model.Year)
             </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Semester)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Semester)
+            </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.DateCreated)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.DateCreated)
             </dd>
         </dl>
+
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -43,7 +63,8 @@
             </div>
         }
     </div>
+
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "PositionsIndex", routeValues: new { personId = ViewBag.PersonID }, htmlAttributes: new { })
     </div>
 </div>

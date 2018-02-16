@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MACAWeb.Models.Position>
+
+@{
+    ViewBag.Title = "Persons";
+}
+
+<div class="main-content">
+    <h2>Person's Positions</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "PositionsCreate", routeValues: new { personId = ViewBag.PersonID })
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PositionType.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Semester)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PositionType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Semester)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("PositionsEdit", "Persons", new { id=item.PositionID, personId = item.PersonID })">
+                            <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("PositionsDelete", "Persons", new { id=item.PositionID, personId = item.PersonID })">
+                            <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to Editing Person", "Edit", routeValues: new { id = ViewBag.PersonID })
+    </div>
+</div>
+

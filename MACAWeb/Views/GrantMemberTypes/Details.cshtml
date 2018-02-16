@@ -1,74 +1,41 @@
 ﻿@model MACAWeb.Models.GrantMemberType
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Grant Member Types";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>GrantMemberType</h4>
+<div class="main-content">
+    <h2>Grant Member Type Details</h2>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div class="inner-rectangle">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Coefficient)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Coefficient)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+        </dl>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Coefficient)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Coefficient)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateModified)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateModified)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserCreatedID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserCreatedID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserModifiedID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserModifiedID)
-        </dd>
-
-    </dl>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.GrantMemberTypeID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.GrantMemberTypeID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
