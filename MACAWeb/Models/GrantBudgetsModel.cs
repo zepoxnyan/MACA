@@ -14,14 +14,23 @@ namespace MACAWeb.Models
         public Guid GrantBudgetID { get; set; }
 
         public Guid GrantID { get; set; }
-        public virtual Grant Grant { get; set; }
+
+        [Display(Name = "Grant Budget Type")]
+        [Required(ErrorMessage = "Grant Budget Type is required!")]
+        public Guid GrantBudgetsTypeID { get; set; }
+        public virtual GrantBudgetsType GrantBudgetsType { get; set; }
 
         [Display(Name = "Amount (in €)")]
         [DefaultValue(0.0)]
         public double Amount { get; set; }
 
-        [Display(Name = "Year")]   
+        [Display(Name = "Year")]
+        [Required(ErrorMessage = "Year is required!")]
         public int Year { get; set; }
+
+        [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
 
         [Display(Name = "Date Created")]
         [DataType(DataType.DateTime)]
@@ -42,14 +51,27 @@ namespace MACAWeb.Models
     {
         public Guid GrantBudgetID { get; set; }
         public Guid GrantID { get; set; }
-        public Grant Grant { get; set; }
+
+        [Display(Name = "Grant Budget Type")]
+        [Required(ErrorMessage = "Grant Budget Type is required!")]
+        public Guid GrantBudgetsTypeID { get; set; }
+        public virtual GrantBudgetsType GrantBudgetsType { get; set; }
+
+        [Display(Name = "Amount (in €)")]
         public double Amount { get; set; }
+
+        [Display(Name = "Year")]
         public int Year { get; set; }
+
+        [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
     }
 
     public class GrantBudgetDbContext : DbContext
     {
         public DbSet<GrantBudget> GrantBudgets { get; set; }
+        public DbSet<GrantBudgetsType> GrantBudgetTypes { get; set; }
 
         public GrantBudgetDbContext() : base("MACA") { }
     }

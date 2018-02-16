@@ -16,12 +16,13 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class GrantsController : Controller
     {
-        private GrantDbContext db = new GrantDbContext();
+        private GrantDbContext dbGrants = new GrantDbContext();
+        private GrantBudgetDbContext dbGrantBudgets = new GrantBudgetDbContext();
 
         // GET: Grants
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var grants = db.Grants.Include(x => x.GrantStatus).OrderByDescending(x => x.Start).ThenBy(x => x.Name);
+            var grants = dbGrants.Grants.Include(x => x.GrantStatus).OrderByDescending(x => x.Start).ThenBy(x => x.Name);
             
             if (searchString != null)
             {
@@ -56,7 +57,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Grant grant = db.Grants.Find(id);
+            Grant grant = dbGrants.Grants.Find(id);
             if (grant == null)
             {
                 return HttpNotFound();
@@ -73,7 +74,7 @@ namespace MACAWeb.Controllers
 
         private void PopulateGrantStatusDropDownList(object selectedGrantStatus = null)
         {
-            var grantStatusQuery = from c in db.GrantStatuses
+            var grantStatusQuery = from c in dbGrants.GrantStatuses
                                    orderby c.Name
                                    select c;
             ViewBag.GrantStatusID = new SelectList(grantStatusQuery, "GrantStatusID", "Name", selectedGrantStatus);
@@ -96,8 +97,8 @@ namespace MACAWeb.Controllers
                 grant.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 grant.UserModifiedID = grant.UserCreatedID;
 
-                db.Grants.Add(grant);
-                db.SaveChanges();
+                dbGrants.Grants.Add(grant);
+                dbGrants.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -111,7 +112,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Grant grant = db.Grants.Find(id);
+            Grant grant = dbGrants.Grants.Find(id);
             if (grant == null)
             {
                 return HttpNotFound();
@@ -129,7 +130,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Grant model = db.Grants.Find(grantViewModel.GrantID);
+                Grant model = dbGrants.Grants.Find(grantViewModel.GrantID);
 
                 model.Name = grantViewModel.Name;
                 model.GrantStatusID = grantViewModel.GrantStatusID;
@@ -140,8 +141,8 @@ namespace MACAWeb.Controllers
                 model.DateModified = DateTime.Now;
                 model.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                db.Entry(model).State = EntityState.Modified;
-                db.SaveChanges();
+                dbGrants.Entry(model).State = EntityState.Modified;
+                dbGrants.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(grantViewModel);
@@ -154,7 +155,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Grant grant = db.Grants.Find(id);
+            Grant grant = dbGrants.Grants.Find(id);
             if (grant == null)
             {
                 return HttpNotFound();
@@ -167,9 +168,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Grant grant = db.Grants.Find(id);
-            db.Grants.Remove(grant);
-            db.SaveChanges();
+            Grant grant = dbGrants.Grants.Find(id);
+            dbGrants.Grants.Remove(grant);
+            dbGrants.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -177,9 +178,124 @@ namespace MACAWeb.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                dbGrants.Dispose();
             }
             base.Dispose(disposing);
         }
+
+        #region Grant Budgets
+
+        public ActionResult GrantBudgetsIndex(Guid grantId)
+        {
+            var grantBudgets = dbGrantBudgets.GrantBudgets.Where(x => x.GrantID == grantId).OrderByDescending(x => x.Year).ThenBy(x => x.GrantBudgetsType.Name);
+
+            ViewBag.GrantID = grantId;
+            return View(grantBudgets);
+        }
+
+        public ActionResult GrantBudgetsCreate(Guid grantId)
+        {
+            PopulateGrantBudgetTypesDropDownList();
+            ViewBag.GrantID = grantId;
+
+            return View();
+        }
+
+        private void PopulateGrantBudgetTypesDropDownList(object selectedGrantBudgetType = null)
+        {
+            var grantBudgetTypesQuery = from c in dbGrantBudgets.GrantBudgetTypes
+                                     orderby c.Name
+                                     select c;
+            ViewBag.GrantBudgetsTypeID = new SelectList(grantBudgetTypesQuery, "GrantBudgetsTypeID", "Name", selectedGrantBudgetType);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GrantBudgetsCreate([Bind(Include = "GrantBudgetsTypeID,Amount,Year,Description,GrantID")] GrantBudget grantBudget, string grantId)
+        {
+            if (ModelState.IsValid)
+            {
+                grantBudget.GrantBudgetID = Guid.NewGuid();
+
+                grantBudget.DateCreated = DateTime.Now;
+                grantBudget.DateModified = grantBudget.DateCreated;
+
+                grantBudget.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
+                grantBudget.UserModifiedID = grantBudget.UserCreatedID;
+
+                dbGrantBudgets.GrantBudgets.Add(grantBudget);
+                dbGrantBudgets.SaveChanges();
+                return RedirectToAction("GrantBudgetsIndex", new { grantId = grantId });
+            }
+
+            return View(grantBudget);
+        }
+
+        public ActionResult GrantBudgetsEdit(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            GrantBudget grantBudget = dbGrantBudgets.GrantBudgets.Find(id);
+            if (grantBudget == null)
+            {
+                return HttpNotFound();
+            }
+            PopulateGrantBudgetTypesDropDownList(grantBudget.GrantBudgetsTypeID);
+            return View(grantBudget);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GrantBudgetsEdit([Bind(Include = "GrantBudgetID,GrantBudgetsTypeID,Year,Amount,Description,GrantID")] GrantBudgetViewModel grantBudgetViewModel, string grantId)
+        {
+            if (ModelState.IsValid)
+            {
+                GrantBudget grantBudget = dbGrantBudgets.GrantBudgets.Find(grantBudgetViewModel.GrantBudgetID);
+
+                grantBudget.GrantBudgetID = grantBudgetViewModel.GrantBudgetID;
+                grantBudget.GrantBudgetsTypeID = grantBudgetViewModel.GrantBudgetsTypeID;                
+                grantBudget.Year = grantBudgetViewModel.Year;
+                grantBudget.Amount = grantBudgetViewModel.Amount;
+                grantBudget.Description = grantBudgetViewModel.Description;
+
+                grantBudget.DateModified = DateTime.Now;
+                grantBudget.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
+
+                dbGrantBudgets.Entry(grantBudget).State = EntityState.Modified;
+                dbGrantBudgets.SaveChanges();
+                return RedirectToAction("GrantBudgetsIndex");
+            }
+            return View(grantBudgetViewModel);
+        }
+
+        public ActionResult GrantBudgetsDelete(Guid? id, Guid grantId)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            GrantBudget grantBudget = dbGrantBudgets.GrantBudgets.Find(id);
+            if (grantBudget == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.GrantID = grantId;
+
+            return View(grantBudget);
+        }
+
+        [HttpPost, ActionName("GrantBudgetsDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult GrantBudgetsDeleteConfirmed(Guid id)
+        {
+            GrantBudget grantBudget = dbGrantBudgets.GrantBudgets.Find(id);
+            dbGrantBudgets.GrantBudgets.Remove(grantBudget);
+            dbGrantBudgets.SaveChanges();
+            return RedirectToAction("GrantBudgetsIndex", routeValues: new { grantId = grantBudget.GrantID });
+        }
+
+        #endregion
     }
 }

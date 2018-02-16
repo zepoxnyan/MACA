@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MACAWeb.Models.GrantBudget>
+
+@{
+    ViewBag.Title = "Grants";
+}
+
+<div class="main-content">
+    <h2>Grant's Budgets</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "GrantBudgetsCreate", routeValues: new { grantId = ViewBag.GrantID })
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.GrantBudgetsType.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GrantBudgetsType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("GrantBudgetsEdit", "Grants", new { id=item.GrantBudgetID, grantId = item.GrantID })">
+                            <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("GrantBudgetsDelete", "Grants", new { id=item.GrantBudgetID, grantId = item.GrantID })">
+                            <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to Grant Editing", "Edit", routeValues: new { id = ViewBag.GrantID })
+    </div>
+</div>
+
