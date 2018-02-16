@@ -1,0 +1,77 @@
+﻿@model MACAWeb.Models.GrantMember
+
+@{
+    ViewBag.Title = "Grants";
+}
+
+<div class="main-content">
+    <h2>Edit Grant Member</h2>
+
+    <hr />
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal inner-rectangle">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.GrantMemberID)
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="PersonId">Person</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("PersonID", null, String.Empty, new { @class = "form-control big-dropbox" })
+                    @Html.ValidationMessageFor(model => model.PersonID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="GrantBudgetsTypeId">Grant Member Type</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("GrantMemberTypeId", null, String.Empty, new { @class = "form-control big-dropbox" })
+                    @Html.ValidationMessageFor(model => model.GrantMemberTypeID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Hours, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Hours, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Hours, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "GrantMembersIndex", routeValues: new { grantId = ViewBag.GrantID }, htmlAttributes: new { })
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

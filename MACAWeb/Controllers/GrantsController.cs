@@ -18,6 +18,7 @@ namespace MACAWeb.Controllers
     {
         private GrantDbContext dbGrants = new GrantDbContext();
         private GrantBudgetDbContext dbGrantBudgets = new GrantBudgetDbContext();
+        private GrantMemberDbContext dbGrantsMembers = new GrantMemberDbContext();
 
         // GET: Grants
         public ActionResult Index(string currentFilter, string searchString, int? page)
@@ -265,7 +266,7 @@ namespace MACAWeb.Controllers
 
                 dbGrantBudgets.Entry(grantBudget).State = EntityState.Modified;
                 dbGrantBudgets.SaveChanges();
-                return RedirectToAction("GrantBudgetsIndex");
+                return RedirectToAction("GrantBudgetsIndex", new { grantId = grantId });
             }
             return View(grantBudgetViewModel);
         }
@@ -294,6 +295,133 @@ namespace MACAWeb.Controllers
             dbGrantBudgets.GrantBudgets.Remove(grantBudget);
             dbGrantBudgets.SaveChanges();
             return RedirectToAction("GrantBudgetsIndex", routeValues: new { grantId = grantBudget.GrantID });
+        }
+
+        #endregion
+
+
+        #region Members
+
+        public ActionResult GrantMembersIndex(Guid grantId)
+        {
+            var grantMembers = dbGrantsMembers.GrantMembers.Where(x => x.GrantID == grantId).OrderByDescending(x => x.Year).ThenBy(x => x.Person.Surname).ThenBy(x => x.Person.Name);
+
+            ViewBag.GrantID = grantId;
+            return View(grantMembers);
+        }
+
+        public ActionResult GrantMembersCreate(Guid grantId)
+        {
+            PopulateGrantMemberTypesDropDownList();
+            PopulatePersonsDropDownList();
+            ViewBag.GrantID = grantId;
+
+            return View();
+        }
+
+        private void PopulateGrantMemberTypesDropDownList(object selectedGrantMemberType = null)
+        {
+            var grantMemberTypesQuery = from c in dbGrantsMembers.GrantMemberTypes
+                                        orderby c.Name
+                                        select c;
+            ViewBag.GrantMemberTypeID = new SelectList(grantMemberTypesQuery, "GrantMemberTypeID", "Name", selectedGrantMemberType);
+        }
+
+        private void PopulatePersonsDropDownList(object selectedPerson = null)
+        {
+            var personQuery = from c in dbGrantsMembers.Persons
+                                        orderby c.Surname, c.Name
+                                        select c;
+            ViewBag.PersonID = new SelectList(personQuery, "PersonID", "Fullname", selectedPerson);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GrantMembersCreate([Bind(Include = "GrantMemberTypeID,PersonID,Hours,Year,Description,GrantID")] GrantMember grantMember, string grantId)
+        {
+            if (ModelState.IsValid)
+            {
+                grantMember.GrantMemberID = Guid.NewGuid();
+
+                grantMember.DateCreated = DateTime.Now;
+                grantMember.DateModified = grantMember.DateCreated;
+
+                grantMember.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
+                grantMember.UserModifiedID = grantMember.UserCreatedID;
+
+                dbGrantsMembers.GrantMembers.Add(grantMember);
+                dbGrantsMembers.SaveChanges();
+                return RedirectToAction("GrantMembersIndex", new { grantId = grantId });
+            }
+
+            return View(grantMember);
+        }
+
+        public ActionResult GrantMembersEdit(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            GrantMember grantMember = dbGrantsMembers.GrantMembers.Find(id);
+            if (grantMember == null)
+            {
+                return HttpNotFound();
+            }
+            PopulateGrantMemberTypesDropDownList(grantMember.GrantMemberTypeID);
+            PopulatePersonsDropDownList(grantMember.PersonID);
+            return View(grantMember);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GrantMembersEdit([Bind(Include = "GrantMemberID,GrantMemberTypeID,PersonID,Hours,Year,Description,GrantID")] GrantMemberViewModel grantMemberViewModel, string grantId)
+        {
+            if (ModelState.IsValid)
+            {
+                GrantMember grantMember = dbGrantsMembers.GrantMembers.Find(grantMemberViewModel.GrantMemberID);
+
+                grantMember.GrantMemberID = grantMemberViewModel.GrantMemberID;
+                grantMember.GrantMemberTypeID = grantMemberViewModel.GrantMemberTypeID;
+                grantMember.PersonID = grantMemberViewModel.PersonID;
+                grantMember.Year = grantMemberViewModel.Year;
+                grantMember.Hours = grantMemberViewModel.Hours;
+                grantMember.Description = grantMemberViewModel.Description;
+
+                grantMember.DateModified = DateTime.Now;
+                grantMember.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
+
+                dbGrantsMembers.Entry(grantMember).State = EntityState.Modified;
+                dbGrantsMembers.SaveChanges();
+                return RedirectToAction("GrantMembersIndex", new { grantId = grantId });
+            }
+            return View(grantMemberViewModel);
+        }
+
+        public ActionResult GrantMembersDelete(Guid? id, Guid grantId)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            GrantMember grantMember = dbGrantsMembers.GrantMembers.Find(id);
+            if (grantMember == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.GrantID = grantId;
+
+            return View(grantMember);
+        }
+
+        [HttpPost, ActionName("GrantMembersDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult GrantMembersDeleteConfirmed(Guid id)
+        {
+            GrantMember grantMember = dbGrantsMembers.GrantMembers.Find(id);
+            dbGrantsMembers.GrantMembers.Remove(grantMember);
+            dbGrantsMembers.SaveChanges();
+            return RedirectToAction("GrantMembersIndex", routeValues: new { grantId = grantMember.GrantID });
         }
 
         #endregion

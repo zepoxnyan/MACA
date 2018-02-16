@@ -352,7 +352,7 @@ namespace MACAWeb.Controllers
 
                 dbPositions.Entry(position).State = EntityState.Modified;
                 dbPositions.SaveChanges();
-                return RedirectToAction("PositionsIndex");
+                return RedirectToAction("PositionsIndex", new { personId = personId });
             }
             return View(positionViewModel);
         }
