@@ -19,7 +19,7 @@ namespace MACAWeb.Controllers
         // GET: GrantBudgetsTypes
         public ActionResult Index()
         {
-            return View(db.GrantBudgetsTypes.ToList());
+            return View(db.GrantBudgetsTypes.OrderBy(x => x.Name).ToList());
         }
 
         // GET: GrantBudgetsTypes/Details/5

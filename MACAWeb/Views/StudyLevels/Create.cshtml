@@ -1,23 +1,17 @@
-﻿@model MACAWeb.Models.InstanceViewModel
-
+﻿@model MACAWeb.Models.StudyLevel
 @{
-    ViewBag.Title = "Instances";
+    ViewBag.Title = "Study Levels";
 }
-
 <div class="main-content">
-    <h2>Edit Instance</h2>
-
+    <h2>Add Study Level</h2>
     <hr />
-
-    @using (Html.BeginForm("Edit", "Instances", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal inner-rectangle">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.InstanceId)
-            @Html.HiddenFor(model => model.UserId)
 
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -25,7 +19,6 @@
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -33,35 +26,17 @@
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.FileName, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.UploadedFile, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.UploadedFile, htmlAttributes: new { @class = "form-control", type = "file" })
-                </div>
-            </div>
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Create" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
-
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
-
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

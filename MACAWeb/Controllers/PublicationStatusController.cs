@@ -19,7 +19,7 @@ namespace MACAWeb.Controllers
         // GET: PublicationStatus
         public ActionResult Index()
         {
-            return View(db.PublicationStatus.ToList());
+            return View(db.PublicationStatus.OrderBy(x => x.Name).ToList());
         }
 
         // GET: PublicationStatus/Details/5

@@ -19,7 +19,7 @@ namespace MACAWeb.Controllers
         // GET: ActivityTypes
         public ActionResult Index()
         {
-            return View(db.ActivityTypes.ToList());
+            return View(db.ActivityTypes.OrderBy(x => x.Name).ToList());
         }
 
         // GET: ActivityTypes/Details/5

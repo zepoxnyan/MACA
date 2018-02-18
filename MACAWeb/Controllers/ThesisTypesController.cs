@@ -19,7 +19,7 @@ namespace MACAWeb.Controllers
         // GET: ThesisTypes
         public ActionResult Index()
         {
-            return View(db.ThesisTypes.ToList());
+            return View(db.ThesisTypes.OrderBy(x => x.Name).ToList());
         }
 
         // GET: ThesisTypes/Details/5

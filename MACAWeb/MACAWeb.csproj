@@ -251,6 +251,7 @@
     <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Controllers\PositionTypesController.cs" />
     <Compile Include="Controllers\PublicationStatusController.cs" />
+    <Compile Include="Controllers\StudyLevelsController.cs" />
     <Compile Include="Controllers\TeachingTypesController.cs" />
     <Compile Include="Controllers\TeamMembersController.cs" />
     <Compile Include="Controllers\ThesisTypesController.cs" />
@@ -261,9 +262,7 @@
     <Compile Include="Controllers\EventTypesController.cs" />
     <Compile Include="Controllers\FeatureTypesController.cs" />
     <Compile Include="Controllers\FunctionsController.cs" />
-    <Compile Include="Controllers\InstancesController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
-    <Compile Include="Controllers\ParametersController.cs" />
     <Compile Include="Controllers\TaskStatusController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\FAQsController.cs" />
@@ -304,6 +303,7 @@
     <Compile Include="Models\ActivityTypesModel.cs" />
     <Compile Include="Models\PositionsModel.cs" />
     <Compile Include="Models\PersonsModel.cs" />
+    <Compile Include="Models\StudyLevelModel.cs" />
     <Compile Include="Models\TeachingType.cs" />
     <Compile Include="Models\PublicationStatusModel.cs" />
     <Compile Include="Models\ThesisTypesModel.cs" />
@@ -493,21 +493,11 @@
     <Content Include="Views\Functions\Details.cshtml" />
     <Content Include="Views\Functions\Edit.cshtml" />
     <Content Include="Views\Functions\Index.cshtml" />
-    <Content Include="Views\Parameters\Create.cshtml" />
-    <Content Include="Views\Parameters\Delete.cshtml" />
-    <Content Include="Views\Parameters\Details.cshtml" />
-    <Content Include="Views\Parameters\Edit.cshtml" />
-    <Content Include="Views\Parameters\Index.cshtml" />
     <Content Include="Views\TaskStatus\Create.cshtml" />
     <Content Include="Views\TaskStatus\Delete.cshtml" />
     <Content Include="Views\TaskStatus\Details.cshtml" />
     <Content Include="Views\TaskStatus\Edit.cshtml" />
     <Content Include="Views\TaskStatus\Index.cshtml" />
-    <Content Include="Views\Instances\Create.cshtml" />
-    <Content Include="Views\Instances\Delete.cshtml" />
-    <Content Include="Views\Instances\Details.cshtml" />
-    <Content Include="Views\Instances\Edit.cshtml" />
-    <Content Include="Views\Instances\Index.cshtml" />
     <Content Include="Views\UserTasks\Create.cshtml" />
     <Content Include="Views\UserTasks\Delete.cshtml" />
     <Content Include="Views\UserTasks\Details.cshtml" />
@@ -584,6 +574,11 @@
     <Content Include="Views\Grants\GrantMembersCreate.cshtml" />
     <Content Include="Views\Grants\GrantMembersDelete.cshtml" />
     <Content Include="Views\Grants\GrantMembersEdit.cshtml" />
+    <Content Include="Views\StudyLevels\Create.cshtml" />
+    <Content Include="Views\StudyLevels\Delete.cshtml" />
+    <Content Include="Views\StudyLevels\Details.cshtml" />
+    <Content Include="Views\StudyLevels\Edit.cshtml" />
+    <Content Include="Views\StudyLevels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,124 +12,123 @@ using Microsoft.AspNet.Identity;
 namespace MACAWeb.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
-    public class TeachingTypesController : Controller
+    public class StudyLevelsController : Controller
     {
-        private TeachingTypeDbContext db = new TeachingTypeDbContext();
+        private StudyLevelDbContext db = new StudyLevelDbContext();
 
-        // GET: TeachingTypes
+        // GET: StudyLevels
         public ActionResult Index()
         {
-            return View(db.TeachingTypes.OrderBy(x => x.Name).ToList());
+            return View(db.StudyLevels.OrderBy(x => x.Name).ToList());
         }
 
-        // GET: TeachingTypes/Details/5
+        // GET: StudyLevels/Details/5
         public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TeachingType teachingType = db.TeachingTypes.Find(id);
-            if (teachingType == null)
+            StudyLevel studyLevel = db.StudyLevels.Find(id);
+            if (studyLevel == null)
             {
                 return HttpNotFound();
             }
-            return View(teachingType);
+            return View(studyLevel);
         }
 
-        // GET: TeachingTypes/Create
+        // GET: StudyLevels/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TeachingTypes/Create
+        // POST: StudyLevels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Description")] TeachingType teachingType)
+        public ActionResult Create([Bind(Include = "Name,Description")] StudyLevel studyLevel)
         {
             if (ModelState.IsValid)
             {
-                teachingType.TeachingTypeID = Guid.NewGuid();
+                studyLevel.StudyLevelID = Guid.NewGuid();
 
-                teachingType.DateCreated = DateTime.Now;
-                teachingType.DateModified = teachingType.DateCreated;
+                studyLevel.DateCreated = DateTime.Now;
+                studyLevel.DateModified = studyLevel.DateCreated;
 
-                teachingType.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
-                teachingType.UserModifiedID = teachingType.UserCreatedID;
+                studyLevel.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
+                studyLevel.UserModifiedID = studyLevel.UserCreatedID;
 
-                db.TeachingTypes.Add(teachingType);
+                db.StudyLevels.Add(studyLevel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(teachingType);
+            return View(studyLevel);
         }
 
-        // GET: TeachingTypes/Edit/5
+        // GET: StudyLevels/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TeachingType teachingType = db.TeachingTypes.Find(id);
-            if (teachingType == null)
+            StudyLevel studyLevel = db.StudyLevels.Find(id);
+            if (studyLevel == null)
             {
                 return HttpNotFound();
             }
-            return View(teachingType);
+            return View(studyLevel);
         }
 
-        // POST: TeachingTypes/Edit/5
+        // POST: StudyLevels/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TeachingTypeID,Name,Description")] TeachingTypeViewModel teachingTypeViewModel)
+        public ActionResult Edit([Bind(Include = "StudyLevelID,Name,Description")] StudyLevelViewModel studyLevelViewModel)
         {
             if (ModelState.IsValid)
             {
-                TeachingType model = db.TeachingTypes.Find(teachingTypeViewModel.TeachingTypeID);
+                StudyLevel model = db.StudyLevels.Find(studyLevelViewModel.StudyLevelID);
 
-                model.Name = teachingTypeViewModel.Name;
-                model.Description = teachingTypeViewModel.Description;
+                model.Name = studyLevelViewModel.Name;
+                model.Description = studyLevelViewModel.Description;
 
                 model.DateModified = DateTime.Now;
                 model.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-            
                 db.Entry(model).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(teachingTypeViewModel);
+            return View(studyLevelViewModel);
         }
 
-        // GET: TeachingTypes/Delete/5
+        // GET: StudyLevels/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TeachingType teachingType = db.TeachingTypes.Find(id);
-            if (teachingType == null)
+            StudyLevel studyLevel = db.StudyLevels.Find(id);
+            if (studyLevel == null)
             {
                 return HttpNotFound();
             }
-            return View(teachingType);
+            return View(studyLevel);
         }
 
-        // POST: TeachingTypes/Delete/5
+        // POST: StudyLevels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            TeachingType teachingType = db.TeachingTypes.Find(id);
-            db.TeachingTypes.Remove(teachingType);
+            StudyLevel studyLevel = db.StudyLevels.Find(id);
+            db.StudyLevels.Remove(studyLevel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

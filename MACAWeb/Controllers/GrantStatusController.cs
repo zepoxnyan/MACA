@@ -19,7 +19,7 @@ namespace MACAWeb.Controllers
         // GET: GrantStatus
         public ActionResult Index()
         {
-            return View(db.GrantStatus.ToList());
+            return View(db.GrantStatus.OrderBy(x => x.Name).ToList());
         }
 
         // GET: GrantStatus/Details/5

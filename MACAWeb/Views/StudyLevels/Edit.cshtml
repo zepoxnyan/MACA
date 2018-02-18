@@ -1,21 +1,20 @@
-﻿@model MACAWeb.Models.Instance
+﻿@model MACAWeb.Models.StudyLevel
 
 @{
-    ViewBag.Title = "Instances";
+    ViewBag.Title = "Study Levels";
 }
-
 <div class="main-content">
-    <h2>Add Instance</h2>
+    <h2>Edit Study Level</h2>
 
     <hr />
 
-    @using (Html.BeginForm("Create", "Instances", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal inner-rectangle">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+            @Html.HiddenFor(model => model.StudyLevelID)
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -23,35 +22,24 @@
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control big-textarea", @rows = 6 } })
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.UploadedFile, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.UploadedFile, htmlAttributes: new { @class = "form-control big-textarea", type = "file" })
-                </div>
-            </div>
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
-
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

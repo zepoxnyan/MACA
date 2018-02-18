@@ -19,7 +19,7 @@ namespace MACAWeb.Controllers
         // GET: PositionTypes
         public ActionResult Index()
         {
-            return View(db.PositionTypes.ToList());
+            return View(db.PositionTypes.OrderBy(x => x.Name).ToList());
         }
 
         // GET: PositionTypes/Details/5
