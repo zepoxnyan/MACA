@@ -47,28 +47,6 @@ namespace MACAWeb.Models
         public Guid UserModifiedId { get; set; }
     }
 
-    /*public class FunctionIDDModel
-    {
-        public Guid FunctionId { get; set; }
-
-        public string Name { get; set; }
-
-        [DataType(DataType.MultilineText)]
-        [DisplayName("Input Description")]
-        public string InputDescription { get; set; }
-
-        [DataType(DataType.MultilineText)]
-        [DisplayName("Output Description")]
-        public string OutputDescription { get; set; }
-
-        [DataType(DataType.MultilineText)]
-        [DisplayName("Function Description")]
-        public string Description { get; set; }
-
-        [DisplayName("Feature Type")]
-        public string FeatureType { get; set; }
-    }*/
-
     public class FunctionViewModel
     {
         public Guid FunctionId { get; set; }
@@ -98,12 +76,5 @@ namespace MACAWeb.Models
         public DbSet<FeatureType> FeatureTypes { get; set; }
 
         public FunctionDbContext() : base("MACA") { }
-
-        /* Kaj tole naredi? */
-        /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            Database.SetInitializer<FunctionDbContext>(null);
-            base.OnModelCreating(modelBuilder);
-        }*/
     }
 }
