@@ -13,15 +13,16 @@ using Microsoft.AspNet.Identity;
 
 namespace MACAWeb.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "Admin")]
     public class SubjectsController : Controller
     {
-        private SubjectsDbContext db = new SubjectsDbContext();
+        private SubjectsDbContext dbSubjects = new SubjectsDbContext();
+        private TeachingsDbContext dbTeachings = new TeachingsDbContext();
 
         // GET: Subjects
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var subjects = db.Subjects.Include(s => s.StudyLevel)
+            var subjects = dbSubjects.Subjects.Include(s => s.StudyLevel)
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.Year)
                 .ThenByDescending(x => x.Semester);
@@ -61,7 +62,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = db.Subjects.Find(id);
+            Subject subject = dbSubjects.Subjects.Find(id);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -78,7 +79,7 @@ namespace MACAWeb.Controllers
 
         private void PopulateStudyLevelDropDownList(object selectedStudyLevel = null)
         {
-            var studyLevelQuery = from c in db.StudyLevels
+            var studyLevelQuery = from c in dbSubjects.StudyLevels
                                    orderby c.Name
                                    select c;
             ViewBag.StudyLevelID = new SelectList(studyLevelQuery, "StudyLevelID", "Name", selectedStudyLevel);
@@ -101,8 +102,8 @@ namespace MACAWeb.Controllers
                 subject.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 subject.UserModifiedID = subject.UserCreatedID;
 
-                db.Subjects.Add(subject);
-                db.SaveChanges();
+                dbSubjects.Subjects.Add(subject);
+                dbSubjects.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -117,7 +118,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = db.Subjects.Find(id);
+            Subject subject = dbSubjects.Subjects.Find(id);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -135,7 +136,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Subject subject = db.Subjects.Find(subjectViewModel.SubjectID);
+                Subject subject = dbSubjects.Subjects.Find(subjectViewModel.SubjectID);
 
                 subject.Name = subjectViewModel.Name;
                 subject.StudyLevelID = subjectViewModel.StudyLevelID;
@@ -146,8 +147,8 @@ namespace MACAWeb.Controllers
                 subject.DateModified = DateTime.Now;
                 subject.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                db.Entry(subject).State = EntityState.Modified;
-                db.SaveChanges();
+                dbSubjects.Entry(subject).State = EntityState.Modified;
+                dbSubjects.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -162,7 +163,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = db.Subjects.Find(id);
+            Subject subject = dbSubjects.Subjects.Find(id);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -175,9 +176,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Subject subject = db.Subjects.Find(id);
-            db.Subjects.Remove(subject);
-            db.SaveChanges();
+            Subject subject = dbSubjects.Subjects.Find(id);
+            dbSubjects.Subjects.Remove(subject);
+            dbSubjects.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -185,9 +186,134 @@ namespace MACAWeb.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                dbSubjects.Dispose();
             }
             base.Dispose(disposing);
         }
+
+        #region Teachers
+
+        public ActionResult TeachersIndex(Guid subjectId)
+        {
+            var teachers = dbTeachings.Teachings.Where(x => x.SubjectID == subjectId).OrderByDescending(x => x.Person.FullName);
+
+            ViewBag.SubjectID = subjectId;
+            return View(teachers);
+        }
+
+        public ActionResult TeachersCreate(Guid subjectId)
+        {
+            PopulateTeachingTypesDropDownList();
+            PopulatePersonsDropDownList();
+            ViewBag.GrantID = subjectId;
+
+            return View();
+        }
+
+        private void PopulateTeachingTypesDropDownList(object selectedTeachingType = null)
+        {
+            var teachingTypesQuery = from c in dbTeachings.TeachingTypes
+                                        orderby c.Name
+                                        select c;
+            ViewBag.TeachingTypeID = new SelectList(teachingTypesQuery, "TeachingTypeID", "Name", selectedTeachingType);
+        }
+
+        private void PopulatePersonsDropDownList(object selectedPerson = null)
+        {
+            var personQuery = from c in dbTeachings.Persons
+                              orderby c.Surname, c.Name
+                              select c;
+            ViewBag.PersonID = new SelectList(personQuery, "PersonID", "Fullname", selectedPerson);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TeachersCreate([Bind(Include = "TeachingTypeID,PersonID,Hours,Weight,Remark,SubjectID")] Teaching teaching, string subjectId)
+        {
+            if (ModelState.IsValid)
+            {
+                teaching.TeachingID = Guid.NewGuid();
+
+                teaching.DateCreated = DateTime.Now;
+                teaching.DateModified = teaching.DateCreated;
+
+                teaching.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
+                teaching.UserModifiedID = teaching.UserCreatedID;
+
+                dbTeachings.Teachings.Add(teaching);
+                dbTeachings.SaveChanges();
+                return RedirectToAction("TeachersIndex", new { subjectId = subjectId });
+            }
+
+            return View(teaching);
+        }
+
+        public ActionResult TeachersEdit(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Teaching teaching = dbTeachings.Teachings.Find(id);
+            if (teaching == null)
+            {
+                return HttpNotFound();
+            }
+            PopulateTeachingTypesDropDownList(teaching.TeachingTypeID);
+            PopulatePersonsDropDownList(teaching.PersonID);
+            return View(teaching);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TeachersEdit([Bind(Include = "TeachingID,TeachingTypeID,PersonID,Hours,Weight,Remark,SubjectID")] TeachingVievModel teachingViewModel, string subjectId)
+        {
+            if (ModelState.IsValid)
+            {
+                Teaching teaching = dbTeachings.Teachings.Find(teachingViewModel.TeachingID);
+
+                teaching.TeachingTypeID = teachingViewModel.TeachingTypeID;
+                teaching.PersonID = teachingViewModel.PersonID;
+                teaching.Weight = teachingViewModel.Weight;
+                teaching.Hours = teachingViewModel.Hours;
+                teaching.Remark = teachingViewModel.Remark;
+
+                teaching.DateModified = DateTime.Now;
+                teaching.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
+
+                dbTeachings.Entry(teaching).State = EntityState.Modified;
+                dbTeachings.SaveChanges();
+                return RedirectToAction("TeachersIndex", routeValues: new { subjectId = teaching.SubjectID });
+            }
+            return View(teachingViewModel);
+        }
+
+        public ActionResult TeachersDelete(Guid? id, Guid subjectId)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Teaching teaching = dbTeachings.Teachings.Find(id);
+            if (teaching == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.SubjectID = subjectId;
+
+            return View(teaching);
+        }
+
+        [HttpPost, ActionName("TeachersDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult TeachersDeleteConfirmed(Guid id)
+        {
+            Teaching teaching = dbTeachings.Teachings.Find(id);
+            dbTeachings.Teachings.Remove(teaching);
+            dbTeachings.SaveChanges();
+            return RedirectToAction("TeachersIndex", routeValues: new { subjectId = teaching.SubjectID });
+        }
+
+        #endregion
     }
 }

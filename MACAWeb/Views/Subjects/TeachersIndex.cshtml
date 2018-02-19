@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MACAWeb.Models.Teaching>
+
+@{
+    ViewBag.Title = "Subjects";
+}
+
+<div class="main-content">
+    <h2>Teachers</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "TeachersCreate", routeValues: new { subjectId = ViewBag.SubjectID })
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>                
+                <th>
+                    @Html.DisplayNameFor(model => model.Person.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TeachingType.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hours)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Person.FullName)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeachingType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hours)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("TeachersEdit", "Subjects", new { id=item.TeachingID, subjectId = item.SubjectID })">
+                            <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("TeachersDelete", "Subjects", new { id=item.TeachingID, subjectId = item.SubjectID })">
+                            <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to Subject Editing", "Edit", routeValues: new { id = ViewBag.SubjectID })
+    </div>
+</div>
+

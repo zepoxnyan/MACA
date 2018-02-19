@@ -298,6 +298,10 @@
     <Compile Include="Migrations\201802182114181_Subjects.Designer.cs">
       <DependentUpon>201802182114181_Subjects.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802182350212_Teachings.cs" />
+    <Compile Include="Migrations\201802182350212_Teachings.Designer.cs">
+      <DependentUpon>201802182350212_Teachings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataFormatModel.cs" />
@@ -306,6 +310,7 @@
     <Compile Include="Models\GrantBudgetsModel.cs" />
     <Compile Include="Models\GrantMemberTypesModel.cs" />
     <Compile Include="Models\ActivityTypesModel.cs" />
+    <Compile Include="Models\TeachingsModel.cs" />
     <Compile Include="Models\SubjectsModel.cs" />
     <Compile Include="Models\PositionsModel.cs" />
     <Compile Include="Models\PersonsModel.cs" />
@@ -590,6 +595,10 @@
     <Content Include="Views\Subjects\Details.cshtml" />
     <Content Include="Views\Subjects\Edit.cshtml" />
     <Content Include="Views\Subjects\Index.cshtml" />
+    <Content Include="Views\Subjects\TeachersCreate.cshtml" />
+    <Content Include="Views\Subjects\TeachersDelete.cshtml" />
+    <Content Include="Views\Subjects\TeachersEdit.cshtml" />
+    <Content Include="Views\Subjects\TeachersIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -618,6 +627,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802182114181_Subjects.resx">
       <DependentUpon>201802182114181_Subjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802182350212_Teachings.resx">
+      <DependentUpon>201802182350212_Teachings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
