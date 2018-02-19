@@ -249,6 +249,7 @@
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\GrantsController.cs" />
     <Compile Include="Controllers\GrantStatusController.cs" />
+    <Compile Include="Controllers\MentorshipsController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Controllers\PositionTypesController.cs" />
     <Compile Include="Controllers\PublicationStatusController.cs" />
@@ -278,6 +279,10 @@
     <Compile Include="Migrations\201802191402531_Activities.Designer.cs">
       <DependentUpon>201802191402531_Activities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802191706218_Mentorships.cs" />
+    <Compile Include="Migrations\201802191706218_Mentorships.Designer.cs">
+      <DependentUpon>201802191706218_Mentorships.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -286,6 +291,7 @@
     <Compile Include="Models\GrantBudgetsModel.cs" />
     <Compile Include="Models\GrantMemberTypesModel.cs" />
     <Compile Include="Models\ActivityTypesModel.cs" />
+    <Compile Include="Models\MentorshipsModel.cs" />
     <Compile Include="Models\TeachingsModel.cs" />
     <Compile Include="Models\SubjectsModel.cs" />
     <Compile Include="Models\PositionsModel.cs" />
@@ -555,6 +561,11 @@
     <Content Include="Views\Activities\Delete.cshtml" />
     <Content Include="Views\Activities\Create.cshtml" />
     <Content Include="Views\Activities\Index.cshtml" />
+    <Content Include="Views\Mentorships\Create.cshtml" />
+    <Content Include="Views\Mentorships\Delete.cshtml" />
+    <Content Include="Views\Mentorships\Details.cshtml" />
+    <Content Include="Views\Mentorships\Edit.cshtml" />
+    <Content Include="Views\Mentorships\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -571,6 +582,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802191402531_Activities.resx">
       <DependentUpon>201802191402531_Activities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802191706218_Mentorships.resx">
+      <DependentUpon>201802191706218_Mentorships.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
