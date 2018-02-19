@@ -246,6 +246,7 @@
     <Compile Include="Controllers\ActivityTypesController.cs" />
     <Compile Include="Controllers\GrantBudgetsTypesController.cs" />
     <Compile Include="Controllers\GrantMemberTypesController.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\GrantsController.cs" />
     <Compile Include="Controllers\GrantStatusController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
@@ -256,55 +257,30 @@
     <Compile Include="Controllers\TeachingTypesController.cs" />
     <Compile Include="Controllers\TeamMembersController.cs" />
     <Compile Include="Controllers\ThesisTypesController.cs" />
-    <Compile Include="FeatureFunctions.cs" />
     <Compile Include="Auxiliaries.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\DataFormatsController.cs" />
     <Compile Include="Controllers\EventTypesController.cs" />
     <Compile Include="Controllers\FeatureTypesController.cs" />
-    <Compile Include="Controllers\FunctionsController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
-    <Compile Include="Controllers\TaskStatusController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\FAQsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="Controllers\UserTasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801152246404_Grants.cs" />
-    <Compile Include="Migrations\201801152246404_Grants.Designer.cs">
-      <DependentUpon>201801152246404_Grants.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802140932395_Positions.cs" />
-    <Compile Include="Migrations\201802140932395_Positions.Designer.cs">
-      <DependentUpon>201802140932395_Positions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802141047554_PositionsUpdate.cs" />
-    <Compile Include="Migrations\201802141047554_PositionsUpdate.Designer.cs">
-      <DependentUpon>201802141047554_PositionsUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802161104017_GrantBudgets.cs" />
-    <Compile Include="Migrations\201802161104017_GrantBudgets.Designer.cs">
-      <DependentUpon>201802161104017_GrantBudgets.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802162150563_GrantMembers.cs" />
-    <Compile Include="Migrations\201802162150563_GrantMembers.Designer.cs">
-      <DependentUpon>201802162150563_GrantMembers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802182114181_Subjects.cs" />
-    <Compile Include="Migrations\201802182114181_Subjects.Designer.cs">
-      <DependentUpon>201802182114181_Subjects.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201802182350212_Teachings.cs" />
     <Compile Include="Migrations\201802182350212_Teachings.Designer.cs">
       <DependentUpon>201802182350212_Teachings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802191402531_Activities.cs" />
+    <Compile Include="Migrations\201802191402531_Activities.Designer.cs">
+      <DependentUpon>201802191402531_Activities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DataFormatModel.cs" />
+    <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Models\GrantMembersModel.cs" />
     <Compile Include="Models\GrantBudgetsTypesModel.cs" />
     <Compile Include="Models\GrantBudgetsModel.cs" />
@@ -324,17 +300,12 @@
     <Compile Include="Models\EventTypesModel.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\FeatureTypeModel.cs" />
-    <Compile Include="Models\FunctionModel.cs" />
     <Compile Include="Models\InstanceModel.cs" />
     <Compile Include="Models\TeamMember.cs" />
     <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Models\FAQModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ParameterModel.cs" />
-    <Compile Include="Models\TaskMessageModel.cs" />
-    <Compile Include="Models\UserTaskModel.cs" />
-    <Compile Include="Models\TaskStatusModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -489,31 +460,11 @@
     </Content>
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-    <Content Include="Views\DataFormats\Create.cshtml" />
-    <Content Include="Views\DataFormats\Delete.cshtml" />
-    <Content Include="Views\DataFormats\Details.cshtml" />
-    <Content Include="Views\DataFormats\Edit.cshtml" />
-    <Content Include="Views\DataFormats\Index.cshtml" />
     <Content Include="Views\FeatureTypes\Create.cshtml" />
     <Content Include="Views\FeatureTypes\Delete.cshtml" />
     <Content Include="Views\FeatureTypes\Details.cshtml" />
     <Content Include="Views\FeatureTypes\Edit.cshtml" />
     <Content Include="Views\FeatureTypes\Index.cshtml" />
-    <Content Include="Views\Functions\Create.cshtml" />
-    <Content Include="Views\Functions\Delete.cshtml" />
-    <Content Include="Views\Functions\Details.cshtml" />
-    <Content Include="Views\Functions\Edit.cshtml" />
-    <Content Include="Views\Functions\Index.cshtml" />
-    <Content Include="Views\TaskStatus\Create.cshtml" />
-    <Content Include="Views\TaskStatus\Delete.cshtml" />
-    <Content Include="Views\TaskStatus\Details.cshtml" />
-    <Content Include="Views\TaskStatus\Edit.cshtml" />
-    <Content Include="Views\TaskStatus\Index.cshtml" />
-    <Content Include="Views\UserTasks\Create.cshtml" />
-    <Content Include="Views\UserTasks\Delete.cshtml" />
-    <Content Include="Views\UserTasks\Details.cshtml" />
-    <Content Include="Views\UserTasks\Edit.cshtml" />
-    <Content Include="Views\UserTasks\Index.cshtml" />
     <Content Include="Views\Home\Team.cshtml" />
     <Content Include="Views\Home\Press.cshtml" />
     <Content Include="Views\Home\Papers.cshtml" />
@@ -599,6 +550,11 @@
     <Content Include="Views\Subjects\TeachersDelete.cshtml" />
     <Content Include="Views\Subjects\TeachersEdit.cshtml" />
     <Content Include="Views\Subjects\TeachersIndex.cshtml" />
+    <Content Include="Views\Activities\Edit.cshtml" />
+    <Content Include="Views\Activities\Details.cshtml" />
+    <Content Include="Views\Activities\Delete.cshtml" />
+    <Content Include="Views\Activities\Create.cshtml" />
+    <Content Include="Views\Activities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -610,26 +566,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801152246404_Grants.resx">
-      <DependentUpon>201801152246404_Grants.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802140932395_Positions.resx">
-      <DependentUpon>201802140932395_Positions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802141047554_PositionsUpdate.resx">
-      <DependentUpon>201802141047554_PositionsUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802161104017_GrantBudgets.resx">
-      <DependentUpon>201802161104017_GrantBudgets.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802162150563_GrantMembers.resx">
-      <DependentUpon>201802162150563_GrantMembers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802182114181_Subjects.resx">
-      <DependentUpon>201802182114181_Subjects.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802182350212_Teachings.resx">
       <DependentUpon>201802182350212_Teachings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802191402531_Activities.resx">
+      <DependentUpon>201802191402531_Activities.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

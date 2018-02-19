@@ -3,11 +3,11 @@ namespace MACAWeb.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Teachings : DbMigration
+    public partial class Activities : DbMigration
     {
         public override void Up()
         {
-            /*CreateTable("dbo.Activities", t => new
+            CreateTable("dbo.Activities", t => new
             {
                 ActivityID = t.Guid(nullable: false),
                 ActivityTypeID = t.Guid(nullable: false),
@@ -21,10 +21,9 @@ namespace MACAWeb.Migrations
                 UserCreatedID = t.Guid(nullable: false),
                 UserModifiedID = t.Guid(nullable: false)
             });
-            AddPrimaryKey("dbo.Teachings", "TeachingID");
-            AddForeignKey("dbo.Teachings", "TeachingTypeID", "dbo.TeachingTypes", "TeachingTypeID");
-            AddForeignKey("dbo.Teachings", "SubjectID", "dbo.Subjects", "SubjectID");
-            AddForeignKey("dbo.Teachings", "PersonID", "dbo.People", "PersonID");*/
+            AddPrimaryKey("dbo.Activities", "ActivityID");
+            AddForeignKey("dbo.Activities", "ActivityTypeID", "dbo.ActivityTypes", "ActivityTypeID");
+            AddForeignKey("dbo.Activities", "PersonID", "dbo.People", "PersonID");
         }
         
         public override void Down()

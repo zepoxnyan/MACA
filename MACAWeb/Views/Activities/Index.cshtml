@@ -1,9 +1,9 @@
-﻿@model PagedList.IPagedList<MACAWeb.Models.TaskStatus>
+﻿@model PagedList.IPagedList<MACAWeb.Models.Activity>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Task Statuses";
+    ViewBag.Title = "Activities";
 }
 
 <div class="main-content">
@@ -18,10 +18,9 @@
                     @Html.ActionLink("Add new", "Create")
                 </div>
             </div>
-
             <!--Search Form-->
             <div class="col col-md-4 search-box">
-                @using (Html.BeginForm("Index", "TaskStatus", FormMethod.Get))
+                @using (Html.BeginForm("Index", "Activities", FormMethod.Get))
                 {
                     <div class="input-group">
                         @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
@@ -36,13 +35,16 @@
         <table class="table">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ActivityType.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ActivityType.Year)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Message)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Person.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Weight)
                 </th>
                 <th></th>
             </tr>
@@ -51,30 +53,32 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @Html.DisplayFor(modelItem => item.ActivityType.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        @Html.DisplayFor(modelItem => item.ActivityType.Year)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Message)
+                        @Html.DisplayFor(modelItem => item.Person.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Weight)
                     </td>
                     <td class="column-glyph">
-                        <a href="@Url.Action("Edit", "TaskStatus", new { id=item.TaskStatusId })">
+                        <a href="@Url.Action("Edit", "Activities", new { id=item.ActivityID })">
                             <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
                         </a>&nbsp;
-                        <a href="@Url.Action("Details", "TaskStatus", new { id=item.TaskStatusId })">
+                        <a href="@Url.Action("Details", "Activities", new { id=item.ActivityID })">
                             <span title="Details" class="glyphicon glyphicon-info-sign action-icons" />
                         </a>&nbsp;
-                        <a href="@Url.Action("Delete", "TaskStatus", new { id=item.TaskStatusId })">
+                        <a href="@Url.Action("Delete", "Activities", new { id=item.ActivityID })">
                             <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
                         </a>
                     </td>
                 </tr>
             }
-
         </table>
-        <!-- Pagination -->
+        <!--Pagination-->
         <br />
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

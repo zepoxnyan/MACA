@@ -19,7 +19,7 @@ namespace MACAWeb.Controllers
         // GET: ActivityTypes
         public ActionResult Index()
         {
-            return View(db.ActivityTypes.OrderBy(x => x.Name).ToList());
+            return View(db.ActivityTypes.OrderBy(x => x.Year).ThenBy(x => x.Name).ToList());
         }
 
         // GET: ActivityTypes/Details/5
@@ -48,7 +48,7 @@ namespace MACAWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Description")] ActivityType activityType)
+        public ActionResult Create([Bind(Include = "Name,Year,Description")] ActivityType activityType)
         {
             if (ModelState.IsValid)
             {
@@ -88,13 +88,14 @@ namespace MACAWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ActivityTypeID,Name,Description")] ActivityTypeViewModel activityTypeViewModel)
+        public ActionResult Edit([Bind(Include = "ActivityTypeID,Name,Year,Description")] ActivityTypeViewModel activityTypeViewModel)
         {
             if (ModelState.IsValid)
             {
                 ActivityType model = db.ActivityTypes.Find(activityTypeViewModel.ActivityTypeID);
 
                 model.Name = activityTypeViewModel.Name;
+                model.Year = activityTypeViewModel.Year;
                 model.Description = activityTypeViewModel.Description;
 
                 model.DateModified = DateTime.Now;

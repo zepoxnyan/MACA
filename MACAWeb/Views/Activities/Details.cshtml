@@ -1,0 +1,67 @@
+﻿@model MACAWeb.Models.Activity
+
+@{
+    ViewBag.Title = "Activities";
+}
+
+<div class="main-content">
+    <h2>Activity Details</h2>
+
+    <hr />
+
+    <div class="inner-rectangle">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ActivityType.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ActivityType.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ActivityType.Year)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ActivityType.Year)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.FullName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.FullName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Weight)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Weight)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Remark)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Remark)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>        </dl>
+    </div>
+
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ActivityID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

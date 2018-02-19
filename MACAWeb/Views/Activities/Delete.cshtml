@@ -1,55 +1,56 @@
-﻿@model MACAWeb.Models.Function
+﻿@model MACAWeb.Models.Activity
 
 @{
-    ViewBag.Title = "Functions";
+    ViewBag.Title = "Activities";
 }
 
 <div class="main-content">
-    <h2>Delete Function</h2>
+    <h2>Delete Activity</h2>
 
     <hr />
 
     <div class="inner-rectangle">
-        <h4>Are you sure you want to delete function?</h4>
+        <h3>Are you sure you want to delete this activity?</h3>
 
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.ActivityType.Name)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Name)
+                @Html.DisplayFor(model => model.ActivityType.Name)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.ActivityType.Year)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Description)
+                @Html.DisplayFor(model => model.ActivityType.Year)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.InputDescription)
+                @Html.DisplayNameFor(model => model.Person.FullName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.InputDescription)
+                @Html.DisplayFor(model => model.Person.FullName)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.OutputDescription)
+                @Html.DisplayNameFor(model => model.Weight)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.OutputDescription)
+                @Html.DisplayFor(model => model.Weight)
             </dd>
 
             <dt>
-                Feature Type
+                @Html.DisplayNameFor(model => model.Remark)
             </dt>
+
             <dd>
-                @Html.DisplayFor(model => model.FeatureType.Name)
+                @Html.DisplayFor(model => model.Remark)
             </dd>
 
             <dt>

@@ -16,6 +16,10 @@ namespace MACAWeb.Models
         [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
 
+        [Display(Name = "Year")]
+        [Required(ErrorMessage = "Year must be specified!")]
+        public int Year { get; set; }
+
         [Display(Name = "Description")]   
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
@@ -38,7 +42,17 @@ namespace MACAWeb.Models
     public class ActivityTypeViewModel
     {
         public Guid ActivityTypeID { get; set; }
+
+        [Display(Name = "Activity Type Name")]
+        [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
+
+        [Display(Name = "Year")]
+        [Required(ErrorMessage = "Year must be specified!")]
+        public int Year { get; set; }
+
+        [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
 
