@@ -253,6 +253,8 @@
     <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Controllers\PositionTypesController.cs" />
     <Compile Include="Controllers\PublicationStatusController.cs" />
+    <Compile Include="Controllers\PublicationTypeGroupsController.cs" />
+    <Compile Include="Controllers\PublicationTypesController.cs" />
     <Compile Include="Controllers\StudyLevelsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\TeachingTypesController.cs" />
@@ -292,6 +294,9 @@
     <Compile Include="Models\GrantMemberTypesModel.cs" />
     <Compile Include="Models\ActivityTypesModel.cs" />
     <Compile Include="Models\MentorshipsModel.cs" />
+    <Compile Include="Models\PublicationTypeGroupModel.cs" />
+    <Compile Include="Models\PublicationTypeLocalModel.cs" />
+    <Compile Include="Models\PublicationTypeModel.cs" />
     <Compile Include="Models\TeachingsModel.cs" />
     <Compile Include="Models\SubjectsModel.cs" />
     <Compile Include="Models\PositionsModel.cs" />
@@ -566,6 +571,16 @@
     <Content Include="Views\Mentorships\Details.cshtml" />
     <Content Include="Views\Mentorships\Edit.cshtml" />
     <Content Include="Views\Mentorships\Index.cshtml" />
+    <Content Include="Views\PublicationTypes\Create.cshtml" />
+    <Content Include="Views\PublicationTypes\Delete.cshtml" />
+    <Content Include="Views\PublicationTypes\Details.cshtml" />
+    <Content Include="Views\PublicationTypes\Edit.cshtml" />
+    <Content Include="Views\PublicationTypes\Index.cshtml" />
+    <Content Include="Views\PublicationTypeGroups\Create.cshtml" />
+    <Content Include="Views\PublicationTypeGroups\Delete.cshtml" />
+    <Content Include="Views\PublicationTypeGroups\Details.cshtml" />
+    <Content Include="Views\PublicationTypeGroups\Edit.cshtml" />
+    <Content Include="Views\PublicationTypeGroups\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

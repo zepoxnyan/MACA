@@ -1,0 +1,35 @@
+﻿@model MACAWeb.Models.PublicationType
+@{
+    ViewBag.Title = "Publication Types";
+}
+<div class="main-content">
+    <h2>Publication Type Details</h2>
+    <hr />
+    <div class="inner-rectangle">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+        </dl>
+    </div>
+
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.PublicationTypeID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

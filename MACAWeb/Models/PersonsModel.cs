@@ -21,7 +21,7 @@ namespace MACAWeb.Models
         [Required(ErrorMessage = "Enter the name!")]
         public string Name { get; set; }
 
-        [Display(Name = "FullName")]
+        [Display(Name = "Full Name")]
         [Required(ErrorMessage = "Enter the full name with titles!")]
         public string FullName { get; set; }
 

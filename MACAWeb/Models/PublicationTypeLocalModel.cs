@@ -7,12 +7,17 @@ using System.Web;
 
 namespace MACAWeb.Models
 {
-    public class PublicationStatus
+    public class PublicationTypeLocal
     {
         [Key]        
-        public Guid PublicationStatusID { get; set; }
+        public Guid PublicationTypeLocalID { get; set; }
 
-        [Display(Name = "Publication Status Name")]
+        [Display(Name = "Publication Type Group")]
+        [Required(ErrorMessage = "Publication type group must be specified!")]
+        public Guid PublicationTypeGroupID { get; set; }
+        public virtual PublicationTypeGroup PublicationTypeGroup { get; set; }
+
+        [Display(Name = "Local Publication Type Name")]
         [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
 
@@ -35,11 +40,16 @@ namespace MACAWeb.Models
         public Guid UserModifiedID { get; set; }
     }
 
-    public class PublicationStatusViewModel
+    public class PublicationTypeLocalViewModel
     {
-        public Guid PublicationStatusID { get; set; }
+        public Guid PublicationTypeLocalID { get; set; }
 
-        [Display(Name = "Publication Status Name")]
+        [Display(Name = "Publication Type Group")]
+        [Required(ErrorMessage = "Publication type group must be specified!")]
+        public Guid PublicationTypeGroupID { get; set; }
+        public virtual PublicationTypeGroup PublicationTypeGroup { get; set; }
+
+        [Display(Name = "Local Publication Type Name")]
         [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
 
@@ -48,10 +58,10 @@ namespace MACAWeb.Models
         public string Description { get; set; }
     }
 
-    public class PublicationStatusDbContext : DbContext
+    public class PublicationTypeLocalDbContext : DbContext
     {
-        public DbSet<PublicationStatus> PublicationStatus { get; set; }
+        public DbSet<PublicationTypeLocal> PublicationTypesLocal { get; set; }
 
-        public PublicationStatusDbContext() : base("MACA") { }
+        public PublicationTypeLocalDbContext() : base("MACA") { }
     }
 }

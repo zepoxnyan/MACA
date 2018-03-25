@@ -7,12 +7,12 @@ using System.Web;
 
 namespace MACAWeb.Models
 {
-    public class PublicationStatus
+    public class PublicationType
     {
         [Key]        
-        public Guid PublicationStatusID { get; set; }
+        public Guid PublicationTypeID { get; set; }
 
-        [Display(Name = "Publication Status Name")]
+        [Display(Name = "Publication Type Name")]
         [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
 
@@ -35,11 +35,11 @@ namespace MACAWeb.Models
         public Guid UserModifiedID { get; set; }
     }
 
-    public class PublicationStatusViewModel
+    public class PublicationTypeViewModel
     {
-        public Guid PublicationStatusID { get; set; }
+        public Guid PublicationTypeID { get; set; }
 
-        [Display(Name = "Publication Status Name")]
+        [Display(Name = "Publication Type Name")]
         [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
 
@@ -48,10 +48,10 @@ namespace MACAWeb.Models
         public string Description { get; set; }
     }
 
-    public class PublicationStatusDbContext : DbContext
+    public class PublicationTypeDbContext : DbContext
     {
-        public DbSet<PublicationStatus> PublicationStatus { get; set; }
+        public DbSet<PublicationType> PublicationTypes { get; set; }
 
-        public PublicationStatusDbContext() : base("MACA") { }
+        public PublicationTypeDbContext() : base("MACA") { }
     }
 }
