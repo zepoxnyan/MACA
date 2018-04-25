@@ -254,6 +254,7 @@
     <Compile Include="Controllers\PositionTypesController.cs" />
     <Compile Include="Controllers\PublicationStatusController.cs" />
     <Compile Include="Controllers\PublicationTypeGroupsController.cs" />
+    <Compile Include="Controllers\PublicationTypeLocalsController.cs" />
     <Compile Include="Controllers\PublicationTypesController.cs" />
     <Compile Include="Controllers\StudyLevelsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
@@ -284,6 +285,10 @@
     <Compile Include="Migrations\201802191706218_Mentorships.cs" />
     <Compile Include="Migrations\201802191706218_Mentorships.Designer.cs">
       <DependentUpon>201802191706218_Mentorships.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804250835044_PublicationTypesLocal.cs" />
+    <Compile Include="Migrations\201804250835044_PublicationTypesLocal.Designer.cs">
+      <DependentUpon>201804250835044_PublicationTypesLocal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -581,6 +586,11 @@
     <Content Include="Views\PublicationTypeGroups\Details.cshtml" />
     <Content Include="Views\PublicationTypeGroups\Edit.cshtml" />
     <Content Include="Views\PublicationTypeGroups\Index.cshtml" />
+    <Content Include="Views\PublicationTypeLocals\Create.cshtml" />
+    <Content Include="Views\PublicationTypeLocals\Delete.cshtml" />
+    <Content Include="Views\PublicationTypeLocals\Details.cshtml" />
+    <Content Include="Views\PublicationTypeLocals\Edit.cshtml" />
+    <Content Include="Views\PublicationTypeLocals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -600,6 +610,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802191706218_Mentorships.resx">
       <DependentUpon>201802191706218_Mentorships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804250835044_PublicationTypesLocal.resx">
+      <DependentUpon>201804250835044_PublicationTypesLocal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -61,6 +61,7 @@ namespace MACAWeb.Models
     public class PublicationTypeLocalDbContext : DbContext
     {
         public DbSet<PublicationTypeLocal> PublicationTypesLocal { get; set; }
+        public DbSet<PublicationTypeGroup> PublicationTypeGroups { get; set; }
 
         public PublicationTypeLocalDbContext() : base("MACA") { }
     }

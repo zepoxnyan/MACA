@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MACAWeb.Models.PublicationTypeLocal>
+
+@{
+    ViewBag.Title = "Local Publication Types";
+}
+
+<div class="main-content">
+    <h2>Local Publication Types</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "Create")
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    Publication Type Group
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PublicationTypeGroup.Name)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "PublicationTypeLocals", new { id=item.PublicationTypeLocalID })">
+                            <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("Details", "PublicationTypeLocals", new { id=item.PublicationTypeLocalID })">
+                            <span title="Details" class="glyphicon glyphicon-info-sign action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("Delete", "PublicationTypeLocals", new { id=item.PublicationTypeLocalID })">
+                            <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

@@ -103,6 +103,7 @@ namespace MACAWeb.Controllers
                 return RedirectToAction("Index");
             }
 
+            PopulateGrantStatusDropDownList();
             return View(grant);
         }
 
