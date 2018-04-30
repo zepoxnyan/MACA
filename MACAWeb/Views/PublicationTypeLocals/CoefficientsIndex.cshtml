@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MACAWeb.Models.PublicationTypeLocalCoef>
+
+@{
+    ViewBag.Title = "Local Publication Types";
+}
+
+<div class="main-content">
+    <h2>Local Publication Types' Coefficients:</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "CoefficientsCreate", routeValues: new { pubTypeLocalId = ViewBag.PublicationTypeLocalID })
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Coefficient)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Coefficient)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("CoefficientsEdit", "PublicationTypeLocals", new { id = item.PublicationTypeLocalCoefID, pubTypeLocalId = item.PublicationTypeLocalID })">
+                            <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("CoefficientsDelete", "PublicationTypeLocals", new { id = item.PublicationTypeLocalCoefID, pubTypeLocalId = item.PublicationTypeLocalID })">
+                            <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to Local Publication Types Editing", "Edit", routeValues: new { id = ViewBag.PublicationTypeLocalID })
+    </div>
+</div>
+

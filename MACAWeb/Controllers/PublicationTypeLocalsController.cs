@@ -15,6 +15,7 @@ namespace MACAWeb.Controllers
     public class PublicationTypeLocalsController : Controller
     {
         private PublicationTypeLocalDbContext dbPubTypesLocal = new PublicationTypeLocalDbContext();
+        private PublicationTypeLocalCoefDbContext dbCoeffs = new PublicationTypeLocalCoefDbContext();
 
         // GET: PublicationTypeLocals
         public ActionResult Index()
@@ -157,5 +158,110 @@ namespace MACAWeb.Controllers
             }
             base.Dispose(disposing);
         }
+
+        #region Type Coefficients
+
+        public ActionResult CoefficientsIndex(Guid pubTypeLocalId)
+        {
+            var coefficients = dbCoeffs.PublicationTypesLocalCoef.Where(x => x.PublicationTypeLocalID == pubTypeLocalId).OrderByDescending(x => x.Year).ThenBy(x => x.PublicationTypeLocal.Name);
+
+            ViewBag.PublicationTypeLocalID = pubTypeLocalId;
+            return View(coefficients);
+        }
+
+        public ActionResult CoefficientsCreate(Guid pubTypeLocalId)
+        {
+            ViewBag.PublicationTypeLocalID = pubTypeLocalId;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CoefficientsCreate([Bind(Include = "Year,Coefficient,Description")] PublicationTypeLocalCoef model, string pubTypeLocalId)
+        {
+            if (ModelState.IsValid)
+            {
+                model.PublicationTypeLocalCoefID = Guid.NewGuid();
+                model.PublicationTypeLocalID = new Guid(pubTypeLocalId);
+
+                model.DateCreated = DateTime.Now;
+                model.DateModified = model.DateCreated;
+
+                model.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
+                model.UserModifiedID = model.UserCreatedID;
+
+                dbCoeffs.PublicationTypesLocalCoef.Add(model);
+                dbCoeffs.SaveChanges();
+                return RedirectToAction("CoefficientsIndex", new { pubTypeLocalId = pubTypeLocalId });
+            }
+
+            return View(model);
+        }
+
+        public ActionResult CoefficientsEdit(Guid? id, Guid pubTypeLocalId)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PublicationTypeLocalCoef model = dbCoeffs.PublicationTypesLocalCoef.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.PublicationTypeLocalID = pubTypeLocalId;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CoefficientsEdit([Bind(Include = "PublicationTypeLocalCoefID,Year,Coefficient,Description")] PublicationTypeLocalCoefViewModel viewModel, string pubTypeLocalId)
+        {
+            if (ModelState.IsValid)
+            {
+                PublicationTypeLocalCoef model = dbCoeffs.PublicationTypesLocalCoef.Find(viewModel.PublicationTypeLocalCoefID);
+
+                model.Year = viewModel.Year;
+                model.Coefficient = viewModel.Coefficient;
+                model.Description = viewModel.Description;
+
+                model.DateModified = DateTime.Now;
+                model.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
+
+                dbCoeffs.Entry(model).State = EntityState.Modified;
+                dbCoeffs.SaveChanges();
+                return RedirectToAction("CoefficientsIndex", new { pubTypeLocalId = pubTypeLocalId });
+            }
+            return View(viewModel);
+        }
+
+        public ActionResult CoefficientsDelete(Guid? id, Guid pubTypeLocalId)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PublicationTypeLocalCoef model = dbCoeffs.PublicationTypesLocalCoef.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.PublicationTypeLocalID = pubTypeLocalId;
+
+            return View(model);
+        }
+
+        [HttpPost, ActionName("CoefficientsDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CoefficientsDeleteConfirmed(Guid id)
+        {
+            PublicationTypeLocalCoef model = dbCoeffs.PublicationTypesLocalCoef.Find(id);
+            dbCoeffs.PublicationTypesLocalCoef.Remove(model);
+            dbCoeffs.SaveChanges();
+            return RedirectToAction("CoefficientsIndex", routeValues: new { pubTypeLocalId = model.PublicationTypeLocalID });
+        }
+
+        #endregion
     }
 }

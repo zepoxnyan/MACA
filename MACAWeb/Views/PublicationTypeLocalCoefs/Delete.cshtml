@@ -1,0 +1,88 @@
+﻿@model MACAWeb.Models.PublicationTypeLocalCoef
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PublicationTypeLocalCoef</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PublicationTypeLocal.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublicationTypeLocal.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coefficient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coefficient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateModified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateModified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserCreatedID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserCreatedID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserModifiedID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserModifiedID)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

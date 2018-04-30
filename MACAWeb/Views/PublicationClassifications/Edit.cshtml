@@ -1,11 +1,11 @@
-﻿@model MACAWeb.Models.PublicationTypeLocal
+﻿@model MACAWeb.Models.PublicationClassification
 
 @{
-    ViewBag.Title = "Local Publication Types";
+    ViewBag.Title = "Publication Classifications";
 }
 
 <div class="main-content">
-    <h2>Edit Local Publication Types</h2>
+    <h2>Edit Publication Classification</h2>
 
     <hr />
 
@@ -15,8 +15,7 @@
 
         <div class="form-horizontal inner-rectangle">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.PublicationTypeLocalID)
-
+            @Html.HiddenFor(model => model.PublicationClassificationID)
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -24,15 +23,6 @@
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2" for="PublicationTypeGroupID">Publication Type Group</label>
-                <div class="col-md-10">
-                    @Html.DropDownList("PublicationTypeGroupID", null, String.Empty, new { @class = "form-control big-dropbox" })
-                    @Html.ValidationMessageFor(model => model.PublicationTypeGroupID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -40,14 +30,6 @@
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2">&nbsp;</label>
-                <div class="col-md-10">
-                    @Html.ActionLink("Add/Edit Local Publication Type's Coefficient", "CoefficientsIndex", new { pubTypeLocalId = @Model.PublicationTypeLocalID }, htmlAttributes: new { @class = "big-button-link" })
-                </div>
-            </div>
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />

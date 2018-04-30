@@ -233,7 +233,7 @@ namespace MACAWeb.Controllers
             return View(grantBudget);
         }
 
-        public ActionResult GrantBudgetsEdit(Guid? id)
+        public ActionResult GrantBudgetsEdit(Guid? id, Guid grantId)
         {
             if (id == null)
             {
@@ -245,6 +245,7 @@ namespace MACAWeb.Controllers
                 return HttpNotFound();
             }
             PopulateGrantBudgetTypesDropDownList(grantBudget.GrantBudgetsTypeID);
+            ViewBag.GrantID = grantId;
             return View(grantBudget);
         }
 
@@ -358,7 +359,7 @@ namespace MACAWeb.Controllers
             return View(grantMember);
         }
 
-        public ActionResult GrantMembersEdit(Guid? id)
+        public ActionResult GrantMembersEdit(Guid? id, Guid grantId)
         {
             if (id == null)
             {
@@ -371,6 +372,7 @@ namespace MACAWeb.Controllers
             }
             PopulateGrantMemberTypesDropDownList(grantMember.GrantMemberTypeID);
             PopulatePersonsDropDownList(grantMember.PersonID);
+            ViewBag.GrantID = grantId;
             return View(grantMember);
         }
 
@@ -382,7 +384,6 @@ namespace MACAWeb.Controllers
             {
                 GrantMember grantMember = dbGrantsMembers.GrantMembers.Find(grantMemberViewModel.GrantMemberID);
 
-                grantMember.GrantMemberID = grantMemberViewModel.GrantMemberID;
                 grantMember.GrantMemberTypeID = grantMemberViewModel.GrantMemberTypeID;
                 grantMember.PersonID = grantMemberViewModel.PersonID;
                 grantMember.Year = grantMemberViewModel.Year;
