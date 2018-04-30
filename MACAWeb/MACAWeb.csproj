@@ -244,6 +244,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActivityTypesController.cs" />
+    <Compile Include="Controllers\AuthorTypesController.cs" />
     <Compile Include="Controllers\GrantBudgetsTypesController.cs" />
     <Compile Include="Controllers\GrantMemberTypesController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
+    <Compile Include="Models\AuthorTypeModel.cs" />
     <Compile Include="Models\GrantMembersModel.cs" />
     <Compile Include="Models\GrantBudgetsTypesModel.cs" />
     <Compile Include="Models\GrantBudgetsModel.cs" />
@@ -591,6 +593,11 @@
     <Content Include="Views\PublicationTypeLocals\Details.cshtml" />
     <Content Include="Views\PublicationTypeLocals\Edit.cshtml" />
     <Content Include="Views\PublicationTypeLocals\Index.cshtml" />
+    <Content Include="Views\AuthorTypes\Create.cshtml" />
+    <Content Include="Views\AuthorTypes\Delete.cshtml" />
+    <Content Include="Views\AuthorTypes\Details.cshtml" />
+    <Content Include="Views\AuthorTypes\Edit.cshtml" />
+    <Content Include="Views\AuthorTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
