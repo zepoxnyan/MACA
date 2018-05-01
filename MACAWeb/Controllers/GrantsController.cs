@@ -23,7 +23,9 @@ namespace MACAWeb.Controllers
         // GET: Grants
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var grants = dbGrants.Grants.Include(x => x.GrantStatus).OrderByDescending(x => x.Start).ThenBy(x => x.Name);
+            var grants = dbGrants.Grants
+                .Include(x => x.GrantStatus)
+                .OrderByDescending(x => x.Start).ThenBy(x => x.Name);
             
             if (searchString != null)
             {
@@ -147,6 +149,7 @@ namespace MACAWeb.Controllers
                 dbGrants.SaveChanges();
                 return RedirectToAction("Index");
             }
+            PopulateGrantStatusDropDownList(grantViewModel.GrantStatusID);
             return View(grantViewModel);
         }
 

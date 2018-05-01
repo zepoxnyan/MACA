@@ -254,6 +254,7 @@
     <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Controllers\PositionTypesController.cs" />
     <Compile Include="Controllers\PublicationClassificationsController.cs" />
+    <Compile Include="Controllers\PublicationsController.cs" />
     <Compile Include="Controllers\PublicationStatusController.cs" />
     <Compile Include="Controllers\PublicationTypeGroupsController.cs" />
     <Compile Include="Controllers\PublicationTypeLocalsController.cs" />
@@ -300,10 +301,15 @@
     <Compile Include="Migrations\201805011525391_PublicationClassificationCoefs.Designer.cs">
       <DependentUpon>201805011525391_PublicationClassificationCoefs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805012009577_Publications.cs" />
+    <Compile Include="Migrations\201805012009577_Publications.Designer.cs">
+      <DependentUpon>201805012009577_Publications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Models\AuthorTypeModel.cs" />
+    <Compile Include="Models\PublicationModel.cs" />
     <Compile Include="Models\PublicationClassificationCoefficientModel.cs" />
     <Compile Include="Models\GrantMembersModel.cs" />
     <Compile Include="Models\GrantBudgetsTypesModel.cs" />
@@ -623,6 +629,11 @@
     <Content Include="Views\PublicationClassifications\CoefficientsDelete.cshtml" />
     <Content Include="Views\PublicationClassifications\CoefficientsEdit.cshtml" />
     <Content Include="Views\PublicationClassifications\CoefficientsIndex.cshtml" />
+    <Content Include="Views\Publications\Create.cshtml" />
+    <Content Include="Views\Publications\Delete.cshtml" />
+    <Content Include="Views\Publications\Details.cshtml" />
+    <Content Include="Views\Publications\Edit.cshtml" />
+    <Content Include="Views\Publications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -651,6 +662,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805011525391_PublicationClassificationCoefs.resx">
       <DependentUpon>201805011525391_PublicationClassificationCoefs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805012009577_Publications.resx">
+      <DependentUpon>201805012009577_Publications.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

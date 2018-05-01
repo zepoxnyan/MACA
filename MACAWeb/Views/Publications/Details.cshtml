@@ -1,0 +1,212 @@
+﻿@model MACAWeb.Models.Publication
+
+@{
+    ViewBag.Title = "Publications";
+}
+
+<div class="main-content">
+    <h2>Publication Details</h2>
+
+    <hr />
+
+    <div class="inner-rectangle">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PublicationClassification.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PublicationClassification.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PublicationStatus.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PublicationStatus.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PublicationType.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PublicationType.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PublicationTypeLocal.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PublicationTypeLocal.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Journal)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Journal)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Year)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Year)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Volume)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Volume)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Issue)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Issue)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Pages)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Pages)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DOI)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DOI)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Link)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Link)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Note)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Editors)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Editors)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Publisher)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Series)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Series)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Edition)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Edition)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BookTitle)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BookTitle)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Organization)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Organization)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Chapter)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Chapter)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Keywords)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Keywords)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Abstract)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Abstract)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+        </dl>
+    </div>
+
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.PublicationID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
