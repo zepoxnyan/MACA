@@ -253,6 +253,7 @@
     <Compile Include="Controllers\MentorshipsController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Controllers\PositionTypesController.cs" />
+    <Compile Include="Controllers\PublicationClassificationCoefficientsController.cs" />
     <Compile Include="Controllers\PublicationClassificationsController.cs" />
     <Compile Include="Controllers\PublicationStatusController.cs" />
     <Compile Include="Controllers\PublicationTypeGroupsController.cs" />
@@ -297,10 +298,15 @@
     <Compile Include="Migrations\201804301832502_PublicationTypesLocalCoefs.Designer.cs">
       <DependentUpon>201804301832502_PublicationTypesLocalCoefs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805011525391_PublicationClassificationCoefs.cs" />
+    <Compile Include="Migrations\201805011525391_PublicationClassificationCoefs.Designer.cs">
+      <DependentUpon>201805011525391_PublicationClassificationCoefs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Models\AuthorTypeModel.cs" />
+    <Compile Include="Models\PublicationClassificationCoefficientModel.cs" />
     <Compile Include="Models\GrantMembersModel.cs" />
     <Compile Include="Models\GrantBudgetsTypesModel.cs" />
     <Compile Include="Models\GrantBudgetsModel.cs" />
@@ -620,6 +626,15 @@
     <Content Include="Views\PublicationTypeLocals\CoefficientsDelete.cshtml" />
     <Content Include="Views\PublicationTypeLocals\CoefficientsEdit.cshtml" />
     <Content Include="Views\PublicationTypeLocals\CoefficientsIndex.cshtml" />
+    <Content Include="Views\PublicationClassificationCoefficients\Create.cshtml" />
+    <Content Include="Views\PublicationClassificationCoefficients\Delete.cshtml" />
+    <Content Include="Views\PublicationClassificationCoefficients\Details.cshtml" />
+    <Content Include="Views\PublicationClassificationCoefficients\Edit.cshtml" />
+    <Content Include="Views\PublicationClassificationCoefficients\Index.cshtml" />
+    <Content Include="Views\PublicationClassifications\CoefficientsCreate.cshtml" />
+    <Content Include="Views\PublicationClassifications\CoefficientsDelete.cshtml" />
+    <Content Include="Views\PublicationClassifications\CoefficientsEdit.cshtml" />
+    <Content Include="Views\PublicationClassifications\CoefficientsIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -645,6 +660,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804301832502_PublicationTypesLocalCoefs.resx">
       <DependentUpon>201804301832502_PublicationTypesLocalCoefs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805011525391_PublicationClassificationCoefs.resx">
+      <DependentUpon>201805011525391_PublicationClassificationCoefs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
