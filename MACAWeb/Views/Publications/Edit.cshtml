@@ -203,6 +203,13 @@
             </div>
 
             <div class="form-group">
+                <label class="control-label col-md-2">&nbsp;</label>
+                <div class="col-md-10">
+                    @Html.ActionLink("Add/Edit Authors", "PubAuthorsIndex", new { publicationId = @Model.PublicationID }, htmlAttributes: new { @class = "big-button-link" })
+                </div>
+            </div>
+
+            <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>

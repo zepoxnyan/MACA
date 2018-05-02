@@ -19,41 +19,13 @@ namespace MACAWeb.Controllers
     {
         private PersonsDbContext dbPersons = new PersonsDbContext();
         private PositionDbContext dbPositions = new PositionDbContext();
+        private AuthorsDbContext dbAuthors = new AuthorsDbContext();
 
         // GET: Persons
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
             var persons = dbPersons.Persons.OrderByDescending(x => x.Surname).ThenBy(x => x.Name);
-            /*var positions = (from pos in dbPositions.Positions
-                             orderby pos.Year, pos.Semester
-                             group pos by pos.PersonID
-                             into y
-                             select y.First())                           
-                    .ToArray();
-
-            var persons = (from p in dbPersons.Persons
-                           join s in positions
-                           on p.PersonID equals s.PersonID                           
-                           orderby s.Year descending
-                           select new {
-                               Surname = p.Surname,
-                               Name = p.Name,
-                               Position = s.PositionType.Name
-                           }).OrderBy(x => x.Surname).ThenBy(x => x.Name);*/
-
-            /*
-            select P.PersonID, P.SurName, Y.year, T.Name
-            from People P
-            left outer join
-            (SELECT X.PersonID, max(X.Year) as Year FROM Positions X
-
-                group by X.PersonID
-            ) O
-                inner join Positions Y on Y.PersonID = O.PersonID and O.Year = Y.Year
-                inner join PositionTypes T on T.PositionTypeID = Y.PositionTypeID
-            on O.PersonID = P.PersonID
-            */
-
+            
             if (searchString != null)
             {
                 page = 1;
@@ -109,6 +81,8 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                Guid authorGuid = Guid.NewGuid();
+
                 Person person = new Person();
                 person.PersonID = Guid.NewGuid();
                 person.Surname = personView.Surname;
@@ -139,6 +113,26 @@ namespace MACAWeb.Controllers
 
                 dbPersons.Persons.Add(person);
                 dbPersons.SaveChanges();
+
+                // Automatically add a person to authors
+                Author author = new Author();
+                author.AuthorID = authorGuid;
+                author.Surname = person.Surname;
+                author.FirstName = person.Name;
+
+                author.DateCreated = DateTime.Now;
+                author.DateModified = DateTime.Now;
+                author.UserCreatedID = new Guid(User.Identity.GetUserId());
+                author.UserModifiedID = author.UserCreatedID;
+
+                dbAuthors.Authors.Add(author);
+                dbAuthors.SaveChanges();
+
+                person = dbPersons.Persons.Find(person.PersonID);
+                person.AuthorID = authorGuid;
+                dbPersons.Entry(person).State = EntityState.Modified;
+                dbPersons.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -186,7 +180,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Person person = dbPersons.Persons.Find(personView.PersonID) ;
+                Person person = dbPersons.Persons.Find(personView.PersonID);
                 person.Surname = personView.Surname;
                 person.Name = personView.Name;
                 person.FullName = personView.FullName;

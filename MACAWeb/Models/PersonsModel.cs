@@ -30,7 +30,7 @@ namespace MACAWeb.Models
         public string Description { get; set; }
 
         [Display(Name = "AuthorID")]
-        public Guid AuthorID { get; set; }
+        public Guid? AuthorID { get; set; }
 
         [Display(Name = "Image")]
         public byte[] Image { get; set; }
@@ -80,7 +80,7 @@ namespace MACAWeb.Models
 
     public class PersonsDbContext : DbContext
     {
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<Person> Persons { get; set; }        
 
         public PersonsDbContext() : base("MACA") { }
     }

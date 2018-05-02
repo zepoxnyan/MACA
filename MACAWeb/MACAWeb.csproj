@@ -305,9 +305,34 @@
     <Compile Include="Migrations\201805012009577_Publications.Designer.cs">
       <DependentUpon>201805012009577_Publications.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805020708376_Authors.cs" />
+    <Compile Include="Migrations\201805020708376_Authors.Designer.cs">
+      <DependentUpon>201805020708376_Authors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020713419_PersonAuthorId.cs" />
+    <Compile Include="Migrations\201805020713419_PersonAuthorId.Designer.cs">
+      <DependentUpon>201805020713419_PersonAuthorId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020718339_PersonAuthorIdFK.cs" />
+    <Compile Include="Migrations\201805020718339_PersonAuthorIdFK.Designer.cs">
+      <DependentUpon>201805020718339_PersonAuthorIdFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020728086_AuthorsUpdate.cs" />
+    <Compile Include="Migrations\201805020728086_AuthorsUpdate.Designer.cs">
+      <DependentUpon>201805020728086_AuthorsUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805020730327_PublicationAuthors.cs" />
+    <Compile Include="Migrations\201805020730327_PublicationAuthors.Designer.cs">
+      <DependentUpon>201805020730327_PublicationAuthors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805021322526_AuthorsUpdate1.cs" />
+    <Compile Include="Migrations\201805021322526_AuthorsUpdate1.Designer.cs">
+      <DependentUpon>201805021322526_AuthorsUpdate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
+    <Compile Include="Models\PublicationAuthorModel.cs" />
     <Compile Include="Models\AuthorTypeModel.cs" />
     <Compile Include="Models\PublicationModel.cs" />
     <Compile Include="Models\PublicationClassificationCoefficientModel.cs" />
@@ -322,6 +347,7 @@
     <Compile Include="Models\PublicationTypeLocalCoefModel.cs" />
     <Compile Include="Models\PublicationTypeLocalModel.cs" />
     <Compile Include="Models\PublicationTypeModel.cs" />
+    <Compile Include="Models\AuthorModel.cs" />
     <Compile Include="Models\TeachingsModel.cs" />
     <Compile Include="Models\SubjectsModel.cs" />
     <Compile Include="Models\PositionsModel.cs" />
@@ -634,6 +660,15 @@
     <Content Include="Views\Publications\Details.cshtml" />
     <Content Include="Views\Publications\Edit.cshtml" />
     <Content Include="Views\Publications\Index.cshtml" />
+    <Content Include="Views\Publications\PubAuthorsCreate.cshtml" />
+    <Content Include="Views\Publications\PubAuthorsDelete.cshtml" />
+    <Content Include="Views\Publications\PubAuthorsEdit.cshtml" />
+    <Content Include="Views\Publications\PubAuthorsIndex.cshtml" />
+    <Content Include="Views\Publications\AuthorsIndex.cshtml" />
+    <Content Include="Views\Publications\AuthorsEdit.cshtml" />
+    <Content Include="Views\Publications\AuthorsDetails.cshtml" />
+    <Content Include="Views\Publications\AuthorsDelete.cshtml" />
+    <Content Include="Views\Publications\AuthorsCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -665,6 +700,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805012009577_Publications.resx">
       <DependentUpon>201805012009577_Publications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020708376_Authors.resx">
+      <DependentUpon>201805020708376_Authors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020713419_PersonAuthorId.resx">
+      <DependentUpon>201805020713419_PersonAuthorId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020718339_PersonAuthorIdFK.resx">
+      <DependentUpon>201805020718339_PersonAuthorIdFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020728086_AuthorsUpdate.resx">
+      <DependentUpon>201805020728086_AuthorsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805020730327_PublicationAuthors.resx">
+      <DependentUpon>201805020730327_PublicationAuthors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805021322526_AuthorsUpdate1.resx">
+      <DependentUpon>201805021322526_AuthorsUpdate1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

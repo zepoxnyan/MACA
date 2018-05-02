@@ -1,9 +1,9 @@
-﻿@model PagedList.IPagedList<MACAWeb.Models.Publication>
+﻿@model PagedList.IPagedList<MACAWeb.Models.Author>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Publications";
+    ViewBag.Title = "Authors";
 }
 
 <div class="main-content">
@@ -15,12 +15,12 @@
         <div class="row index-row">
             <div class="col col-md-6">
                 <div class="link-button">
-                    @Html.ActionLink("Add new", "Create")
+                    @Html.ActionLink("Add new", "AuthorsCreate")
                 </div>
             </div>
             <!--Search Form-->
             <div class="col col-md-4 search-box">
-                @using (Html.BeginForm("Index", "Publications", FormMethod.Get))
+                @using (Html.BeginForm("AuthorsIndex", "Publications", FormMethod.Get))
                 {
                     <div class="input-group">
                         @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
@@ -35,16 +35,13 @@
         <table class="table">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Surname)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().PublicationType.Name)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().FirstName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().PublicationStatus.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Year)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ORCID)
                 </th>
                 <th></th>
             </tr>
@@ -53,25 +50,22 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Title)
+                        @Html.DisplayFor(modelItem => item.Surname)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PublicationType.Name)
+                        @Html.DisplayFor(modelItem => item.FirstName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PublicationStatus.Name)
-                    </td>                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Year)
+                        @Html.DisplayFor(modelItem => item.ORCID)
                     </td>
                     <td class="column-glyph">
-                        <a href="@Url.Action("Edit", "Publications", new { id=item.PublicationID })">
+                        <a href="@Url.Action("AuthorsEdit", "Publications", new { id=item.AuthorID })">
                             <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
                         </a>&nbsp;
-                        <a href="@Url.Action("Details", "Publications", new { id=item.PublicationID })">
+                        <a href="@Url.Action("AuthorsDetails", "Publications", new { id=item.AuthorID })">
                             <span title="Details" class="glyphicon glyphicon-info-sign action-icons" />
                         </a>&nbsp;
-                        <a href="@Url.Action("Delete", "Publications", new { id=item.PublicationID })">
+                        <a href="@Url.Action("AuthorsDelete", "Publications", new { id=item.AuthorID })">
                             <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
                         </a>
                     </td>
@@ -82,9 +76,9 @@
         <!--Pagination-->
         <br />
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        @Html.PagedListPager(Model, page => Url.Action("AuthorsIndex", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
     </div>
     <div>
-        @Html.ActionLink("Authors", "AuthorsIndex")
+        @Html.ActionLink("Publications", "Index")
     </div>
 </div>
