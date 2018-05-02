@@ -232,7 +232,7 @@ namespace MACAWeb.Controllers
                 dbGrantBudgets.SaveChanges();
                 return RedirectToAction("GrantBudgetsIndex", new { grantId = grantId });
             }
-
+            PopulateGrantBudgetTypesDropDownList();
             return View(grantBudget);
         }
 

@@ -205,7 +205,7 @@ namespace MACAWeb.Controllers
         {
             PopulateTeachingTypesDropDownList();
             PopulatePersonsDropDownList();
-            ViewBag.GrantID = subjectId;
+            ViewBag.SubjectID = subjectId;
 
             return View();
         }
@@ -222,8 +222,8 @@ namespace MACAWeb.Controllers
         {
             var personQuery = from c in dbTeachings.Persons
                               orderby c.Surname, c.Name
-                              select c;
-            ViewBag.PersonID = new SelectList(personQuery, "PersonID", "Fullname", selectedPerson);
+                              select new { c.PersonID, NameCombo = c.Surname + " " + c.Name };
+            ViewBag.PersonID = new SelectList(personQuery, "PersonID", "NameCombo", selectedPerson);
         }
 
         [HttpPost]
@@ -248,7 +248,7 @@ namespace MACAWeb.Controllers
             return View(teaching);
         }
 
-        public ActionResult TeachersEdit(Guid? id)
+        public ActionResult TeachersEdit(Guid? id, Guid subjectId)
         {
             if (id == null)
             {
@@ -261,6 +261,7 @@ namespace MACAWeb.Controllers
             }
             PopulateTeachingTypesDropDownList(teaching.TeachingTypeID);
             PopulatePersonsDropDownList(teaching.PersonID);
+            ViewBag.SubjectID = subjectId;
             return View(teaching);
         }
 
