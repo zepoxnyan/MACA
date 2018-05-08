@@ -28,9 +28,9 @@ namespace MACAWeb.Models
         public Guid PersonID { get; set; }
         public virtual Person Person { get; set; }
 
-        [Display(Name = "Hours")]
+        [Display(Name = "Hours per week")]
         [Required(ErrorMessage = "Hours must be specified!")]
-        public int Hours { get; set; }
+        public double Hours { get; set; }
                 
         [Display(Name = "Remark")]   
         [DataType(DataType.MultilineText)]
@@ -74,9 +74,9 @@ namespace MACAWeb.Models
         public Guid PersonID { get; set; }
         public virtual Person Person { get; set; }
 
-        [Display(Name = "Hours")]
+        [Display(Name = "Hours per week")]
         [Required(ErrorMessage = "Hours must be specified!")]
-        public int Hours { get; set; }
+        public double Hours { get; set; }
 
         [Display(Name = "Remark")]
         [DataType(DataType.MultilineText)]

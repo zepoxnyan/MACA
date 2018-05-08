@@ -24,7 +24,7 @@ namespace MACAWeb.Controllers
         // GET: Persons
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var persons = dbPersons.Persons.OrderByDescending(x => x.Surname).ThenBy(x => x.Name);
+            var persons = dbPersons.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
             
             if (searchString != null)
             {

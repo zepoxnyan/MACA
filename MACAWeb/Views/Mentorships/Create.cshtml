@@ -41,6 +41,14 @@
             </div>
 
             <div class="form-group">
+                <label class="control-label col-md-2" for="MentorshipTypeID">Mentorship Type</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("MentorshipTypeID", null, String.Empty, new { @class = "form-control big-dropbox" })
+                    @Html.ValidationMessageFor(model => model.MentorshipTypeID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
                 @Html.LabelFor(model => model.ThesisTitle, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.ThesisTitle, new { htmlAttributes = new { @class = "big-textarea form-control" } })

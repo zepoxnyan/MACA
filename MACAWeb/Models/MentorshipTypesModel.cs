@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
@@ -7,21 +8,22 @@ using System.Web;
 
 namespace MACAWeb.Models
 {
-    public class TeachingType
+    public class MentorshipType
     {
         [Key]        
-        public Guid TeachingTypeID { get; set; }
+        public Guid MentorshipTypeID { get; set; }
 
-        [Display(Name = "Teaching Type Name")]
+        [Display(Name = "Mentorship Type Name")]
         [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
+
+        [Display(Name = "AISCode")]
+        [DefaultValue(0)]
+        public int AISCode { get; set; }
 
         [Display(Name = "Description")]   
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-
-        [Display(Name = "AISCode")]        
-        public string AISCode { get; set; }
 
         [Display(Name = "Date Created")]
         [DataType(DataType.DateTime)]
@@ -38,26 +40,26 @@ namespace MACAWeb.Models
         public Guid UserModifiedID { get; set; }
     }
 
-    public class TeachingTypeViewModel
+    public class MentorshipTypeViewModel
     {
-        public Guid TeachingTypeID { get; set; }
+        public Guid MentorshipTypeID { get; set; }
 
-        [Display(Name = "Teaching Type Name")]
-        [Required(ErrorMessage = "The name must be specified!")]
+        [Display(Name = "Mentorship Type Name")]
         public string Name { get; set; }
+
+        [Display(Name = "AISCode")]
+        [DefaultValue(0)]
+        public int AISCode { get; set; }
 
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-
-        [Display(Name = "AISCode")]
-        public string AISCode { get; set; }
     }
 
-    public class TeachingTypeDbContext : DbContext
+    public class MentorshipTypeDbContext : DbContext
     {
-        public DbSet<TeachingType> TeachingTypes { get; set; }
+        public DbSet<MentorshipType> MentorshipTypes { get; set; }
 
-        public TeachingTypeDbContext() : base("MACA") { }
+        public MentorshipTypeDbContext() : base("MACA") { }
     }
 }

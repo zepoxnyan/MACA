@@ -32,6 +32,9 @@ namespace MACAWeb.Models
         [Display(Name = "AuthorID")]
         public Guid? AuthorID { get; set; }
 
+        [Display(Name = "AISID")]
+        public string AISID { get; set; }
+
         [Display(Name = "Image")]
         public byte[] Image { get; set; }
 

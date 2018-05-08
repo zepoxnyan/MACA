@@ -24,7 +24,8 @@ namespace MACAWeb
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Database.SetInitializer<Models.ActivityTypeDbContext>(null);
+            Database.SetInitializer<Models.MentorshipTypeDbContext>(null);
+            Database.SetInitializer<Models.ThesisTypeDbContext>(null);
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

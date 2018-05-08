@@ -41,13 +41,10 @@
                     @Html.DisplayNameFor(model => model.FirstOrDefault().Student)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().ThesisType.Name)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ThesisTitle)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.FirstOrDefault().Year)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Semester)
                 </th>
                 <th></th>
             </tr>
@@ -62,13 +59,10 @@
                         @Html.DisplayFor(modelItem => item.Student)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ThesisType.Name)
+                        @Html.DisplayFor(modelItem => item.ThesisTitle)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Year)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Semester)
                     </td>
                     <td class="column-glyph">
                         <a href="@Url.Action("Edit", "Mentorships", new { id=item.MentorshipID })">

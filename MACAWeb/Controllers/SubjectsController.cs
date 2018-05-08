@@ -22,10 +22,7 @@ namespace MACAWeb.Controllers
         // GET: Subjects
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var subjects = dbSubjects.Subjects.Include(s => s.StudyLevel)
-                .OrderBy(x => x.Name)
-                .ThenBy(x => x.Year)
-                .ThenByDescending(x => x.Semester);
+            var subjects = dbSubjects.Subjects.OrderBy(x => x.Name).ThenBy(x => x.Year).ThenByDescending(x => x.Semester);
 
             if (searchString != null)
             {
@@ -41,9 +38,10 @@ namespace MACAWeb.Controllers
             {
                 subjects = subjects.Where(m => m.Name.Contains(searchString)
                                       || m.Description.Contains(searchString)
-                                      || m.Year.ToString().Contains(searchString)
-                                      || m.Semester.ToString().Contains(searchString)
-                                      || m.StudyLevel.Name.ToString().Contains(searchString))
+                                      || m.Year.Contains(searchString)
+                                      || m.ShortName.ToString().Contains(searchString)
+                                      || m.Department.ToString().Contains(searchString)
+                                      || m.Semester.ToString().Contains(searchString))
                                       .OrderBy(x => x.Name)
                                       .ThenBy(x => x.Year)
                                       .ThenByDescending(x => x.Semester);
@@ -73,24 +71,24 @@ namespace MACAWeb.Controllers
         // GET: Subjects/Create
         public ActionResult Create()
         {
-            PopulateStudyLevelDropDownList();
+            //PopulateStudyLevelDropDownList();
             return View();
         }
 
-        private void PopulateStudyLevelDropDownList(object selectedStudyLevel = null)
+        /*private void PopulateStudyLevelDropDownList(object selectedStudyLevel = null)
         {
             var studyLevelQuery = from c in dbSubjects.StudyLevels
                                    orderby c.Name
                                    select c;
             ViewBag.StudyLevelID = new SelectList(studyLevelQuery, "StudyLevelID", "Name", selectedStudyLevel);
-        }
+        }*/
 
         // POST: Subjects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,StudyLevelID,Description,Year,Semester")] Subject subject)
+        public ActionResult Create([Bind(Include = "Name,Description,Year,Semester,AISCode,ShortName,Department")] Subject subject)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +105,7 @@ namespace MACAWeb.Controllers
                 return RedirectToAction("Index");
             }
 
-            PopulateStudyLevelDropDownList();
+            //PopulateStudyLevelDropDownList();
             return View(subject);
         }
 
@@ -123,7 +121,7 @@ namespace MACAWeb.Controllers
             {
                 return HttpNotFound();
             }
-            PopulateStudyLevelDropDownList(subject.StudyLevelID);
+            //PopulateStudyLevelDropDownList(subject.StudyLevelID);
             return View(subject);
         }
 
@@ -132,17 +130,20 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubjectID,Name,StudyLevelID,Description,Year,Semester")] SubjectVievModel subjectViewModel)
+        public ActionResult Edit([Bind(Include = "SubjectID,Name,Description,Year,Semester,AISCode,ShortName,Department")] SubjectVievModel subjectViewModel)
         {
             if (ModelState.IsValid)
             {
                 Subject subject = dbSubjects.Subjects.Find(subjectViewModel.SubjectID);
 
                 subject.Name = subjectViewModel.Name;
-                subject.StudyLevelID = subjectViewModel.StudyLevelID;
+                //subject.StudyLevelID = subjectViewModel.StudyLevelID;
                 subject.Description = subjectViewModel.Description;
                 subject.Year = subjectViewModel.Year;
                 subject.Semester = subjectViewModel.Semester;
+                subject.AISCode = subjectViewModel.AISCode;
+                subject.ShortName = subjectViewModel.ShortName;
+                subject.Department = subjectViewModel.Department;
 
                 subject.DateModified = DateTime.Now;
                 subject.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
@@ -152,7 +153,7 @@ namespace MACAWeb.Controllers
                 return RedirectToAction("Index");
             }
 
-            PopulateStudyLevelDropDownList(subjectViewModel.StudyLevelID);
+            //PopulateStudyLevelDropDownList(subjectViewModel.StudyLevelID);
             return View(subjectViewModel);
         }
 
@@ -195,7 +196,7 @@ namespace MACAWeb.Controllers
 
         public ActionResult TeachersIndex(Guid subjectId)
         {
-            var teachers = dbTeachings.Teachings.Where(x => x.SubjectID == subjectId).OrderByDescending(x => x.Person.FullName);
+            var teachers = dbTeachings.Teachings.Where(x => x.SubjectID == subjectId).OrderBy(x => x.Person.Surname);
 
             ViewBag.SubjectID = subjectId;
             return View(teachers);

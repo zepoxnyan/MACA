@@ -18,6 +18,11 @@ namespace MACAWeb.Models
         public Guid ThesisTypeID { get; set; }
         public virtual ThesisType ThesisType { get; set; }
 
+        [Display(Name = "Mentorship Type")]
+        [Required(ErrorMessage = "The mentorship type must be specified!")]
+        public Guid MentorshipTypeID { get; set; }
+        public virtual MentorshipType MentorshipType { get; set; }
+
         [Display(Name = "Person")]
         [Required(ErrorMessage = "The person be specified!")]
         public Guid PersonID { get; set; }
@@ -35,9 +40,9 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
 
-        [Display(Name = "Year")]
+        [Display(Name = "Started in Academic Year")]
         [Required(ErrorMessage = "Year must be specified!")]
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         [Display(Name = "Semester")]
         [Required(ErrorMessage = "Semester must be specified!")]
@@ -67,6 +72,11 @@ namespace MACAWeb.Models
         public Guid ThesisTypeID { get; set; }
         public virtual ThesisType ThesisType { get; set; }
 
+        [Display(Name = "Mentorship Type")]
+        [Required(ErrorMessage = "The mentorship type must be specified!")]
+        public Guid MentorshipTypeID { get; set; }
+        public virtual MentorshipType MentorshipType { get; set; }
+
         [Display(Name = "Person")]
         [Required(ErrorMessage = "The person be specified!")]
         public Guid PersonID { get; set; }
@@ -84,9 +94,9 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
 
-        [Display(Name = "Year")]
+        [Display(Name = "Started in Academic Year")]
         [Required(ErrorMessage = "Year must be specified!")]
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         [Display(Name = "Semester")]
         [Required(ErrorMessage = "Semester must be specified!")]
@@ -97,6 +107,7 @@ namespace MACAWeb.Models
     {
         public DbSet<Mentorship> Mentorships { get; set; }
         public DbSet<ThesisType> ThesisTypes { get; set; }
+        public DbSet<MentorshipType> MentorshipTypes { get; set; }
         public DbSet<Person> Persons { get; set; }
 
         public MentorshipsDbContext() : base("MACA") { }

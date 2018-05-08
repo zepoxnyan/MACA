@@ -22,7 +22,7 @@ namespace MACAWeb.Controllers
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
             var mentorships = db.Mentorships.Include(m => m.Person).Include(m => m.ThesisType)
-                                .OrderBy(x => x.Year).ThenByDescending(x => x.Semester).ThenBy(x => x.Student);
+                                .OrderBy(x => x.Year).ThenByDescending(x => x.Semester).ThenBy(x => x.Person.Surname);
 
             if (searchString != null)
             {
@@ -43,7 +43,7 @@ namespace MACAWeb.Controllers
                                       || m.ThesisTitle.ToString().Contains(searchString)
                                       || m.Year.ToString().Contains(searchString)
                                       || m.Semester.ToString().Contains(searchString))
-                                      .OrderBy(x => x.Year).ThenByDescending(x => x.Semester).ThenBy(x => x.Student);
+                                      .OrderBy(x => x.Year).ThenByDescending(x => x.Semester).ThenBy(x => x.Person.Surname);
             }
 
             int pageSize = int.Parse(ConfigurationManager.AppSettings["generalItemsOnPage"]);
@@ -75,20 +75,25 @@ namespace MACAWeb.Controllers
             return View();
         }
 
-        private void PopulateThesisTypesDropDownList(object selectedThesisType = null)
+        private void PopulateThesisTypesDropDownList(object selectedThesisType = null, object selectedMentorshipType = null)
         {
             var thesisTypesQuery = from c in db.ThesisTypes
                                    orderby c.Name
                                    select c;
             ViewBag.ThesisTypeID = new SelectList(thesisTypesQuery, "ThesisTypeID", "Name", selectedThesisType);
+
+            var mentorshipTypesQuery = from c in db.MentorshipTypes
+                                   orderby c.Name
+                                   select c;
+            ViewBag.MentorshipTypeID = new SelectList(mentorshipTypesQuery, "MentorshipTypeID", "Name", selectedMentorshipType);
         }
 
         private void PopulatePersonsDropDownList(object selectedPerson = null)
         {
             var personQuery = from c in db.Persons
                               orderby c.Surname, c.Name
-                              select c;
-            ViewBag.PersonID = new SelectList(personQuery, "PersonID", "Fullname", selectedPerson);
+                              select new { PersonID = c.PersonID, Name = c.Surname + " " + c.Name };
+            ViewBag.PersonID = new SelectList(personQuery, "PersonID", "Name", selectedPerson);
         }
 
         // POST: Mentorships/Create
@@ -96,7 +101,7 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ThesisTypeID,PersonID,Student,ThesisTitle,Remarks,Year,Semester")] Mentorship mentorship)
+        public ActionResult Create([Bind(Include = "ThesisTypeID,MentorshipTypeID,PersonID,Student,ThesisTitle,Remarks,Year,Semester")] Mentorship mentorship)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +136,7 @@ namespace MACAWeb.Controllers
                 return HttpNotFound();
             }
 
-            PopulateThesisTypesDropDownList(mentorship.ThesisTypeID);
+            PopulateThesisTypesDropDownList(mentorship.ThesisTypeID, mentorship.MentorshipTypeID);
             PopulatePersonsDropDownList(mentorship.PersonID);
             return View(mentorship);
         }
@@ -141,13 +146,14 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MentorshipID,ThesisTypeID,PersonID,Student,ThesisTitle,Remarks,Year,Semester")] MentorshipViewModel mentorshipViewModel)
+        public ActionResult Edit([Bind(Include = "MentorshipID,ThesisTypeID,MentorshipTypeID,PersonID,Student,ThesisTitle,Remarks,Year,Semester")] MentorshipViewModel mentorshipViewModel)
         {
             if (ModelState.IsValid)
             {
                 Mentorship model = db.Mentorships.Find(mentorshipViewModel.MentorshipID);
 
                 model.ThesisTypeID = mentorshipViewModel.ThesisTypeID;
+                model.MentorshipTypeID = mentorshipViewModel.MentorshipTypeID;
                 model.PersonID = mentorshipViewModel.PersonID;
                 model.Student = mentorshipViewModel.Student;
                 model.ThesisTitle = mentorshipViewModel.ThesisTitle;
@@ -163,7 +169,7 @@ namespace MACAWeb.Controllers
                 return RedirectToAction("Index");
             }
 
-            PopulateThesisTypesDropDownList(mentorshipViewModel.ThesisTypeID);
+            PopulateThesisTypesDropDownList(mentorshipViewModel.ThesisTypeID, mentorshipViewModel.MentorshipTypeID);
             PopulatePersonsDropDownList(mentorshipViewModel.PersonID);
             return View(mentorshipViewModel);
         }
@@ -179,7 +185,7 @@ namespace MACAWeb.Controllers
             if (mentorship == null)
             {
                 return HttpNotFound();
-            }
+            }            
             return View(mentorship);
         }
 

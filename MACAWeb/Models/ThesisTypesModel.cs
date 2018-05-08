@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
@@ -15,6 +16,10 @@ namespace MACAWeb.Models
         [Display(Name = "Thesis Type Name")]
         [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
+
+        [Display(Name = "AISCode")]
+        [DefaultValue(0)]
+        public int AISCode { get; set; }
 
         [Display(Name = "Description")]   
         [DataType(DataType.MultilineText)]
@@ -38,7 +43,17 @@ namespace MACAWeb.Models
     public class ThesisTypeViewModel
     {
         public Guid ThesisTypeID { get; set; }
+
+        [Display(Name = "Thesis Type Name")]
+        [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
+
+        [Display(Name = "AISCode")]
+        [DefaultValue(0)]
+        public int AISCode { get; set; }
+
+        [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
 

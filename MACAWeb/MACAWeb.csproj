@@ -251,6 +251,7 @@
     <Compile Include="Controllers\GrantsController.cs" />
     <Compile Include="Controllers\GrantStatusController.cs" />
     <Compile Include="Controllers\MentorshipsController.cs" />
+    <Compile Include="Controllers\MentorshipTypesController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Controllers\PositionTypesController.cs" />
     <Compile Include="Controllers\PublicationClassificationsController.cs" />
@@ -329,6 +330,42 @@
     <Compile Include="Migrations\201805021322526_AuthorsUpdate1.Designer.cs">
       <DependentUpon>201805021322526_AuthorsUpdate1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805070854308_PeopleAisID.cs" />
+    <Compile Include="Migrations\201805070854308_PeopleAisID.Designer.cs">
+      <DependentUpon>201805070854308_PeopleAisID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805070859419_PeopleAisIDUpdate.cs" />
+    <Compile Include="Migrations\201805070859419_PeopleAisIDUpdate.Designer.cs">
+      <DependentUpon>201805070859419_PeopleAisIDUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071125107_MentorshipTypesAIS.cs" />
+    <Compile Include="Migrations\201805071125107_MentorshipTypesAIS.Designer.cs">
+      <DependentUpon>201805071125107_MentorshipTypesAIS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071131598_MentorshipsCOLMentorshipTypeID.cs" />
+    <Compile Include="Migrations\201805071131598_MentorshipsCOLMentorshipTypeID.Designer.cs">
+      <DependentUpon>201805071131598_MentorshipsCOLMentorshipTypeID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071135544_MentorshipsStartYear.cs" />
+    <Compile Include="Migrations\201805071135544_MentorshipsStartYear.Designer.cs">
+      <DependentUpon>201805071135544_MentorshipsStartYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071244576_ThesisTypeAIS.cs" />
+    <Compile Include="Migrations\201805071244576_ThesisTypeAIS.Designer.cs">
+      <DependentUpon>201805071244576_ThesisTypeAIS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805081123383_SubjectsUpdate.cs" />
+    <Compile Include="Migrations\201805081123383_SubjectsUpdate.Designer.cs">
+      <DependentUpon>201805081123383_SubjectsUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805081200191_TeachingTypesAIS.cs" />
+    <Compile Include="Migrations\201805081200191_TeachingTypesAIS.Designer.cs">
+      <DependentUpon>201805081200191_TeachingTypesAIS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805081300350_TeachingUpdate.cs" />
+    <Compile Include="Migrations\201805081300350_TeachingUpdate.Designer.cs">
+      <DependentUpon>201805081300350_TeachingUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -355,6 +392,7 @@
     <Compile Include="Models\StudyLevelModel.cs" />
     <Compile Include="Models\TeachingType.cs" />
     <Compile Include="Models\PublicationStatusModel.cs" />
+    <Compile Include="Models\MentorshipTypesModel.cs" />
     <Compile Include="Models\ThesisTypesModel.cs" />
     <Compile Include="Models\GrantStatusModel.cs" />
     <Compile Include="Models\GrantsModel.cs" />
@@ -669,6 +707,11 @@
     <Content Include="Views\Publications\AuthorsDetails.cshtml" />
     <Content Include="Views\Publications\AuthorsDelete.cshtml" />
     <Content Include="Views\Publications\AuthorsCreate.cshtml" />
+    <Content Include="Views\MentorshipTypes\Create.cshtml" />
+    <Content Include="Views\MentorshipTypes\Delete.cshtml" />
+    <Content Include="Views\MentorshipTypes\Details.cshtml" />
+    <Content Include="Views\MentorshipTypes\Edit.cshtml" />
+    <Content Include="Views\MentorshipTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -718,6 +761,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805021322526_AuthorsUpdate1.resx">
       <DependentUpon>201805021322526_AuthorsUpdate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805070854308_PeopleAisID.resx">
+      <DependentUpon>201805070854308_PeopleAisID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805070859419_PeopleAisIDUpdate.resx">
+      <DependentUpon>201805070859419_PeopleAisIDUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071125107_MentorshipTypesAIS.resx">
+      <DependentUpon>201805071125107_MentorshipTypesAIS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071131598_MentorshipsCOLMentorshipTypeID.resx">
+      <DependentUpon>201805071131598_MentorshipsCOLMentorshipTypeID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071135544_MentorshipsStartYear.resx">
+      <DependentUpon>201805071135544_MentorshipsStartYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071244576_ThesisTypeAIS.resx">
+      <DependentUpon>201805071244576_ThesisTypeAIS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805081123383_SubjectsUpdate.resx">
+      <DependentUpon>201805081123383_SubjectsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805081200191_TeachingTypesAIS.resx">
+      <DependentUpon>201805081200191_TeachingTypesAIS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805081300350_TeachingUpdate.resx">
+      <DependentUpon>201805081300350_TeachingUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
