@@ -1,7 +1,9 @@
 ﻿using MACAWeb.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -15,6 +17,10 @@ namespace MACAWeb.Controllers
         /*private NewsDbContext dbNews = new NewsDbContext();
         private TeamMemberDbContext dbTeamMembers = new TeamMemberDbContext();
         private FunctionDbContext dbFunctions = new FunctionDbContext();*/
+        PersonsDbContext dbPeople = new PersonsDbContext();
+        MentorshipsDbContext dbMentorship = new MentorshipsDbContext();
+        TeachingsDbContext dbTeaching = new TeachingsDbContext();
+        PositionDbContext dbPositions = new PositionDbContext();
 
         public ActionResult Index()
         {
@@ -42,10 +48,64 @@ namespace MACAWeb.Controllers
             return View();
         }
 
-        public ActionResult Features()
+        public ActionResult People(string currentFilter, string searchString, int? page)
         {
-            //List<Function> functions = dbFunctions.Functions.OrderBy(x => x.Name).ToList();
-            return View();
+            var persons = dbPeople.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                persons = persons.Where(m => m.Surname.Contains(searchString)
+                                      || m.Name.Contains(searchString)
+                                      || m.FullName.Contains(searchString)
+                                      || m.Description.Contains(searchString))
+                                      .OrderBy(x => x.Surname).ThenBy(x => x.Name);
+            }
+
+            int pageSize = int.Parse(ConfigurationManager.AppSettings["publicViewItemsOnPage"]);
+            int pageNumber = (page ?? 1);
+
+            return View(persons.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult PersonDetails(Guid personID)
+        {
+            Person person = dbPeople.Persons.Find(personID);
+
+            var positionList = dbPositions.Positions.Where(x => x.PersonID == personID).OrderByDescending(x => x.Year).ThenBy(x => x.Semester);
+            if (positionList.Count() > 0)
+                ViewBag.Position = positionList.First().PositionType.Name;
+            else
+                ViewBag.Position = "NAN";
+
+            return View(person);
+        }
+
+        public ActionResult PersonMentorships(Guid personID)
+        {
+            List<Mentorship> lstMentorship = dbMentorship.Mentorships.Where(x => x.PersonID == personID).OrderBy(x => x.Year).ThenBy(x => x.Student).ToList();
+            Person per = dbPeople.Persons.Find(personID);
+            ViewBag.Title = per.Name + " " + per.Surname;
+            ViewBag.PersonID = personID;
+            return View(lstMentorship);
+        }
+
+        public ActionResult PersonTeaching(Guid personID)
+        {
+            List<Teaching> lstTeaching = dbTeaching.Teachings.Where(x => x.PersonID == personID).OrderByDescending(x => x.Subject.Year).ThenByDescending(x => x.Subject.Semester).ToList();
+            Person per = dbPeople.Persons.Find(personID);
+            ViewBag.Title = per.Name + " " + per.Surname;
+            ViewBag.PersonID = personID;
+            return View(lstTeaching);
         }
 
         public ActionResult News()

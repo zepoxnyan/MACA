@@ -1,0 +1,55 @@
+﻿@model MACAWeb.Models.Person
+
+@{
+    ViewBag.Title = Model.Name + " " + Model.Surname;
+}
+
+<div class="main-content">
+    <h2>@Model.FullName</h2>
+    <h3>
+        @ViewBag.Position
+    </h3>
+    <hr />
+
+    <div class="row last-news-row inner-rectangle">
+        <div class="col-md-8 last-news">
+            <p style="text-align:justify;">
+                @Model.Description
+            </p>
+        </div>
+        <div class="col-md-4 last-news-img">
+            @{
+                if (Model.Image != null && Model.Image.Length > 0)
+                {
+                    var base64 = Convert.ToBase64String(Model.Image);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    @:<img src="@imgSrc" />
+                }
+            }
+        </div>
+    </div>
+
+    <div class="row last-news-row inner-rectangle-small">
+        <div class="col-md-4 last-news">
+            <a href="/Home/PersonPublications?personID=@Model.PersonID" class="a-div-link">
+                <div class="tab-content-small div-link">
+                    <h2>Publications</h2>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 last-news">
+            <a href="/Home/PersonTeaching?personID=@Model.PersonID" class="a-div-link">
+                <div class="tab-content-small div-link">
+                    <h2>Teaching</h2>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 last-news">
+            <a href="/Home/PersonMentorships?personID=@Model.PersonID" class="a-div-link">
+                <div class="tab-content-small div-link">
+                    <h2>Mentorships</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

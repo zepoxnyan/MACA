@@ -32,11 +32,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.About, "About", "Home", null, new { @class = "navbar-link" })</li>
-                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Features, "Features", "Home", null, new { @class = "navbar-link" })</li>
-                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.WhoWeAre, "Team", "Home", null, new { @class = "navbar-link" })</li>                                           
-                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Papers, "Papers", "Home", null, new { @class = "navbar-link" })</li>
-                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.News, "News", "Home", null, new { @class = "navbar-link" })</li>
+                    <li>@Html.ActionLink("About MACA", "About", "Home", null, new { @class = "navbar-link" })</li>
+                    <li>@Html.ActionLink("People", "People", "Home", null, new { @class = "navbar-link" })</li>
+                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Papers, "Publications", "Home", null, new { @class = "navbar-link" })</li>                    
                     @if (Context.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Administration", "Administration", "Home", null, new { @class = "navbar-link" })</li>
@@ -49,25 +47,12 @@
     <div class="container">
         @RenderBody()        
         <hr />
-        <footer style="margin-top:-10px; background-color:white;padding:10px;">
+        <footer class="footer-style">
             <div class="container" style="">
                 <div style="float:left !important;">
-                    <a href="http://www.fis.unm.si" target="_new" class="block-link">&copy; @DateTime.Now.Year - Faculty of Information Studies</a>
+                    <a href="https://www.upjs.sk/prirodovedecka-fakulta/ustav/umv/" target="_new" class="block-link">&copy; @DateTime.Now.Year - Univerzita Pavla Jozefa Šafárika v Košiciach, Prírodovedecká fakulta</a>
                 </div>
-                <div style="float:right !important;color:#086723;">                    
-                    <!--<a href="@Url.Action("SelectLanguage", "Language", new { Lang = "si" })" class="block-link">
-                        <img src="~/Images/si.png" class="flags" />
-                    </a>
-                    <a href="@Url.Action("SelectLanguage", "Language", new { Lang = "en" })" class="block-link">
-                        <img src="~/Images/gb.png" class="flags" />&nbsp;
-                    </a>-->
-                    <a href="https://www.fwf.ac.at/en/" class="block-link" target="_new">
-                        <img src="~/Images/logoFwf.jpg" style="height:20px;" />&nbsp;
-                    </a>
-                    <a href="https://www.arrs.gov.si/sl/" class="block-link" target="_new">
-                        <img src="~/Images/logoARRS.gif" style="height:20px;" />&nbsp;
-                    </a>
-                    @Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Faq, "FAQs", "Home", null, new { @class = "block-link" })
+                <div style="float:right !important;color:#086723;">
                     @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "block-link" })
                     @Html.ActionLink("Press", "Press", "Home", null, new { @class = "block-link" })
                 </div>

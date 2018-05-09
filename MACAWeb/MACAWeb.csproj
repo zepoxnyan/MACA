@@ -366,6 +366,10 @@
     <Compile Include="Migrations\201805081300350_TeachingUpdate.Designer.cs">
       <DependentUpon>201805081300350_TeachingUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805090847056_DeleteSubjectRecords.cs" />
+    <Compile Include="Migrations\201805090847056_DeleteSubjectRecords.Designer.cs">
+      <DependentUpon>201805090847056_DeleteSubjectRecords.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -568,7 +572,7 @@
     <Content Include="Views\Home\Team.cshtml" />
     <Content Include="Views\Home\Press.cshtml" />
     <Content Include="Views\Home\Papers.cshtml" />
-    <Content Include="Views\Home\Features.cshtml" />
+    <Content Include="Views\Home\People.cshtml" />
     <Content Include="Views\TeamMembers\Create.cshtml" />
     <Content Include="Views\TeamMembers\Delete.cshtml" />
     <Content Include="Views\TeamMembers\Details.cshtml" />
@@ -712,6 +716,9 @@
     <Content Include="Views\MentorshipTypes\Details.cshtml" />
     <Content Include="Views\MentorshipTypes\Edit.cshtml" />
     <Content Include="Views\MentorshipTypes\Index.cshtml" />
+    <Content Include="Views\Home\PersonDetails.cshtml" />
+    <Content Include="Views\Home\PersonMentorships.cshtml" />
+    <Content Include="Views\Home\PersonTeaching.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -788,6 +795,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805081300350_TeachingUpdate.resx">
       <DependentUpon>201805081300350_TeachingUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805090847056_DeleteSubjectRecords.resx">
+      <DependentUpon>201805090847056_DeleteSubjectRecords.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

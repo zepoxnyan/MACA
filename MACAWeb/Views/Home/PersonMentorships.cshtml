@@ -1,0 +1,91 @@
+﻿@model List<MACAWeb.Models.Mentorship>
+@Scripts.Render("~/bundles/jquery")
+
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>@ViewBag.Title</h2>
+            <h3>Mentorships</h3>
+        </div>
+        <div class="col-md-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Home", "PersonDetails", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Publications", "PersonPublications", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Teaching", "PersonTeaching", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Mentorships", "PersonMentorships", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            @{ 
+                List<MACAWeb.Models.Mentorship> lstBak = Model.Where(x => x.ThesisType.AISCode == 1).OrderByDescending(x => x.Year).ToList();
+                List<MACAWeb.Models.Mentorship> lstDip = Model.Where(x => x.ThesisType.AISCode == 2).OrderByDescending(x => x.Year).ToList();
+                List<MACAWeb.Models.Mentorship> lstDis = Model.Where(x => x.ThesisType.AISCode == 3).OrderByDescending(x => x.Year).ToList();
+
+                if (lstBak.Count > 0)
+                {
+                    @:<h4>Bakalarske prace</h4>
+                    @:<ol>
+                        {
+                            foreach (var item in lstBak)
+                            {
+                                <li class="container-offer-company">
+                                    @item.Student: @item.ThesisTitle, (@item.Year)
+                                </li>
+                            }
+                        }
+                    @:</ol>
+                }
+                if (lstDip.Count > 0)
+                {
+                    @:<h4>Diplomove prace</h4>
+                    @:<ol>
+                        {
+                            foreach (var item in lstDip)
+                            {
+                                <li class="container-offer-company">
+                                    @item.Student: @item.ThesisTitle, (@item.Year)
+                                </li>
+                            }
+                        }
+                    @:</ol>
+                }
+                if (lstDis.Count > 0)
+                {
+                    @:<h4>Dizertačne prace</h4>
+                    @:<ol>
+                        {
+                            foreach (var item in lstDis)
+                            {
+                                <li class="container-offer-company">
+                                    @item.Student: @item.ThesisTitle, (@item.Year)
+                                </li>
+                            }
+                        }
+                    @:</ol>
+                }
+            }
+        </div>
+    </div>
+</div>

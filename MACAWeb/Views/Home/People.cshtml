@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<MACAWeb.Models.Person>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "People";
+}
+
+<div class="main-content">
+    <h2>@ViewBag.Title</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <!--Search Form-->
+            <div class="col col-md-4 search-box">
+                @using (Html.BeginForm("People", "Home", FormMethod.Get))
+                {
+                    <div class="input-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+        <br />
+        <div class="row index-row">
+            @{
+                var counter = 0;
+                foreach (var item in Model)
+                {
+                    @:<div class="col-md-6 div-vertical-align @(counter % 2 == 0 ? "div-vertical-right-1" : "div-vertical-left-1") ">
+                        @:<a href="/Home/PersonDetails?personID=@item.PersonID" class="a-offer-link">
+                            @:<div class="container-offer-company">
+                                @:<p class="p-company-name">@item.FullName</p>
+                            @:</div>
+                        @:</a>
+                    @:</div>
+                    counter++;
+                }
+            }
+        </div>
+        <!--Pagination-->
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("People", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>

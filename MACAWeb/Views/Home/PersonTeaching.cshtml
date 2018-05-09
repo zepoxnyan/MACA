@@ -1,0 +1,71 @@
+﻿@model List<MACAWeb.Models.Teaching>
+@Scripts.Render("~/bundles/jquery")
+
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>@ViewBag.Title</h2>
+            <h3>Teachings</h3>
+        </div>
+        <div class="col-md-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Home", "PersonDetails", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Publications", "PersonPublications", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Teaching", "PersonTeaching", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Mentorships", "PersonMentorships", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <ul>
+                @{
+                    string prevYearSem = "";
+
+                    foreach (var item in Model)
+                    {
+                        string yearSem = item.Subject.Year + "/" + item.Subject.Semester;
+                        if (prevYearSem == yearSem)
+                        {
+                            @:<li class="container-offer-company">
+                                string text = item.Subject.Name + " (" + item.TeachingType.Name + ")";
+                                @text
+                            @:</li>
+                        }
+                        else
+                        {
+                            prevYearSem = yearSem;
+                            @:</ul>
+                            @:<h4>@item.Subject.Year, @item.Subject.Semester. semester</h4>
+                            @:<ul>
+                                @:<li class="container-offer-company">
+                                    string text = item.Subject.Name + " (" + item.TeachingType.Name + ")";
+                                    @text
+                                @:</li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>

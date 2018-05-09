@@ -1,7 +1,7 @@
 ﻿@model MACAWeb.Models.News
 
 @{
-    ViewBag.Title = "UPJŠ";
+    ViewBag.Title = "UPJŠ - MACA";
 }
 
 
@@ -43,14 +43,14 @@
         </a>
     </div>
     <div class="col-md-4">
-        <a href="/Home/Features" class="a-div-link">
+        <a href="/Home/People" class="a-div-link">
             <div class="tab-content div-link">
-                <h2>Features</h2>
+                <h2>People</h2>
                 <br />
                 <img src="~/Images/featureIcon.png" height="75" />
                 <br /><br />
                 <p style="vertical-align:text-bottom;">
-                    Find out what MACA can help you with!
+                    UMV employees
                 </p>
             </div>
         </a>
@@ -58,58 +58,14 @@
     <div class="col-md-4">
         <a href="/Home/Papers" class="a-div-link">
             <div class="tab-content div-link">
-                <h2>Papers</h2>
+                <h2>Publications</h2>
                 <br />
                 <img src="~/Images/paperIcon.png" height="75" />
                 <br /><br />
                 <p>
-                    Read the latest research in the field!
+                    Check out the latest publications of UMV
                 </p>
             </div>
         </a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-4"         
-         @if (!Context.User.Identity.IsAuthenticated)
-        {
-            @:style = "pointer-events:none;"
-        }
-    >
-        <div class="tab-content dashboard">
-            @if (!Context.User.Identity.IsAuthenticated)
-            {
-                    <div class="overlay">
-                        <h1 class="overlay-text">
-                            Log in to access all the features!
-                        </h1>
-                    </div>
-            }
-            <span class="dash-title">My Dashboard</span>
-            <hr style="margin-top:2px;" />
-            <div>
-                <a href="/Instances/Index" class="a-dash-link">
-                    <div class="dash-tab">
-                        <h4>My Instances</h4>
-                    </div>
-                </a>
-                <a href="/UserTasks/Index" class="a-dash-link">
-                    <div class="dash-tab">
-                        <h4>My Tasks</h4>
-                    </div>
-                </a>
-                <a href="/Results/Index" class="a-dash-link">
-                    <div class="dash-tab">
-                        <h4>My Results</h4>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="tab-content front-news">
-            .
-        </div>
     </div>
 </div>

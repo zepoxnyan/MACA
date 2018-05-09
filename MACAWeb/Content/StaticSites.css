@@ -3,9 +3,18 @@
     border:solid 2px var(--orange);
     padding:20px;
     padding-bottom:40px;
+    min-height:800px;
 }
 
 .inner-rectangle {
+    background-color:var(--blue); 
+    border:solid 2px black;
+    margin:15px;
+    padding:30px;
+    min-height:600px;
+}
+
+.inner-rectangle-small {
     background-color:var(--blue); 
     border:solid 2px black;
     margin:15px;

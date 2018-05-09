@@ -71,6 +71,32 @@ textarea {
     color:var(--orange);
 }
 
+.tab-content-small
+{
+    margin:5px;
+    height:90px;
+    padding:6px;
+    background-color:var(--orange);       
+    border:1px solid var(--dark);
+    border-radius:14px 14px;
+    text-align:center;
+}
+
+.tab-content-small:hover
+{    
+    background-color:var(--grey);
+    color:var(--orange);
+}
+
+.footer-style
+{
+    margin-top:-10px; 
+    background-color:white;
+    padding:10px;
+    background-color:var(--blue);       
+    border:2px solid black;
+}
+
 .logo-row
 {
     margin:5px;
@@ -504,4 +530,132 @@ textarea {
 .a-dash-link div:hover
 {
     background-color:var(--orange);
+}
+
+
+/********************/
+/* HOME - FIFTH ROW - info */
+
+.info-logo-bg {
+    background-color: #303030;
+}
+
+.row-info {
+    margin: inherit;
+}
+
+.container-fis-info {
+    color: #75ae1d;   
+}
+
+.container-fis-info p {
+    text-align: left;
+    line-height: 40px;
+}
+
+#phone-1, #envelope-1 {
+    color: var(--text-secondary);
+}
+
+.container-fis-info a {
+    color: var(--text-secondary);
+}
+
+.container-fis-info a:hover, a:focus {
+    color: #75ae1d;
+    text-decoration: none;
+}
+
+@media screen and (min-width: 0) {
+    .row-info {
+        padding: 20px 0;
+    }
+
+    .container-fis-info {
+        font-size: 80%;
+    }
+
+    .container-fis-info img {
+        max-width: 180px;        
+    }
+
+    .container-fis-info p {
+        margin-top: 20px;
+    }
+
+    .container-logo-info img {
+        max-height: 40px;
+        max-width: 120px;
+        object-fit: scale-down;
+    }
+
+    .container-logo-info .logo-link {
+        margin: 15px;
+        display: inline-block;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .row-info {
+        padding: 30px 0;
+    }
+
+    .container-fis-info {
+        font-size: 100%;
+    }
+
+    .container-fis-info img {
+        max-width: 240px;
+    }
+
+    .container-fis-info p {
+        margin-top: 24px;
+    }
+
+    .container-logo-info img {
+        max-height: 80px;
+        max-width: 160px;
+    }
+
+    .container-logo-info .logo-link {
+        margin: 20px 0;
+        display: block;
+    }
+
+    .container-logo-info .logo-link:last-of-type {
+        margin-bottom: 0px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .row-info {
+        padding: 60px 0;
+    }
+
+    .container-fis-info {
+        font-size: 100%;
+    }
+
+    .container-fis-info img {
+        max-width: 240px;
+    }
+
+    .container-fis-info p {
+        margin-top: 24px;
+    }
+
+    .container-logo-info img {
+        max-height: 80px;
+        max-width: 240px;
+        object-fit: scale-down;
+    }
+
+    .container-logo-info .logo-link {
+        margin: 20px 0;
+        display: inline-block;
+    }
+
+    .container-logo-info .logo-link:last-of-type {
+        margin-bottom: 0px;
+    }
 }
