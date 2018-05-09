@@ -1,0 +1,33 @@
+﻿@model PagedList.IPagedList<MACAWeb.Models.Person>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Publications";
+}
+
+<div class="main-content">
+    <h2>@ViewBag.Title</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <!--Search Form-->
+            <div class="col col-md-4 search-box">
+                @using (Html.BeginForm("Publications", "Home", FormMethod.Get))
+                {
+                    <div class="input-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+        <br />
+        <h2>Under Construction!</h2>
+    </div>
+</div>

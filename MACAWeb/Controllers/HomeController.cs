@@ -21,6 +21,7 @@ namespace MACAWeb.Controllers
         MentorshipsDbContext dbMentorship = new MentorshipsDbContext();
         TeachingsDbContext dbTeaching = new TeachingsDbContext();
         PositionDbContext dbPositions = new PositionDbContext();
+        PublicationsDbContext dbPublications = new PublicationsDbContext();
 
         public ActionResult Index()
         {
@@ -108,13 +109,22 @@ namespace MACAWeb.Controllers
             return View(lstTeaching);
         }
 
+        public ActionResult PersonPublications(Guid personID)
+        {
+            List<Publication> lstPublications = new List<Publication>();
+            Person per = dbPeople.Persons.Find(personID);
+            ViewBag.Title = per.Name + " " + per.Surname;
+            ViewBag.PersonID = personID;
+            return View(lstPublications);
+        }
+
         public ActionResult News()
         {
             //List<News> orderedNews = dbNews.News.OrderByDescending(x => x.DatePublished).ToList();
             return View();
         }
 
-        public ActionResult Team()
+        public ActionResult Publications()
         {
             //List<TeamMember> teamMembers = dbTeamMembers.TeamMembers.OrderByDescending(x => x.PagePosition).ThenBy(x => x.LastName).ToList();
             return View();

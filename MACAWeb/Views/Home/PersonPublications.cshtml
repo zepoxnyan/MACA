@@ -1,0 +1,44 @@
+﻿@model List<MACAWeb.Models.Publication>
+@Scripts.Render("~/bundles/jquery")
+
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>@ViewBag.Title</h2>
+            <h3>Publications</h3>
+        </div>
+        <div class="col-md-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Home", "PersonDetails", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Publications", "PersonPublications", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Teaching", "PersonTeaching", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
+                            @Html.ActionLink("Mentorships", "PersonMentorships", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <h2>Under Construction!</h2>
+        </div>
+    </div>
+</div>
