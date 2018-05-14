@@ -26,6 +26,9 @@
                 <th>
                     Publication Type Group
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
                 <th></th>
             </tr>
 
@@ -37,6 +40,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PublicationTypeGroup.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
                         <a href="@Url.Action("Edit", "PublicationTypeLocals", new { id=item.PublicationTypeLocalID })">

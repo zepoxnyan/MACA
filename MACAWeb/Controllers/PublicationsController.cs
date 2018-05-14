@@ -103,7 +103,7 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PublicationTypeID,PublicationTypeLocalID,PublicationClassificationID,PublicationStatusID,Title,Journal,Year,Volume,Issue,Pages,DOI,Link,Note,Editors,Publisher,Series,Address,Edition,BookTitle,Organization,Chapter,Keywords,Abstract")] Publication publication)
+        public ActionResult Create([Bind(Include = "PublicationTypeID,PublicationTypeLocalID,PublicationClassificationID,PublicationStatusID,Title,TitleEN,Journal,Year,Volume,Issue,Pages,DOI,Link,Note,Editors,Publisher,Series,Address,Edition,BookTitle,Organization,Chapter,Keywords,KeywordsEN,Abstract")] Publication publication)
         {
             if (ModelState.IsValid)
             {
@@ -146,7 +146,7 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PublicationID,PublicationTypeID,PublicationTypeLocalID,PublicationClassificationID,PublicationStatusID,Title,Journal,Year,Volume,Issue,Pages,DOI,Link,Note,Editors,Publisher,Series,Address,Edition,BookTitle,Organization,Chapter,Keywords,Abstract")] PublicationViewModel publicationViewModel)
+        public ActionResult Edit([Bind(Include = "PublicationID,PublicationTypeID,PublicationTypeLocalID,PublicationClassificationID,PublicationStatusID,Title,TitleEN,Journal,Year,Volume,Issue,Pages,DOI,Link,Note,Editors,Publisher,Series,Address,Edition,BookTitle,Organization,Chapter,Keywords,KeywordsEN,Abstract")] PublicationViewModel publicationViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -158,6 +158,7 @@ namespace MACAWeb.Controllers
                 publication.PublicationTypeLocalID = publicationViewModel.PublicationTypeLocalID;
 
                 publication.Title = publicationViewModel.Title;
+                publication.TitleEN = publicationViewModel.TitleEN;
                 publication.Abstract = publicationViewModel.Abstract;
                 publication.Address = publicationViewModel.Address;
                 publication.BookTitle = publicationViewModel.BookTitle;
@@ -168,6 +169,7 @@ namespace MACAWeb.Controllers
                 publication.Issue = publicationViewModel.Issue;
                 publication.Journal = publicationViewModel.Journal;
                 publication.Keywords = publicationViewModel.Keywords;
+                publication.KeywordsEN = publicationViewModel.KeywordsEN;
                 publication.Link = publicationViewModel.Link;
                 publication.Note = publicationViewModel.Note;
                 publication.Organization = publicationViewModel.Organization;

@@ -12,6 +12,8 @@ namespace MACAWeb.Models
         [Key]        
         public Guid PublicationTypeID { get; set; }
 
+        public int Code { get; set; }
+
         [Display(Name = "Publication Type Name")]
         [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }

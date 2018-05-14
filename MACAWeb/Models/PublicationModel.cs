@@ -33,7 +33,7 @@ namespace MACAWeb.Models
         public Guid PublicationStatusID { get; set; }
         public virtual PublicationStatus PublicationStatus { get; set; }
 
-        [Display(Name = "Title")]
+        [Display(Name = "Nazov")]
         [Required(ErrorMessage = "Enter the title!")]
         public string Title { get; set; }
         
@@ -91,6 +91,12 @@ namespace MACAWeb.Models
         
         [Display(Name = "Keywords")]
         public string Keywords { get; set; }
+
+        [Display(Name = "KeywordsEN")]
+        public string KeywordsEN { get; set; }
+
+        [Display(Name = "Anglicky Nazov")]
+        public string TitleEN { get; set; }
 
         [Display(Name = "Abstract")]
         [DataType(DataType.MultilineText)]
@@ -197,6 +203,12 @@ namespace MACAWeb.Models
         [Display(Name = "Abstract")]
         [DataType(DataType.MultilineText)]
         public string Abstract { get; set; }
+
+        [Display(Name = "KeywordsEN")]
+        public string KeywordsEN { get; set; }
+
+        [Display(Name = "Anglicky Nazov")]
+        public string TitleEN { get; set; }
     }
 
     public class PublicationsDbContext : DbContext

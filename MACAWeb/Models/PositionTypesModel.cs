@@ -10,7 +10,7 @@ namespace MACAWeb.Models
     public class PositionType
     {
         [Key]        
-        public Guid PositionTypeID { get; set; }
+        public Guid PositionTypeID { get; set; }       
 
         [Display(Name = "Position Type Name")]
         [Required(ErrorMessage = "The name must be specified!")]
@@ -38,7 +38,13 @@ namespace MACAWeb.Models
     public class PositionTypeViewModel
     {
         public Guid PositionTypeID { get; set; }
+
+        [Display(Name = "Position Type Name")]
+        [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
+
+        [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
 

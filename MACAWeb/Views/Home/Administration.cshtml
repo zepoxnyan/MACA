@@ -7,7 +7,7 @@
 
     <hr />
 
-    <div class="row inner-rectangle">
+    <div class="row inner-rectangle-small">
         @if (User.IsInRole("SuperAdmin"))
         {
             <h3 style="margin-top:-5px;">Technical Entities</h3>
@@ -44,7 +44,7 @@
         }
     </div>
 
-    <div class="row inner-rectangle">
+    <div class="row inner-rectangle-small">
         @if (User.IsInRole("Admin"))
         {
             <h3 style="margin-top:-5px;">Content Management</h3>
@@ -60,7 +60,7 @@
         }
     </div>
 
-    <div class="row inner-rectangle">
+    <div class="row inner-rectangle-small">
         @if (User.IsInRole("SuperAdmin"))
         {
             <h3 style="margin-top:-5px;">Users & Events</h3>
@@ -71,7 +71,7 @@
         }
     </div>
 
-    <div class="row inner-rectangle">
+    <div class="row inner-rectangle-small">
         @if (User.IsInRole("SuperAdmin"))
         {
             <h3 style="margin-top:-5px;">Data Migration</h3>

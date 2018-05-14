@@ -370,6 +370,14 @@
     <Compile Include="Migrations\201805090847056_DeleteSubjectRecords.Designer.cs">
       <DependentUpon>201805090847056_DeleteSubjectRecords.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805141314211_PublicationTypesUpdate.cs" />
+    <Compile Include="Migrations\201805141314211_PublicationTypesUpdate.Designer.cs">
+      <DependentUpon>201805141314211_PublicationTypesUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805141319593_PublicationsUpdate.cs" />
+    <Compile Include="Migrations\201805141319593_PublicationsUpdate.Designer.cs">
+      <DependentUpon>201805141319593_PublicationsUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -800,6 +808,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805090847056_DeleteSubjectRecords.resx">
       <DependentUpon>201805090847056_DeleteSubjectRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141314211_PublicationTypesUpdate.resx">
+      <DependentUpon>201805141314211_PublicationTypesUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141319593_PublicationsUpdate.resx">
+      <DependentUpon>201805141319593_PublicationsUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
