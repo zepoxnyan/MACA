@@ -13,7 +13,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal inner-rectangle">
+        <div class="form-horizontal inner-rectangle">  
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.PublicationID)
 

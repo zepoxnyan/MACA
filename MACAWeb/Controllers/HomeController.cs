@@ -78,9 +78,12 @@ namespace MACAWeb.Controllers
             return View(persons.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult PersonDetails(Guid personID)
+        public ActionResult PersonDetails(Guid? personID = null)
         {
-            Person person = dbPeople.Persons.Find(personID);
+            if(personID == null)
+                return RedirectToAction("People");
+
+            Person person = dbPeople.Persons.Find(personID.Value);
 
             var positionList = dbPositions.Positions.Where(x => x.PersonID == personID).OrderByDescending(x => x.Year).ThenBy(x => x.Semester);
             if (positionList.Count() > 0)
