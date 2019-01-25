@@ -53,6 +53,14 @@ namespace MACAWeb.Controllers
         {
             var persons = dbPeople.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
 
+            /*
+            var test = from person in dbPeople.Persons
+                      where person.FullName.Contains("a")
+                      select new {
+                            Name = (person.Name.Length > person.Surname.Length ? person.Name : person.Surname)
+                      };
+            */
+
             if (searchString != null)
             {
                 page = 1;
