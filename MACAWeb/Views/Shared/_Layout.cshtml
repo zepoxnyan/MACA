@@ -18,26 +18,24 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                    <img src="~/Images/macaIcon.png" width="40" />
-                </a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About MACA", "About", "Home", null, new { @class = "navbar-link" })</li>
-                    <li>@Html.ActionLink("People", "People", "Home", null, new { @class = "navbar-link" })</li>
-                    <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Papers, "Publications", "Home", null, new { @class = "navbar-link" })</li>                    
+    <nav class="navbar fixed-top navbar-light navbar-inverse bg-light navbar-expand-lg">
+        <div class="container navbar-header">
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                <img src="~/Images/macaIcon.png" width="40" />
+            </a>
+
+            <button type="button" class="navbar-toggler navbar-light" data-toggle="collapse" data-target="#navbarCollapsed" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarCollapsed">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item">@Html.ActionLink("About MACA", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("People", "People", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Papers, "Publications", "Home", null, new { @class = "nav-link" })</li>
                     @if (Context.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Administration", "Administration", "Home", null, new { @class = "navbar-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Administration", "Administration", "Home", null, new { @class = "nav-link" })</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -45,16 +43,16 @@
         </div>
     </nav>
     <div class="container">
-        @RenderBody()        
+        @RenderBody()
         <hr />
-        <footer class="footer-style">
-            <div class="container" style="">
-                <div style="float:left !important;">
-                    <a href="https://www.upjs.sk/prirodovedecka-fakulta/ustav/umv/" target="_new" class="block-link">&copy; @DateTime.Now.Year - Univerzita Pavla Jozefa Šafárika v Košiciach, Prírodovedecká fakulta</a>
+        <footer class="page-footer foot-row footer-style">
+            <div class="row">
+                <div class="mr-auto">
+                        <a href="https://www.upjs.sk/prirodovedecka-fakulta/ustav/umv/" target="_new" class="block-link">&copy; @DateTime.Now.Year - Univerzita Pavla Jozefa Šafárika v Košiciach, Prírodovedecká fakulta</a>
                 </div>
-                <div style="float:right !important;color:#086723;">
-                    @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "block-link" })
-                    @Html.ActionLink("Press", "Press", "Home", null, new { @class = "block-link" })
+                <div class="ml-auto">
+                        @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "block-link" })
+                        @Html.ActionLink("Press", "Press", "Home", null, new { @class = "block-link" })
                 </div>
             </div>
         </footer>

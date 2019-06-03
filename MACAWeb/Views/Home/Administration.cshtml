@@ -10,22 +10,22 @@
     <div class="row inner-rectangle-small">
         @if (User.IsInRole("SuperAdmin"))
         {
-            <h3 style="margin-top:-5px;">Technical Entities</h3>
+            <h3 class="col-md-12" style="margin-top:-5px;">Technical Entities</h3>
 
             <h4 style="margin-top:-5px;">Persons</h4>
-            <div class="row-administration">
+            <div class="row col-md-12">
                 <div>@Html.ActionLink("Position Types", "Index", "PositionTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
             </div>
             <br />
             <h4 style="margin-top:-5px;">Grants</h4>
-            <div class="row-administration">                
+            <div class="row col-md-12">                
                 <div>@Html.ActionLink("Grant Statuses", "Index", "GrantStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Grant Budget Types", "Index", "GrantBudgetsTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Grant Member Types", "Index", "GrantMemberTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
             </div>
             <br />
             <h4 style="margin-top:-5px;">Activities &amp; Teaching</h4>
-            <div class="row-administration">                
+            <div class="row col-md-12">                
                 <div>@Html.ActionLink("Activity Types", "Index", "ActivityTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Teaching Types", "Index", "TeachingTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Mentorship Types", "Index", "MentorshipTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
@@ -33,7 +33,7 @@
             </div>
             <br />
             <h4 style="margin-top:-5px;">Publications</h4>
-            <div class="row-administration">
+            <div class="row col-md-12">
                 <div>@Html.ActionLink("Publication Statuses", "Index", "PublicationStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Publication Types", "Index", "PublicationTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Local Publication Type Groups", "Index", "PublicationTypeGroups", null, htmlAttributes: new { @class = "big-button-link" })</div>
@@ -47,8 +47,8 @@
     <div class="row inner-rectangle-small">
         @if (User.IsInRole("Admin"))
         {
-            <h3 style="margin-top:-5px;">Content Management</h3>
-            <div class="row-administration">
+            <h3 class="col-md-12" style="margin-top:-5px;">Content Management</h3>
+            <div class="row-administration col-md-12">
                 <div>@Html.ActionLink("People", "Index", "Persons", null, new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Grants", "Index", "Grants", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Subjects", "Index", "Subjects", null, htmlAttributes: new { @class = "big-button-link" })</div>
@@ -63,8 +63,8 @@
     <div class="row inner-rectangle-small">
         @if (User.IsInRole("SuperAdmin"))
         {
-            <h3 style="margin-top:-5px;">Users & Events</h3>
-            <div class="row-administration">
+            <h3 class="col-md-12" style="margin-top:-5px;">Users & Events</h3>
+            <div class="row-administration col-md-12">
                 <div>@Html.ActionLink("Users", "Index", "Users", null, new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Event Types", "Index", "EventTypes", null, new { @class = "big-button-link" })</div>
             </div>
@@ -74,8 +74,8 @@
     <div class="row inner-rectangle-small">
         @if (User.IsInRole("SuperAdmin"))
         {
-            <h3 style="margin-top:-5px;">Data Migration</h3>
-            <div class="row-administration">
+            <h3 class="col-md-12" style="margin-top:-5px;">Data Migration</h3>
+            <div class="row-administration col-md-12">
                 <div>@Html.ActionLink("Insert People", "InsertPeople", "Home", null, new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Insert Mentors", "InsertMentors", "Home", null, new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Insert Subjects", "InsertSubjects", "Home", null, new { @class = "big-button-link" })</div>
