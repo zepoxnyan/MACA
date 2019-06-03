@@ -7,10 +7,11 @@
 
 body {
     padding-bottom: 20px;
-    background-color:var(--grey);
-    background-image:url(../Images/math.jpg);
-    background-repeat:repeat;    
-    font-family:Verdana;
+    background-color: var(--grey);
+    background-image: url(../Images/math.jpg);
+    background-repeat: repeat;
+    font-family: Verdana;
+    padding-top: 80px;
 }
 
 a {

@@ -5,18 +5,18 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Greetings, " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "navbar-link" })
+    <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item">
+            @Html.ActionLink("Greetings, " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()" class="navbar-link">Log out</a></li>
+        <li class="nav-item"><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link">Log out</a></li>
     </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "navbar-link" })</li>
-        <li>@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "navbar-link" })</li>    
+        <li class="nav-item">@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>    
     </ul>
 }
