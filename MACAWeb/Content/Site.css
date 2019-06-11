@@ -17,6 +17,23 @@ body {
 a {
     font-weight:600;
 }
+.custom-card {
+    margin: 5px;
+    height: 250px;
+    background-color: var(--orange);
+    border: 2px solid var(--dark);
+    border-radius: 14px 14px;
+    text-align: center;
+}
+
+a.custom-card-link{
+    color: black;
+}
+a.custom-card-link:hover{
+    color: darkslategrey;
+    text-decoration: none;
+
+}
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -263,6 +280,7 @@ textarea {
 
 .a-div-link:hover
 {
+    color:inherit;
     text-decoration:none;
 }
 
