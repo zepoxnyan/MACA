@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -41,7 +42,9 @@
                         }
                         if (User.IsInRole("Employee"))
                         {
-                            <li class="nav-item">@Html.ActionLink("Edit profile", "Index", "Manage", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Edit profile", "Edit", "Persons", new { @id=User.Identity.GetUserId() }, new { @class = "nav-link"})</li>
+                            
+
                         }
                     }
                 </ul>

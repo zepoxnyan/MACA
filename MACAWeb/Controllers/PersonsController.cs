@@ -22,6 +22,7 @@ namespace MACAWeb.Controllers
         private AuthorsDbContext dbAuthors = new AuthorsDbContext();
 
         // GET: Persons
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
             var persons = dbPersons.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
@@ -67,6 +68,7 @@ namespace MACAWeb.Controllers
         }
 
         // GET: Persons/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -77,6 +79,7 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Surname,Name,FullName,Description,Image")] PersonViewModel personView)
         {
             if (ModelState.IsValid)
