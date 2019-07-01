@@ -14,7 +14,7 @@ using System.IO;
 
 namespace MACAWeb.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class PersonsController : Controller
     {
         private PersonsDbContext dbPersons = new PersonsDbContext();
@@ -140,6 +140,9 @@ namespace MACAWeb.Controllers
         }
 
         // GET: Persons/Edit/5
+        //Test urejanja za employee
+        [Authorize(Roles = "Employee")]
+        //------------------------------
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -176,6 +179,9 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //Test urejanja za employee
+        [Authorize(Roles = "Employee")]
+        //------------------------------
         public ActionResult Edit([Bind(Include = "PersonID,Surname,Name,FullName,Description,Image")] PersonViewModel personView)
         {
             if (ModelState.IsValid)

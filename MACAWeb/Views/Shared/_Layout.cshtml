@@ -33,13 +33,16 @@
                     <li class="nav-item">@Html.ActionLink("About MACA", "About", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("People", "People", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Papers, "Publications", "Home", null, new { @class = "nav-link" })</li>
-                    @if (Context.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    @if (Context.User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item">@Html.ActionLink("Administration", "Administration", "Home", null, new { @class = "nav-link" })</li>
-                    }
-                    @if (Context.User.Identity.IsAuthenticated && User.IsInRole("Employee"))
-                    {
-                        <li class="nav-item">@Html.ActionLink("Edit my profile", "Administration", "Home", null, new { @class = "nav-link" })</li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Administration", "Administration", "Home", null, new { @class = "nav-link" })</li>
+                        }
+                        if (User.IsInRole("Employee"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Edit profile", "Index", "Manage", null, new { @class = "nav-link" })</li>
+                        }
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
