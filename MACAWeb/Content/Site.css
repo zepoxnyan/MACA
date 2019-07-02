@@ -26,6 +26,20 @@ a {
     text-align: center;
 }
 
+.popupimage img{
+    display: none;
+    position: absolute;
+    left: -80px;
+    top: -22px;
+}
+
+.popupimage a{
+    display:inline-block;
+    position:relative;
+}
+
+
+
 a.custom-card-link{
     color: black;
 }
