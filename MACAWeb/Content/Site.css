@@ -42,13 +42,9 @@ a {
     display: none;
 }
 
-.thumb {
-    width: 80px;
-    height: 90px;
-    border-radius: 3px;
-    border: 1px solid var(--grey);
-    background-color: var(--white);
-    padding: 5px;
+.img-thumbnail-70 {
+    width: 60px;
+    height: 70px;
 }
 
 

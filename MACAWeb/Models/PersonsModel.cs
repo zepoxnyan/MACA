@@ -38,6 +38,9 @@ namespace MACAWeb.Models
         [Display(Name = "Image")]
         public byte[] Image { get; set; }
 
+        [Display(Name = "ImageThumb")]
+        public byte[] ImageThumb { get; set; }
+
         [Display(Name = "Created")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
@@ -79,6 +82,7 @@ namespace MACAWeb.Models
 
         [Display(Name = "Image")]
         public HttpPostedFileBase Image { get; set; }
+
     }
 
     public class PersonsDbContext : DbContext

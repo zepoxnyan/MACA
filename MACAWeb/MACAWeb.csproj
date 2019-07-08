@@ -376,6 +376,10 @@
     <Compile Include="Migrations\201805141319593_PublicationsUpdate.Designer.cs">
       <DependentUpon>201805141319593_PublicationsUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907081223599_ImgThumbnail.cs" />
+    <Compile Include="Migrations\201907081223599_ImgThumbnail.Designer.cs">
+      <DependentUpon>201907081223599_ImgThumbnail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -540,7 +544,6 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\popupimage.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -608,7 +611,9 @@
     <Content Include="Views\EventTypes\Create.cshtml" />
     <Content Include="Views\EventTypes\Details.cshtml" />
     <Content Include="Views\EventTypes\Index.cshtml" />
-    <Content Include="Secrets\appSettings.secretConfig" />
+    <Content Include="Secrets\appSettings.secretConfig">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Secrets\connectionStrings.secretConfig">
       <SubType>Designer</SubType>
     </Content>
@@ -866,6 +871,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805141319593_PublicationsUpdate.resx">
       <DependentUpon>201805141319593_PublicationsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907081223599_ImgThumbnail.resx">
+      <DependentUpon>201907081223599_ImgThumbnail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

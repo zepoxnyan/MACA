@@ -1,9 +1,15 @@
 ﻿using MACAWeb.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Policy;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
@@ -88,6 +94,35 @@ namespace MACAWeb
         public static Guid GetUserId(IPrincipal user)
         {
             return Guid.Parse(user.Identity.GetUserId());
+        }
+
+        public static byte[] CreateThumbnail(byte[] image)
+        {
+            MemoryStream msImage = new MemoryStream(image);
+            Image fullsizeImage = System.Drawing.Image.FromStream(msImage);
+
+            int thumbWidth = int.Parse(ConfigurationManager.AppSettings["thumbnailWidth"]);
+            int thumbHeight = (int)(fullsizeImage.Height * thumbWidth / (double)fullsizeImage.Width);
+
+            var thumbnailBitmap = new Bitmap(thumbWidth, thumbHeight);
+            Graphics thumbnailGraph = Graphics.FromImage(thumbnailBitmap);
+            thumbnailGraph.CompositingQuality = CompositingQuality.HighQuality;
+            thumbnailGraph.SmoothingMode = SmoothingMode.HighQuality;
+            thumbnailGraph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+            var imageRectangle = new Rectangle(0, 0, thumbWidth, thumbHeight);
+            thumbnailGraph.DrawImage(fullsizeImage, imageRectangle);
+
+            // IF there will be again rotation problems, use this
+            //newImage.ExifRotate();
+
+            MemoryStream msThumb = new MemoryStream();
+            thumbnailBitmap.Save(msThumb, fullsizeImage.RawFormat);
+
+            fullsizeImage.Dispose();
+            thumbnailGraph.Dispose();
+
+            return msThumb.ToArray();
         }
     }
 
