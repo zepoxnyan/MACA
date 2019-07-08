@@ -503,6 +503,8 @@
     <Content Include="Images\macaicon.ico" />
     <Content Include="Images\macaIcon.png" />
     <Content Include="Images\math.jpg" />
+    <Content Include="Images\NoImage.png" />
+    <Content Include="Images\NoImageAcc.png" />
     <Content Include="Images\paperIcon.png" />
     <Content Include="Images\si.png" />
     <Content Include="macaicon.ico" />
