@@ -99,7 +99,7 @@ namespace MACAWeb
         public static byte[] CreateThumbnail(byte[] image)
         {
             MemoryStream msImage = new MemoryStream(image);
-            Image fullsizeImage = System.Drawing.Image.FromStream(msImage);
+            Image fullsizeImage = Image.FromStream(msImage);
 
             int thumbWidth = int.Parse(ConfigurationManager.AppSettings["thumbnailWidth"]);
             int thumbHeight = (int)(fullsizeImage.Height * thumbWidth / (double)fullsizeImage.Width);
@@ -112,9 +112,6 @@ namespace MACAWeb
 
             var imageRectangle = new Rectangle(0, 0, thumbWidth, thumbHeight);
             thumbnailGraph.DrawImage(fullsizeImage, imageRectangle);
-
-            // IF there will be again rotation problems, use this
-            //newImage.ExifRotate();
 
             MemoryStream msThumb = new MemoryStream();
             thumbnailBitmap.Save(msThumb, fullsizeImage.RawFormat);

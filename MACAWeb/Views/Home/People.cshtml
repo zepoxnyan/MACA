@@ -60,15 +60,15 @@
                                     {
                                     var base64 = Convert.ToBase64String(item.ImageThumb);
                                     var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                    @:<img src="@imgSrc" class="img-thumbnail img-thumbnail-70" />
+                                    @:<img src="@imgSrc" class="img-thumbnail" style="width:70px;height:70px;"/>
                                     }
                                     else
                                     {
-                                    @:<img src="/Images/NoImageAcc.png" class="img-thumbnail img-thumbnail-70" />
+                                    @:<img src="/Images/NoImageAcc.png" class="img-thumbnail" style="width:70px;height:70px;"/>
 
                                     }
                                 @:</td>
-                                @:<td style="padding-left:10px; border-left:1px solid var(--black)">
+                                @:<td style="padding-left:10px">
                                     @:<a href="/Home/PersonDetails?personID=@item.PersonID" class="a-offer-link"><p class="p-company-name">@item.FullName</p></a>
                                 @:</td>
                             @:</tr>
