@@ -14,7 +14,7 @@ using System.IO;
 
 namespace MACAWeb.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Employee, Admin, SuperAdmin")]
     public class PersonsController : Controller
     {
         private PersonsDbContext dbPersons = new PersonsDbContext();
