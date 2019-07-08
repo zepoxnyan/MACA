@@ -26,8 +26,6 @@ namespace MACAWeb
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jsbundles").Include(
-                      "~/Scripts/popupimage.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

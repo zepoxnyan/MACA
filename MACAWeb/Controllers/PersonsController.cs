@@ -22,7 +22,7 @@ namespace MACAWeb.Controllers
         private AuthorsDbContext dbAuthors = new AuthorsDbContext();
 
         // GET: Persons
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Employee")]
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
             var persons = dbPersons.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
@@ -110,6 +110,7 @@ namespace MACAWeb.Controllers
                         using (var reader = new BinaryReader(personView.Image.InputStream))
                         {
                             person.Image = reader.ReadBytes(personView.Image.ContentLength);
+                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image);
                         }
                     }
                 }
@@ -210,6 +211,7 @@ namespace MACAWeb.Controllers
                         using (var reader = new BinaryReader(personView.Image.InputStream))
                         {
                             person.Image = reader.ReadBytes(personView.Image.ContentLength);
+                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image);
                         }
                     }
                 }

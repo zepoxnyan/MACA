@@ -15,9 +15,10 @@
     <div class="row index-row inner-rectangle">
         <div class="row index-row">
             <div class="col col-md-6">
+                @if (User.IsInRole("Admin")) {
                 <div class="link-button">
                     @Html.ActionLink("Add new", "Create")
-                </div>
+                </div>}
             </div>
             <!--Search Form-->
             <div class="col col-md-4 search-box">
@@ -53,17 +54,19 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
+                    @if (User.IsInRole("Admin"))
+                    {
                     <td>
-                        <a href="@Url.Action("Edit", "Persons", new { id=item.PersonID })">
+                        <a href="@Url.Action("Edit", "Persons", new { id = item.PersonID })">
                             <span title="Edit" class="fa fa-wrench action-icons" />
                         </a>&nbsp;
-                        <a href="@Url.Action("Details", "Persons", new { id=item.PersonID })">
+                        <a href="@Url.Action("Details", "Persons", new { id = item.PersonID })">
                             <span title="Details" class="fa fa-info-circle action-icons" />
                         </a>&nbsp;
-                        <a href="@Url.Action("Delete", "Persons", new { id=item.PersonID })">
+                        <a href="@Url.Action("Delete", "Persons", new { id = item.PersonID })">
                             <span title="Delete" class="fa fa-trash action-icons" />
                         </a>
-                    </td>
+                    </td>}
                 </tr>
             }
 
