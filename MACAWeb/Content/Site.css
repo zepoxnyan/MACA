@@ -11,7 +11,7 @@ body {
     background-image: url(../Images/math.jpg);
     background-repeat: repeat;
     font-family: Verdana;
-    padding-top: 80px;
+    padding-top: 70px;
 }
 
 a {
@@ -42,10 +42,6 @@ a {
     display: none;
 }
 
-.img-thumbnail-70 {
-    width: 60px;
-    height: 70px;
-}
 
 
 
