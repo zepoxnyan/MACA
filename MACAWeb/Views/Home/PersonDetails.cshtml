@@ -5,51 +5,76 @@
 }
 
 <div class="main-content">
-    <h2>@Model.FullName</h2>
-    <h3>
-        @ViewBag.Position
-    </h3>
-    <hr />
-
-    <div class="row last-news-row inner-rectangle">
-        <div class="col-md-8 last-news">
-            <p style="text-align:justify;">
-                @Model.Description
-            </p>
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-xs-12 col-sm-8">
+            <h2>@Model.FullName</h2>
+            <h3>@ViewBag.Position</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><i class="fa fa-envelope"></i> rudolf.bele@gmail.com</li>
+                <li class="list-group-item"><i class="fa fa-phone"></i> +386 70 748 263 </li>
+                <li class="list-group-item">
+                    <div class="social-btns">
+                        <div class="social-btn-holder">
+                            <a href="#">
+                                <i class="fa fa-google"></i>
+                            </a>
+                        </div>
+                        <div class="social-btn-holder">
+                            <a href="#">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </div>
+                        <div class="social-btn-holder">
+                            <a href="#">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="social-btn-holder">
+                            <a href="#">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </div>
+                        <div class="social-btn-holder">
+                            <a href="#">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div class="col-md-4 last-news-img">
-            @{
-                if (Model.Image != null && Model.Image.Length > 0)
-                {
-                    var base64 = Convert.ToBase64String(Model.Image);
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    @:<img src="@imgSrc" />
+        <div class="col-xs-12 col-sm-4">
+            <figure class="float-right">
+                @{
+                    if (Model.Image != null && Model.Image.Length > 0)
+                    {
+                        var base64 = Convert.ToBase64String(Model.ImageThumb);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        @:<img src="@imgSrc" class="img-thumbnail img-responsive" alt="" style="height:240px; width:240px;"/>
+                    }
+                    else
+                    {
+                        @:<img src="/Images/NoImageAcc.png" class="img-thumbnail img-responsive" alt="" style="height:240px; width:240px;"/>
+                    }
                 }
-            }
+            </figure>
         </div>
-    </div>
 
-    <div class="row last-news-row inner-rectangle-small">
-        <div class="col-md-4 last-news">
-            <a href="/Home/PersonPublications?personID=@Model.PersonID" class="a-div-link">
-                <div class="tab-content-small div-link">
-                    <h2>Publications</h2>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-4 last-news">
-            <a href="/Home/PersonTeaching?personID=@Model.PersonID" class="a-div-link">
-                <div class="tab-content-small div-link">
-                    <h2>Teaching</h2>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-4 last-news">
-            <a href="/Home/PersonMentorships?personID=@Model.PersonID" class="a-div-link">
-                <div class="tab-content-small div-link">
-                    <h2>Mentorships</h2>
-                </div>
-            </a>
-        </div>
+    </div>
+    <div class="bs-callout bs-callout-danger">
+        <h4>About</h4><hr />
+        <p>
+            @Model.Description
+        </p>
+    </div>
+    <div class="bs-callout bs-callout-danger">
+        <h4><a href="/Home/PersonPublications?personID=@Model.PersonID" class="a-div-link">Publications</a></h4>
+
+    </div>
+    <div class="bs-callout bs-callout-danger">
+        <h4><a href="/Home/PersonTeaching?personID=@Model.PersonID" class="a-div-link">Teaching</a></h4>
+    </div>
+    <div class="bs-callout bs-callout-danger">
+        <h4><a href="/Home/PersonMentorships?personID=@Model.PersonID" class="a-div-link">Mentorships</a></h4>
     </div>
 </div>

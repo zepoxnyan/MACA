@@ -186,7 +186,7 @@ namespace MACAWeb.Controllers
         //Test urejanja za employee
         [Authorize(Roles = "Employee")]
         //------------------------------
-        public ActionResult Edit([Bind(Include = "PersonID,Surname,Name,FullName,Description,Image")] PersonViewModel personView)
+        public ActionResult Edit([Bind(Include = "PersonID,Surname,Name,FullName,Description,Image,ImageThumb")] PersonViewModel personView)
         {
             if (ModelState.IsValid)
             {
