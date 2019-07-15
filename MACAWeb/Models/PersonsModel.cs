@@ -25,6 +25,9 @@ namespace MACAWeb.Models
         [Required(ErrorMessage = "Enter the full name with titles!")]
         public string FullName { get; set; }
 
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
@@ -37,6 +40,7 @@ namespace MACAWeb.Models
 
         [Display(Name = "Image")]
         public byte[] Image { get; set; }
+
 
         [Display(Name = "ImageThumb")]
         public byte[] ImageThumb { get; set; }
@@ -79,6 +83,9 @@ namespace MACAWeb.Models
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Display(Name = "Image")]
         public HttpPostedFileBase Image { get; set; }
