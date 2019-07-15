@@ -83,6 +83,9 @@ namespace MACAWeb.Models
         [Display(Name = "Image")]
         public HttpPostedFileBase Image { get; set; }
 
+        [Display(Name = "ImageThumb")]
+        public HttpPostedFileBase ImageThumb { get; set; }
+
     }
 
     public class PersonsDbContext : DbContext
