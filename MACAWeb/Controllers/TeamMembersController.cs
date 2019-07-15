@@ -14,7 +14,7 @@ using System.IO;
 
 namespace MACAWeb.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Admin")]
     public class TeamMembersController : Controller
     {
         private TeamMemberDbContext db = new TeamMemberDbContext();

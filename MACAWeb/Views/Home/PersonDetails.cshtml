@@ -6,12 +6,18 @@
 
 <div class="main-content">
     <div class="row" style="margin-bottom:10px;">
-        <div class="col-xs-12 col-sm-8">
+        <div class="col-xs-12 col-sm-8">            
             <h2>@Model.FullName</h2>
-            <h3>@ViewBag.Position</h3>
-            <ul class="list-group">
-                <li class="list-group-item"><i class="fa fa-envelope"></i> rudolf.bele@gmail.com</li>
-                <li class="list-group-item"><i class="fa fa-phone"></i> +386 70 748 263 </li>
+            @if (ViewBag.Position != "NAN") {<h3>@ViewBag.Position</h3>}
+            <br />            
+            <ul class="list-group vbottom">
+                @{ if (Model.Email != null && Model.Email.Length > 0)
+                    {
+                        @:<li class="list-group-item"><i class="fa fa-envelope"></i><a href=mailto:@Model.Email> @Model.Email</a></li>
+                    }
+
+                }
+
                 <li class="list-group-item">
                     <div class="social-btns">
                         <div class="social-btn-holder">

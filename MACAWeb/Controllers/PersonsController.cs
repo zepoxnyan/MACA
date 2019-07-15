@@ -80,7 +80,7 @@ namespace MACAWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "Surname,Name,FullName,Description,Image")] PersonViewModel personView)
+        public ActionResult Create([Bind(Include = "Surname,Name,FullName,Description,Email,Image")] PersonViewModel personView)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace MACAWeb.Controllers
                 person.Name = personView.Name;
                 person.FullName = personView.FullName;
                 person.Description = personView.Description;
-
+                person.Email = personView.Email;
                 person.DateCreated = DateTime.Now;
                 person.DateModified = DateTime.Now;
                 person.UserCreatedID = User.Identity.GetUserId();
@@ -165,6 +165,7 @@ namespace MACAWeb.Controllers
             personView.Name = person.Name;
             personView.FullName = person.FullName;
             personView.Description = person.Description;
+            personView.Email = person.Email;
 
             if (person.Image != null && person.Image.Length > 0)
             {
@@ -186,7 +187,7 @@ namespace MACAWeb.Controllers
         //Test urejanja za employee
         [Authorize(Roles = "Employee")]
         //------------------------------
-        public ActionResult Edit([Bind(Include = "PersonID,Surname,Name,FullName,Description,Image,ImageThumb")] PersonViewModel personView)
+        public ActionResult Edit([Bind(Include = "PersonID,Surname,Name,FullName,Description,Email,Image,ImageThumb")] PersonViewModel personView)
         {
             if (ModelState.IsValid)
             {
@@ -195,7 +196,7 @@ namespace MACAWeb.Controllers
                 person.Name = personView.Name;
                 person.FullName = personView.FullName;
                 person.Description = personView.Description;
-
+                person.Email = personView.Email;
                 person.DateModified = DateTime.Now;
                 person.UserModifiedID = User.Identity.GetUserId();
 

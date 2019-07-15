@@ -380,6 +380,10 @@
     <Compile Include="Migrations\201907081223599_ImgThumbnail.Designer.cs">
       <DependentUpon>201907081223599_ImgThumbnail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907151524444_AddEmailToPersons.cs" />
+    <Compile Include="Migrations\201907151524444_AddEmailToPersons.Designer.cs">
+      <DependentUpon>201907151524444_AddEmailToPersons.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -874,6 +878,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907081223599_ImgThumbnail.resx">
       <DependentUpon>201907081223599_ImgThumbnail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907151524444_AddEmailToPersons.resx">
+      <DependentUpon>201907151524444_AddEmailToPersons.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
