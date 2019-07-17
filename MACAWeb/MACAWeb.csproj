@@ -258,6 +258,7 @@
     <Compile Include="Controllers\PublicationTypeGroupsController.cs" />
     <Compile Include="Controllers\PublicationTypeLocalsController.cs" />
     <Compile Include="Controllers\PublicationTypesController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\StudyLevelsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\TeachingTypesController.cs" />
@@ -790,6 +791,10 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
