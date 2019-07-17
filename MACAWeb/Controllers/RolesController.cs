@@ -15,19 +15,11 @@ namespace MACAWeb.Controllers
 
         public ActionResult Index()
         {
-            // Populate Dropdown Lists
-            
-
-            var rolelist = db.Roles.OrderBy(r => r.Name).ToList().Select(rr =>
-            new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+            var rolelist = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             ViewBag.Roles = rolelist;
-
-            var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu =>
-            new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
+            var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
             ViewBag.Users = userlist;
-
             ViewBag.Message = "";
-
             return View();
         }
 
@@ -38,66 +30,50 @@ namespace MACAWeb.Controllers
             return View();
         }
 
-        //
         // POST: /Roles/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            
             try
             {
-                
-                db.Roles.Add(new IdentityRole()
-                {
-                    Name = collection["RoleName"]
-                });
+                db.Roles.Add(new IdentityRole() {Name = collection["RoleName"]});
                 db.SaveChanges();
-                ViewBag.Code = "Success";
-                ViewBag.Message = "Role created successfully !";
                 return RedirectToAction("Index");
             }
             catch
             {
-
-                ViewBag.Code = "Error";
-                ViewBag.Message = "There was an error trying to create ";
-                return RedirectToAction("Index");
+                return View("Index");
             }
         }
 
 
+        //DELETE
         public ActionResult Delete(string RoleName)
         {
-            
-            var thisRole = db.Roles.Where(r => r.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            var thisRole = db.Roles.Where(role => role.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             db.Roles.Remove(thisRole);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        //
+
         // GET: /Roles/Edit/5
         public ActionResult Edit(string roleName)
-        {
-            
-            var thisRole = db.Roles.Where(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-
+        {            
+            var thisRole = db.Roles.Where(role => role.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             return View(thisRole);
         }
 
-        //
+        
         // POST: /Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(IdentityRole role)
         {   
-
             try
             {
-                
                 db.Entry(role).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-
                 return RedirectToAction("Index");
             }
             catch
@@ -107,39 +83,36 @@ namespace MACAWeb.Controllers
         }
 
 
-        //  Adding Roles to a user
+        //  ASINGING USERS TO ROLES
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RoleAddToUser(string UserName, string RoleName)
         {
-            
-
-            if (db == null)
+            if (db != null)
             {
-                throw new ArgumentNullException("db", "Context must not be null.");
+                ApplicationUser user = db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                var userStore = new UserStore<ApplicationUser>(db);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                userManager.AddToRole(user.Id, RoleName);
+                ViewBag.Code = "Success";
+                ViewBag.Message = "User was added to the " + RoleName + " role!";
+
+                //Dropdown Lists
+                var rolelist = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+                ViewBag.Roles = rolelist;
+                var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
+                ViewBag.Users = userlist;
+                return View("Index");
             }
-
-            ApplicationUser user = db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-
-            var userStore = new UserStore<ApplicationUser>(db);
-            var userManager = new UserManager<ApplicationUser>(userStore);
-            userManager.AddToRole(user.Id, RoleName);
-
-            ViewBag.Code = "Success";
-            ViewBag.Message = "User was added to the " + RoleName + " role!";
-
-            // Repopulate Dropdown Lists
-            var rolelist = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
-            ViewBag.Roles = rolelist;
-            var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu =>
-            new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
-            ViewBag.Users = userlist;
-
-            return View("Index");
+            else
+            {
+                throw new ArgumentNullException("db", "There was an error parsing the database");
+            }
+            
         }
 
 
-        //Getting a List of Roles for a User
+        //GET USER ROLES
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GetRoles(string UserName)
@@ -147,17 +120,14 @@ namespace MACAWeb.Controllers
             if (!string.IsNullOrWhiteSpace(UserName))
             {
                 ApplicationUser user = db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-
                 var userStore = new UserStore<ApplicationUser>(db);
                 var userManager = new UserManager<ApplicationUser>(userStore);
                 ViewBag.RolesForThisUser = userManager.GetRoles(user.Id);
 
-
-                // Repopulate Dropdown Lists
+                //Dropdown Lists
                 var rolelist = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
                 ViewBag.Roles = rolelist;
-                var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu =>
-                new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
+                var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
                 ViewBag.Users = userlist;
                 ViewBag.Code = "Success";
                 ViewBag.Message = "Roles retrieved successfully !";
@@ -166,18 +136,15 @@ namespace MACAWeb.Controllers
             return View("Index");
         }
 
-        //Deleting a User from A Role
+        //REMOVE USER ROLE
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteRoleForUser(string UserName, string RoleName)
         {
             var account = new AccountController();
             ApplicationUser user = db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-
             var userStore = new UserStore<ApplicationUser>(db);
             var userManager = new UserManager<ApplicationUser>(userStore);
-
-
             if (userManager.IsInRole(user.Id, RoleName))
             {
                 userManager.RemoveFromRole(user.Id, RoleName);
@@ -187,10 +154,10 @@ namespace MACAWeb.Controllers
             else
             {
                 ViewBag.Code = "Error";
-                ViewBag.Message = "This user doesn't belong to selected role.";
+                ViewBag.Message = "This user doesn't belong to the selected role.";
             }
 
-            // Repopulate Dropdown Lists
+            //Dropdown Lists
             var rolelist = db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             ViewBag.Roles = rolelist;
             var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu =>

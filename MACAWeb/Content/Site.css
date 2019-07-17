@@ -10,7 +10,7 @@ body {
     background-color: var(--grey);
     background-image: url(../Images/math.jpg);
     background-repeat: repeat;
-    font-family: Verdana;
+    font-family: Helvetica, sans-serif;
     padding-top: 70px;
 }
 
