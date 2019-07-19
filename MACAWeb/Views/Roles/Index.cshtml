@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Manage roles";
-    
+
 }
 <div class="main-content">
     
@@ -8,25 +8,16 @@
         <hr />
 
         <div class="row inner-rectangle">
-            @{ if (ViewBag.Code == "Success")
+            @{ if (ViewBag.Message != "")
                 {
-                    <div class="alert alert-success alert-dismissible fade show col-md-12" role="alert">
-                        <strong>Success!</strong> @ViewBag.Message
+                    <div class="alert @ViewBag.Type alert-dismissible fade show col-md-12" role="alert">
+                        <strong>@ViewBag.Message</strong> 
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    } 
                 }
-                if (ViewBag.Code == "Error")
-                {
-                    <div class="alert alert-danger alert-dismissible fade show col-md-12" role="alert">
-                        <strong>Error!</strong> @ViewBag.Message
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                }
-            }
             <div class="col-sm-12 col-lg-12 col-md-12">
                 <div class="card m-2">
                     <div class="card-header">
@@ -41,9 +32,9 @@
                                         <td class="col-sm-1 col-lg-5 col-md-5">
                                             <strong>@role.Text </strong>
                                         </td>
-                                        <td class="col-sm-1 col-lg-1 col-md-1">
-                                            <span onclick="return confirm('Are you sure to delete?')"><a href="/Roles/Delete?RoleName=@role.Text" class="delLink" style="color:red;">Delete</a></span> |
-                                            @Html.ActionLink("Edit", "Edit", new { roleName = @role.Text })
+                                        <td class="col-sm-1 col-lg-1 col-md-1">                                            
+                                            <span onclick="return confirm('Are you sure?')"><a href="/Roles/Delete?roleID=@role.Value" class="delLink" style="color:red;">Delete</a></span> |
+                                            @Html.ActionLink("Edit", "Edit", new { roleID = @role.Value })
                                         </td>
                                     </tr>
                                 }
@@ -65,7 +56,7 @@
                             @Html.ValidationSummary(true)
 
                             <div>
-                                Role name: @Html.TextBox("RoleName")
+                                Role name: @Html.TextBox("roleName")
                                 <input type="submit" value="Create" class="btn-default" />
                             </div>
                         }
@@ -77,13 +68,13 @@
                         <h4>Add a Role to a User</h4>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("RoleAddToUser", "Roles"))
+                        @using (Html.BeginForm("AddRoles", "Roles"))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
 
-                            <p>User Name: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })</p>
-                            <p>Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })</p>
+                            <p>Username: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })</p>
+                            <p>Role: @Html.DropDownList("roleID", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })</p>
 
                             <p><input type="submit" value="Add" class="btn-default" /></p>
 
@@ -103,7 +94,7 @@
                         {
                             @Html.AntiForgeryToken()
                             <p>
-                                User Name: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })
+                                Username: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })
                                 <input type="submit" value="List roles" class="btn-default" />
                             </p>
                         }
@@ -120,6 +111,7 @@
                                 </ol>
                             </div>
                         }
+                        
                     </div>
                 </div>
 
@@ -128,13 +120,13 @@
                         <h4>Remove Role from User</h4>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("DeleteRoleForUser", "Roles"))
+                        @using (Html.BeginForm("DeleteRoles", "Roles"))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
 
-                            <p>User Name: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })</p>
-                            <p>Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })</p>
+                            <p>Username: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })</p>
+                            <p>Role: @Html.DropDownList("roleID", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })</p>
                             <p><input type="submit" value="Remove" class="btn-default" /></p>
 
                         }
