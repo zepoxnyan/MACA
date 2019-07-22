@@ -12,13 +12,19 @@ namespace MACAWeb.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        private void UpdateDropdown()
+        {
+            var rolelist = db.Roles.OrderBy(r => r.Id).ToList().Select(rr => new SelectListItem { Value = rr.Id.ToString(), Text = rr.Name }).ToList();
+            var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
+            if (!User.IsInRole("SuperAdmin")) ViewBag.Roles = rolelist.Where(x => x.Text != "SuperAdmin");
+            else ViewBag.Roles = rolelist;
+
+            ViewBag.Users = userlist;
+        }
 
         public ActionResult Index()
         {
-            var rolelist = db.Roles.OrderBy(r => r.Id).ToList().Select(rr => new SelectListItem { Value = rr.Id.ToString(), Text = rr.Name }).ToList();
-            ViewBag.Roles = rolelist;
-            var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
-            ViewBag.Users = userlist;
+            UpdateDropdown();            
             if (TempData["Type"] != null)
             {
                 ViewBag.Type = TempData["Type"];
@@ -128,24 +134,20 @@ namespace MACAWeb.Controllers
                 var userManager = new UserManager<ApplicationUser>(userStore);
                 var roleName = db.Roles.Where(r => r.Id == roleID).First().Name;
 
-                if (!User.IsInRole("SuperAdmin") && User.IsInRole("Admin") && roleName == "SuperAdmin")
+                try
                 {
-                    ViewBag.Type = "alert-warning";
-                    ViewBag.Message = "You dont have permission to assign this role!";
-                }
-                else
-                {
-
                     userManager.AddToRole(user.Id, roleName);
                     ViewBag.Type = "alert-success";
                     ViewBag.Message = "User was added to the " + roleName + " role!";
                 }
-
+                catch
+                {
+                    ViewBag.Type = "alert-danger";
+                    ViewBag.Message = "There was an error trying to add the user to " + roleName + " role!";
+                }
+                
                 //Dropdown Lists
-                var rolelist = db.Roles.OrderBy(r => r.Id).ToList().Select(rr => new SelectListItem { Value = rr.Id.ToString(), Text = rr.Name }).ToList();
-                ViewBag.Roles = rolelist;
-                var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
-                ViewBag.Users = userlist;
+                UpdateDropdown();
                 return View("Index");
             }
             else
@@ -168,18 +170,9 @@ namespace MACAWeb.Controllers
                 var userManager = new UserManager<ApplicationUser>(userStore);
                 ViewBag.RolesForThisUser = userManager.GetRoles(user.Id);
 
-                
-                //Dropdown Lists
-                var rolelist = db.Roles.OrderBy(r => r.Id).ToList().Select(rr => new SelectListItem { Value = rr.Id.ToString(), Text = rr.Name }).ToList();
-                ViewBag.Roles = rolelist;
-
-                var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
-                ViewBag.Users = userlist;
-         
+                UpdateDropdown();         
                 ViewBag.Type = "alert-info";
                 ViewBag.Message = "Roles retrieved successfully!";
-
-
             }
 
             return View("Index");
@@ -195,7 +188,7 @@ namespace MACAWeb.Controllers
             var userStore = new UserStore<ApplicationUser>(db);
             var userManager = new UserManager<ApplicationUser>(userStore);
             var roleName = db.Roles.Where(r => r.Id == roleID).First().Name;
-            if (!User.IsInRole("SuperAdmin") && User.IsInRole("Admin") && roleName == "SuperAdmin")
+            if (!User.IsInRole("SuperAdmin") && roleName == "SuperAdmin")
             {
                 ViewBag.Type = "alert-warning";
                 ViewBag.Message = "You can't remove this role.";
@@ -217,11 +210,7 @@ namespace MACAWeb.Controllers
             }
 
             //Dropdown Lists
-            var rolelist = db.Roles.OrderBy(r => r.Id).ToList().Select(rr => new SelectListItem { Value = rr.Id.ToString(), Text = rr.Name }).ToList();
-            ViewBag.Roles = rolelist;
-            var userlist = db.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
-            ViewBag.Users = userlist;
-
+            UpdateDropdown();
             return View("Index");
         }
 
