@@ -385,9 +385,18 @@
     <Compile Include="Migrations\201907151524444_AddEmailToPersons.Designer.cs">
       <DependentUpon>201907151524444_AddEmailToPersons.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907231758283_PersonUser.cs" />
+    <Compile Include="Migrations\201907231758283_PersonUser.Designer.cs">
+      <DependentUpon>201907231758283_PersonUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907231812326_PersonUser-auto_ID_fix.cs" />
+    <Compile Include="Migrations\201907231812326_PersonUser-auto_ID_fix.Designer.cs">
+      <DependentUpon>201907231812326_PersonUser-auto_ID_fix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
+    <Compile Include="Models\PersonUser.cs" />
     <Compile Include="Models\PublicationAuthorModel.cs" />
     <Compile Include="Models\AuthorTypeModel.cs" />
     <Compile Include="Models\PublicationModel.cs" />
@@ -796,6 +805,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PersonUser\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -884,6 +894,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907151524444_AddEmailToPersons.resx">
       <DependentUpon>201907151524444_AddEmailToPersons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907231758283_PersonUser.resx">
+      <DependentUpon>201907231758283_PersonUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907231812326_PersonUser-auto_ID_fix.resx">
+      <DependentUpon>201907231812326_PersonUser-auto_ID_fix.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
