@@ -20,6 +20,8 @@ namespace MACAWeb.Controllers
         private PersonsDbContext dbPersons = new PersonsDbContext();
         private PositionDbContext dbPositions = new PositionDbContext();
         private AuthorsDbContext dbAuthors = new AuthorsDbContext();
+        private PersonUserDbContext dbPersonUser = new PersonUserDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Persons
         [Authorize(Roles = "Employee")]
@@ -149,6 +151,14 @@ namespace MACAWeb.Controllers
         //------------------------------
         public ActionResult Edit(Guid? id)
         {
+            if (User.IsInRole("Employee"))
+            {
+                string LoggedUserID = User.Identity.GetUserId();
+                //string selectedUser = dbPersonUser.PersonUser.Where(x => x.UserID == LoggedUserID).Select(x => x.PersonID).ToString();
+                var employee = dbPersonUser.PersonUser.Where(x => x.UserID == LoggedUserID).Select(x => x.PersonID).Distinct().ToString();
+                
+                id = Guid.Parse(employee);
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
