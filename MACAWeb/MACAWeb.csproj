@@ -393,6 +393,30 @@
     <Compile Include="Migrations\201907231812326_PersonUser-auto_ID_fix.Designer.cs">
       <DependentUpon>201907231812326_PersonUser-auto_ID_fix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907241057419_PersonUser-upgrade1.cs" />
+    <Compile Include="Migrations\201907241057419_PersonUser-upgrade1.Designer.cs">
+      <DependentUpon>201907241057419_PersonUser-upgrade1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907241120107_PersonUser-upgrade2.cs" />
+    <Compile Include="Migrations\201907241120107_PersonUser-upgrade2.Designer.cs">
+      <DependentUpon>201907241120107_PersonUser-upgrade2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907241443528_DropPersonUser-droptable.cs" />
+    <Compile Include="Migrations\201907241443528_DropPersonUser-droptable.Designer.cs">
+      <DependentUpon>201907241443528_DropPersonUser-droptable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907241448451_PersonUsers-ForeinKey.cs" />
+    <Compile Include="Migrations\201907241448451_PersonUsers-ForeinKey.Designer.cs">
+      <DependentUpon>201907241448451_PersonUsers-ForeinKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907241457213_PersonUsers-ForeinKey2.cs" />
+    <Compile Include="Migrations\201907241457213_PersonUsers-ForeinKey2.Designer.cs">
+      <DependentUpon>201907241457213_PersonUsers-ForeinKey2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907241500179_AspNetLogin-AddCompundPrimaryKey.cs" />
+    <Compile Include="Migrations\201907241500179_AspNetLogin-AddCompundPrimaryKey.Designer.cs">
+      <DependentUpon>201907241500179_AspNetLogin-AddCompundPrimaryKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -805,7 +829,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\PersonUser\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -900,6 +923,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907231812326_PersonUser-auto_ID_fix.resx">
       <DependentUpon>201907231812326_PersonUser-auto_ID_fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241057419_PersonUser-upgrade1.resx">
+      <DependentUpon>201907241057419_PersonUser-upgrade1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241120107_PersonUser-upgrade2.resx">
+      <DependentUpon>201907241120107_PersonUser-upgrade2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241443528_DropPersonUser-droptable.resx">
+      <DependentUpon>201907241443528_DropPersonUser-droptable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241448451_PersonUsers-ForeinKey.resx">
+      <DependentUpon>201907241448451_PersonUsers-ForeinKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241457213_PersonUsers-ForeinKey2.resx">
+      <DependentUpon>201907241457213_PersonUsers-ForeinKey2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241500179_AspNetLogin-AddCompundPrimaryKey.resx">
+      <DependentUpon>201907241500179_AspNetLogin-AddCompundPrimaryKey.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

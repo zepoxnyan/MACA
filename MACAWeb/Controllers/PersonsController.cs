@@ -20,8 +20,8 @@ namespace MACAWeb.Controllers
         private PersonsDbContext dbPersons = new PersonsDbContext();
         private PositionDbContext dbPositions = new PositionDbContext();
         private AuthorsDbContext dbAuthors = new AuthorsDbContext();
-        private PersonUserDbContext dbPersonUser = new PersonUserDbContext();
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private PersonUsersDbContext dbPersonUsers = new PersonUsersDbContext();
+        
 
         // GET: Persons
         [Authorize(Roles = "Employee")]
@@ -151,13 +151,23 @@ namespace MACAWeb.Controllers
         //------------------------------
         public ActionResult Edit(Guid? id)
         {
-            if (User.IsInRole("Employee"))
+            if (User.IsInRole("Employee") && id==null)
             {
-                string LoggedUserID = User.Identity.GetUserId();
-                //string selectedUser = dbPersonUser.PersonUser.Where(x => x.UserID == LoggedUserID).Select(x => x.PersonID).ToString();
-                var employee = dbPersonUser.PersonUser.Where(x => x.UserID == LoggedUserID).Select(x => x.PersonID).Distinct().ToString();
-                
-                id = Guid.Parse(employee);
+                string LoggedUser = User.Identity.GetUserId();
+                try
+                {
+                    var selectedUser = dbPersonUsers.PersonUsers.Where(x => x.UserID == LoggedUser).First().PersonID.ToString();
+                    id = Guid.Parse(selectedUser);
+                }
+                catch
+                {
+                    return HttpNotFound();
+                }
+
+                /*PersonUser perso = new PersonUser();
+                perso.PersonUserID = Guid.NewGuid();
+                perso.UserID
+                dbPersonUsers.PersonUsers.Add(perso);*/
             }
             if (id == null)
             {
