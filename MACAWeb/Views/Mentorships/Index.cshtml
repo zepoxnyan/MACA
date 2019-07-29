@@ -25,7 +25,7 @@
                     <div class="input-group">
                         @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                         </span>
                     </div>
                 }
@@ -66,13 +66,13 @@
                     </td>
                     <td class="column-glyph">
                         <a href="@Url.Action("Edit", "Mentorships", new { id=item.MentorshipID })">
-                            <span title="Edit" class="glyphicon glyphicon-wrench action-icons" />
+                            <span title="Edit" class="fa fa-wrench action-icons" />
                         </a>&nbsp;
                         <a href="@Url.Action("Details", "Mentorships", new { id=item.MentorshipID })">
-                            <span title="Details" class="glyphicon glyphicon-info-sign action-icons" />
+                            <span title="Details" class="fa fa-info action-icons" />
                         </a>&nbsp;
                         <a href="@Url.Action("Delete", "Mentorships", new { id=item.MentorshipID })">
-                            <span title="Delete" class="glyphicon glyphicon-trash action-icons" />
+                            <span title="Delete" class="fa fa-trash action-icons" />
                         </a>
                     </td>
                 </tr>

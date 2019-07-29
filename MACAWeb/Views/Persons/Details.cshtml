@@ -50,7 +50,7 @@
                         var base64 = Convert.ToBase64String(Model.Image);
                         var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                         @:<img src="@imgSrc" width="300" />
-                }
+                    }
                 }
             </dd>
 
@@ -59,6 +59,12 @@
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+            <dt>
+                User linked to Person
+            </dt>
+            <dd>
+                @ViewBag.Person
             </dd>
         </dl>
     </div>

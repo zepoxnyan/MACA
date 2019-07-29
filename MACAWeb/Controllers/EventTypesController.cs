@@ -39,7 +39,7 @@ namespace MACAWeb.Controllers
                                       .OrderBy(m => m.Code);
             }
 
-            int pageSize = int.Parse(ConfigurationManager.AppSettings["catItemsOnPage"]);
+            int pageSize = int.Parse(ConfigurationManager.AppSettings["publicViewItemsOnPage"]);
             int pageNumber = (page ?? 1);
 
             return View(eventTypes.ToPagedList(pageNumber, pageSize));

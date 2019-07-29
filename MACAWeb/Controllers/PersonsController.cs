@@ -21,7 +21,21 @@ namespace MACAWeb.Controllers
         private PositionDbContext dbPositions = new PositionDbContext();
         private AuthorsDbContext dbAuthors = new AuthorsDbContext();
         private PersonUsersDbContext dbPersonUsers = new PersonUsersDbContext();
-        
+        private ApplicationDbContext dbApplication = new ApplicationDbContext();
+
+        private string CheckUserLink(Guid selectedID)
+        {
+            string selectedUser = dbPersonUsers.PersonUsers.Where(x => x.PersonID == selectedID).FirstOrDefault()?.UserID.ToString();
+            if (selectedUser != null)
+            {
+                ApplicationUser user = dbApplication.Users.Where(u => u.Id.Equals(selectedUser)).FirstOrDefault();
+                return user.UserName;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         // GET: Persons
         [Authorize(Roles = "Employee")]
@@ -65,6 +79,14 @@ namespace MACAWeb.Controllers
             if (person == null)
             {
                 return HttpNotFound();
+            }
+            ViewBag.Person = "";
+            //string selectedUser = dbPersonUsers.PersonUsers.Where(x => x.PersonID == person.PersonID).FirstOrDefault()?.UserID.ToString();
+            string selectedUser = CheckUserLink(person.PersonID);
+
+            if (selectedUser != null)
+            {
+                ViewBag.Person = selectedUser;
             }
             return View(person);
         }
@@ -153,21 +175,10 @@ namespace MACAWeb.Controllers
         {
             if (User.IsInRole("Employee") && id==null)
             {
-                string LoggedUser = User.Identity.GetUserId();
-                try
-                {
-                    var selectedUser = dbPersonUsers.PersonUsers.Where(x => x.UserID == LoggedUser).First().PersonID.ToString();
-                    id = Guid.Parse(selectedUser);
-                }
-                catch
-                {
-                    return HttpNotFound();
-                }
-
-                /*PersonUser perso = new PersonUser();
-                perso.PersonUserID = Guid.NewGuid();
-                perso.UserID
-                dbPersonUsers.PersonUsers.Add(perso);*/
+                string loggedUser = User.Identity.GetUserId();
+                var selectedUser = dbPersonUsers.PersonUsers.Where(x => x.UserID == loggedUser).FirstOrDefault()?.PersonID.ToString();
+                if (selectedUser != null) { id = Guid.Parse(selectedUser); }
+               
             }
             if (id == null)
             {
@@ -195,7 +206,9 @@ namespace MACAWeb.Controllers
                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                 ViewBag.ImgSrc = imgSrc;
             }
-
+            ViewBag.LoggedUser = CheckUserLink(person.PersonID);
+            var userlist = dbApplication.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.Id, Text = uu.UserName }).ToList();
+            ViewBag.Users = userlist;
             return View(personView);
         }
 
@@ -239,6 +252,7 @@ namespace MACAWeb.Controllers
 
                 dbPersons.Entry(person).State = EntityState.Modified;
                 dbPersons.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             return View(personView);
@@ -410,5 +424,7 @@ namespace MACAWeb.Controllers
         }
 
         #endregion
+
+       
     }
 }
