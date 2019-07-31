@@ -1,0 +1,31 @@
+﻿@model MACAWeb.Models.PersonUser
+
+@{
+    ViewBag.Title = "People";
+}
+
+<div class="main-content">
+    <h2>Add User link</h2>
+
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <p>Username: @Html.DropDownList("selectedUser", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...", htmlAttributes: new { @class = "form-control", required = "required" })</p>
+        
+
+        <p><input type="submit" value="Add" class="btn-default" /></p>
+
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "PSLinkIndex", routeValues: new { personId = ViewBag.PersonID }, htmlAttributes: new { })
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
