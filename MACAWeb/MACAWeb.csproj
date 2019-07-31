@@ -818,6 +818,8 @@
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Persons\PSLinkIndex.cshtml" />
+    <Content Include="Views\Persons\PSLinkCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

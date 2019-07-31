@@ -1,4 +1,4 @@
-﻿+ Add view for create/link/remove person-user link
+﻿+ Make the add/remove user->person linking output nicer 
 + Add social links
 + Publication
 + Dizajn

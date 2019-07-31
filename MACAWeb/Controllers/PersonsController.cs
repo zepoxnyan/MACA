@@ -23,19 +23,7 @@ namespace MACAWeb.Controllers
         private PersonUsersDbContext dbPersonUsers = new PersonUsersDbContext();
         private ApplicationDbContext dbApplication = new ApplicationDbContext();
 
-        private string CheckUserLink(Guid selectedID)
-        {
-            string selectedUser = dbPersonUsers.PersonUsers.Where(x => x.PersonID == selectedID).FirstOrDefault()?.UserID.ToString();
-            if (selectedUser != null)
-            {
-                ApplicationUser user = dbApplication.Users.Where(u => u.Id.Equals(selectedUser)).FirstOrDefault();
-                return user.UserName;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        
 
         // GET: Persons
         [Authorize(Roles = "Employee")]
@@ -279,6 +267,12 @@ namespace MACAWeb.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             Person person = dbPersons.Persons.Find(id);
+            PersonUser PSlink = dbPersonUsers.PersonUsers.Where(ps => ps.PersonID == person.PersonID)?.FirstOrDefault();
+            if(PSlink != null)
+            {
+                dbPersonUsers.PersonUsers.Remove(PSlink);
+                dbPersonUsers.SaveChanges();
+            }
             dbPersons.Persons.Remove(person);
             dbPersons.SaveChanges();
             return RedirectToAction("Index");
@@ -424,7 +418,73 @@ namespace MACAWeb.Controllers
         }
 
         #endregion
+        #region PSLink
+        private string CheckUserLink(Guid selectedID)
+        {
+            string selectedUser = dbPersonUsers.PersonUsers.Where(x => x.PersonID == selectedID).FirstOrDefault()?.UserID.ToString();
+            if (selectedUser != null)
+            {
+                ApplicationUser user = dbApplication.Users.Where(u => u.Id.Equals(selectedUser)).FirstOrDefault();
+                return user.UserName;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
-       
+        public ActionResult PSLinkIndex(Guid personId)
+        {
+            var pslinks = dbPersonUsers.PersonUsers.Where(x => x.PersonID == personId);
+            Person person = dbPersons.Persons.Where(p => p.PersonID == personId).Single();
+            
+            ViewBag.PersonID = personId;
+            return View(pslinks);
+        }
+
+        public ActionResult PSLinkCreate(Guid personId)
+        {
+            ViewBag.PersonID = personId;
+            var userlist = dbApplication.Users.OrderBy(u => u.UserName).ToList().Select(uu => new SelectListItem { Value = uu.Id.ToString(), Text = uu.UserName }).ToList();
+            ViewBag.Users = userlist;
+            return View();
+        }
+
+        
+
+        // POST: Grants/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PSLinkCreate(string selectedUser, PersonUser pslink, Guid personId)
+        {
+            if (ModelState.IsValid)
+            {
+                pslink.PersonUserID = Guid.NewGuid();
+
+                pslink.PersonID = personId;
+                pslink.UserID = selectedUser;
+
+
+                dbPersonUsers.PersonUsers.Add(pslink);
+                dbPersonUsers.SaveChanges();
+                return RedirectToAction("PSLinkIndex", new { personId = personId });
+            }
+
+            return View();
+        }
+
+        public ActionResult PSLinkDelete(Guid selectedLink, Guid personId)
+        {
+            var thisLink = dbPersonUsers.PersonUsers.Where(x => x.PersonUserID == selectedLink).FirstOrDefault();
+            dbPersonUsers.PersonUsers.Remove(thisLink);
+            dbPersonUsers.SaveChanges();
+            return RedirectToAction("PSLinkIndex", new { personId = personId });
+        }
+
+
+        #endregion
+
     }
 }
