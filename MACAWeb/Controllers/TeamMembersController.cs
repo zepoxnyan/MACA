@@ -17,7 +17,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class TeamMembersController : Controller
     {
-        private TeamMemberDbContext db = new TeamMemberDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: TeamMembers
         public ActionResult Index(string currentFilter, string searchString, int? page)

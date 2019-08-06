@@ -55,11 +55,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
-
-    public class ActivityTypeDbContext : DbContext
-    {
-        public DbSet<ActivityType> ActivityTypes { get; set; }
-
-        public ActivityTypeDbContext() : base("MACA") { }
-    }
 }

@@ -17,19 +17,17 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Employee, Admin, SuperAdmin")]
     public class PersonsController : Controller
     {
-        private PersonsDbContext dbPersons = new PersonsDbContext();
-        private PositionDbContext dbPositions = new PositionDbContext();
-        private AuthorsDbContext dbAuthors = new AuthorsDbContext();
-        private PersonUsersDbContext dbPersonUsers = new PersonUsersDbContext();
+        private MACADbContext db = new MACADbContext ();
         private ApplicationDbContext dbApplication = new ApplicationDbContext();
 
-        
+
+
 
         // GET: Persons
         [Authorize(Roles = "Employee")]
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var persons = dbPersons.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
+            var persons = db.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
             
             if (searchString != null)
             {
@@ -63,7 +61,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = dbPersons.Persons.Find(id);
+            Person person = db.Persons.Find(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -127,8 +125,8 @@ namespace MACAWeb.Controllers
                     }
                 }
 
-                dbPersons.Persons.Add(person);
-                dbPersons.SaveChanges();
+                db.Persons.Add(person);
+                db.SaveChanges();
 
                 // Automatically add a person to authors
                 Author author = new Author();
@@ -141,13 +139,13 @@ namespace MACAWeb.Controllers
                 author.UserCreatedID = new Guid(User.Identity.GetUserId());
                 author.UserModifiedID = author.UserCreatedID;
 
-                dbAuthors.Authors.Add(author);
-                dbAuthors.SaveChanges();
+                db.Authors.Add(author);
+                db.SaveChanges();
 
-                person = dbPersons.Persons.Find(person.PersonID);
+                person = db.Persons.Find(person.PersonID);
                 person.AuthorID = authorGuid;
-                dbPersons.Entry(person).State = EntityState.Modified;
-                dbPersons.SaveChanges();
+                db.Entry(person).State = EntityState.Modified;
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -164,7 +162,7 @@ namespace MACAWeb.Controllers
             if (User.IsInRole("Employee") && id==null)
             {
                 string loggedUser = User.Identity.GetUserId();
-                var selectedUser = dbPersonUsers.PersonUsers.Where(x => x.UserID == loggedUser).FirstOrDefault()?.PersonID.ToString();
+                var selectedUser = db.PersonUsers.Where(x => x.UserID == loggedUser).FirstOrDefault()?.PersonID.ToString();
                 if (selectedUser != null) { id = Guid.Parse(selectedUser); }
                
             }
@@ -172,7 +170,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = dbPersons.Persons.Find(id);
+            Person person = db.Persons.Find(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -212,7 +210,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Person person = dbPersons.Persons.Find(personView.PersonID);
+                Person person = db.Persons.Find(personView.PersonID);
                 person.Surname = personView.Surname;
                 person.Name = personView.Name;
                 person.FullName = personView.FullName;
@@ -238,8 +236,8 @@ namespace MACAWeb.Controllers
                     }
                 }
 
-                dbPersons.Entry(person).State = EntityState.Modified;
-                dbPersons.SaveChanges();
+                db.Entry(person).State = EntityState.Modified;
+                db.SaveChanges();
                 
                 return RedirectToAction("Index");
             }
@@ -253,7 +251,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = dbPersons.Persons.Find(id);
+            Person person = db.Persons.Find(id);
             if (person == null)
             {
                 return HttpNotFound();
@@ -266,15 +264,15 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Person person = dbPersons.Persons.Find(id);
-            PersonUser PSlink = dbPersonUsers.PersonUsers.Where(ps => ps.PersonID == person.PersonID)?.FirstOrDefault();
+            Person person = db.Persons.Find(id);
+            PersonUser PSlink = db.PersonUsers.Where(ps => ps.PersonID == person.PersonID)?.FirstOrDefault();
             if(PSlink != null)
             {
-                dbPersonUsers.PersonUsers.Remove(PSlink);
-                dbPersonUsers.SaveChanges();
+                db.PersonUsers.Remove(PSlink);
+                db.SaveChanges();
             }
-            dbPersons.Persons.Remove(person);
-            dbPersons.SaveChanges();
+            db.Persons.Remove(person);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -282,7 +280,7 @@ namespace MACAWeb.Controllers
         {
             if (disposing)
             {
-                dbPersons.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -297,9 +295,9 @@ namespace MACAWeb.Controllers
 
         public ActionResult PositionsIndex(Guid personId)
         {
-            var positions = dbPositions.Positions.Where(x => x.PersonID == personId).OrderByDescending(x => x.Year).ThenBy(x => x.Semester);
+            var positions = db.Positions.Where(x => x.PersonID == personId).OrderByDescending(x => x.Year).ThenBy(x => x.Semester);
 
-            Person person = dbPersons.Persons.Where(p => p.PersonID == personId).Single();
+            Person person = db.Persons.Where(p => p.PersonID == personId).Single();
             /*if (!IsUserAuthorized(company.UserCreatedID))
             {
                 ViewBag.errorMessage = "Nimate dovoljenja za ogled podrobnosti ponudb tega podjetja.";
@@ -321,7 +319,7 @@ namespace MACAWeb.Controllers
 
         private void PopulatePositionTypesDropDownList(object selectedPositionType = null)
         {
-            var positionTypesQuery = from c in dbPositions.PositionTypes
+            var positionTypesQuery = from c in db.PositionTypes
                                    orderby c.Name
                                    select c;
             ViewBag.PositionTypeID = new SelectList(positionTypesQuery, "PositionTypeID", "Name", selectedPositionType);
@@ -344,8 +342,8 @@ namespace MACAWeb.Controllers
                 position.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 position.UserModifiedID = position.UserCreatedID;
 
-                dbPositions.Positions.Add(position);
-                dbPositions.SaveChanges();
+                db.Positions.Add(position);
+                db.SaveChanges();
                 return RedirectToAction("PositionsIndex", new { personId = personId});
             }
 
@@ -358,7 +356,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Position position = dbPositions.Positions.Find(id);
+            Position position = db.Positions.Find(id);
             if (position == null)
             {
                 return HttpNotFound();
@@ -373,7 +371,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Position position = dbPositions.Positions.Find(positionViewModel.PositionID);
+                Position position = db.Positions.Find(positionViewModel.PositionID);
 
                 position.PositionID = positionViewModel.PositionID;
                 position.PositionTypeID = positionViewModel.PositionTypeID;
@@ -384,8 +382,8 @@ namespace MACAWeb.Controllers
                 position.DateModified = DateTime.Now;
                 position.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                dbPositions.Entry(position).State = EntityState.Modified;
-                dbPositions.SaveChanges();
+                db.Entry(position).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("PositionsIndex", new { personId = personId });
             }
             return View(positionViewModel);
@@ -397,7 +395,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Position position = dbPositions.Positions.Find(id);
+            Position position = db.Positions.Find(id);
             if (position == null)
             {
                 return HttpNotFound();
@@ -411,9 +409,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PositionsDeleteConfirmed(Guid id)
         {
-            Position position = dbPositions.Positions.Find(id);
-            dbPositions.Positions.Remove(position);
-            dbPositions.SaveChanges();
+            Position position = db.Positions.Find(id);
+            db.Positions.Remove(position);
+            db.SaveChanges();
             return RedirectToAction("PositionsIndex", routeValues: new { personId = position.PersonID });
         }
 
@@ -421,7 +419,7 @@ namespace MACAWeb.Controllers
         #region PSLink
         private string CheckUserLink(Guid selectedID)
         {
-            string selectedUser = dbPersonUsers.PersonUsers.Where(x => x.PersonID == selectedID).FirstOrDefault()?.UserID.ToString();
+            string selectedUser = db.PersonUsers.Where(x => x.PersonID == selectedID).FirstOrDefault()?.UserID.ToString();
             if (selectedUser != null)
             {
                 ApplicationUser user = dbApplication.Users.Where(u => u.Id.Equals(selectedUser)).FirstOrDefault();
@@ -435,8 +433,8 @@ namespace MACAWeb.Controllers
 
         public ActionResult PSLinkIndex(Guid personId)
         {
-            var pslinks = dbPersonUsers.PersonUsers.Where(x => x.PersonID == personId);
-            Person person = dbPersons.Persons.Where(p => p.PersonID == personId).Single();
+            var pslinks = db.PersonUsers.Where(x => x.PersonID == personId);
+            Person person = db.Persons.Where(p => p.PersonID == personId).Single();
             
             ViewBag.PersonID = personId;
             return View(pslinks);
@@ -467,8 +465,8 @@ namespace MACAWeb.Controllers
                 pslink.UserID = selectedUser;
 
 
-                dbPersonUsers.PersonUsers.Add(pslink);
-                dbPersonUsers.SaveChanges();
+                db.PersonUsers.Add(pslink);
+                db.SaveChanges();
                 return RedirectToAction("PSLinkIndex", new { personId = personId });
             }
 
@@ -477,9 +475,9 @@ namespace MACAWeb.Controllers
 
         public ActionResult PSLinkDelete(Guid selectedLink, Guid personId)
         {
-            var thisLink = dbPersonUsers.PersonUsers.Where(x => x.PersonUserID == selectedLink).FirstOrDefault();
-            dbPersonUsers.PersonUsers.Remove(thisLink);
-            dbPersonUsers.SaveChanges();
+            var thisLink = db.PersonUsers.Where(x => x.PersonUserID == selectedLink).FirstOrDefault();
+            db.PersonUsers.Remove(thisLink);
+            db.SaveChanges();
             return RedirectToAction("PSLinkIndex", new { personId = personId });
         }
 

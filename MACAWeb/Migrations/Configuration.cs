@@ -1,20 +1,23 @@
 namespace MACAWeb.Migrations
 {
-    using Models;
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-
-    internal sealed class Configuration : DbMigrationsConfiguration<NewsDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MACAWeb.Models.MACADbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            //AutomaticMigrationDataLossAllowed = true;
         }
 
+        protected override void Seed(MACAWeb.Models.MACADbContext context)
+        {
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data.
+        }
     }
 }

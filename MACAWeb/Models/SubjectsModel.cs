@@ -97,12 +97,4 @@ namespace MACAWeb.Models
         [Required(ErrorMessage = "The department must be specified!")]
         public string Department { get; set; }
     }
-
-    public class SubjectsDbContext : DbContext
-    {
-        public DbSet<Subject> Subjects { get; set; }
-        public DbSet<StudyLevel> StudyLevels { get; set; }
-
-        public SubjectsDbContext() : base("MACA") { }
-    }
 }

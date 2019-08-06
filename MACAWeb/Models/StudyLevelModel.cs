@@ -47,11 +47,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
-
-    public class StudyLevelDbContext : DbContext
-    {
-        public DbSet<StudyLevel> StudyLevels { get; set; }
-
-        public StudyLevelDbContext() : base("MACA") { }
-    }
 }

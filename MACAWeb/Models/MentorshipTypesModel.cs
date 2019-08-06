@@ -55,11 +55,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
-
-    public class MentorshipTypeDbContext : DbContext
-    {
-        public DbSet<MentorshipType> MentorshipTypes { get; set; }
-
-        public MentorshipTypeDbContext() : base("MACA") { }
-    }
 }

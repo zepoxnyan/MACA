@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class PublicationTypeGroupsController : Controller
     {
-        private PublicationTypeGroupDbContext db = new PublicationTypeGroupDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: PublicationTypeGroup
         public ActionResult Index()

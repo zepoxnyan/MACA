@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class FeatureTypesController : Controller
     {
-        private FeatureTypeDbContext db = new FeatureTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: FeatureTypes
         public ActionResult Index()

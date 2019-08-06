@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class StudyLevelsController : Controller
     {
-        private StudyLevelDbContext db = new StudyLevelDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: StudyLevels
         public ActionResult Index()

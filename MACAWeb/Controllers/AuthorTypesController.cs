@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class AuthorTypesController : Controller
     {
-        private AuthorTypeDbContext db = new AuthorTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: AuthorTypes
         public ActionResult Index()

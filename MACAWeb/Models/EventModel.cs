@@ -13,8 +13,8 @@ namespace MACAWeb.Models
         [Key]        
         public Guid EventID { get; set; }
 
-        [ForeignKey("EventTypes")]
-        public Guid EventTypeID { get; set; }
+        /*[ForeignKey("EventTypes")]
+        public Guid EventTypeID { get; set; }*/
 
         [Display(Name = "Opis")]
         [DataType(DataType.MultilineText)]
@@ -27,12 +27,5 @@ namespace MACAWeb.Models
 
         [Display(Name = "Uporabnik")]
         public Guid? UserCreatedID { get; set; }
-    }
-
-    public class EventDbContext : DbContext
-    {
-        public DbSet<Event> Events { get; set; }
-
-        public EventDbContext() : base("MACA") { }
     }
 }

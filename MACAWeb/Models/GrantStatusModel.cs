@@ -41,11 +41,4 @@ namespace MACAWeb.Models
         public string Name { get; set; }
         public string Description { get; set; }
     }
-
-    public class GrantStatusDbContext : DbContext
-    {
-        public DbSet<GrantStatus> GrantStatus { get; set; }
-
-        public GrantStatusDbContext() : base("MACA") { }
-    }
 }

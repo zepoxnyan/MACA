@@ -79,13 +79,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
-
-    public class GrantMemberDbContext : DbContext
-    {
-        public DbSet<GrantMember> GrantMembers { get; set; }
-        public DbSet<Person> Persons { get; set; }
-        public DbSet<GrantMemberType> GrantMemberTypes { get; set; }
-
-        public GrantMemberDbContext() : base("MACA") { }
-    }
 }

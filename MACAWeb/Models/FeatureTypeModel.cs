@@ -38,17 +38,4 @@ namespace MACAWeb.Models
         public string Name { get; set; }
         public string Description { get; set; }
     }
-
-    public class FeatureTypeDbContext : DbContext
-    {
-        public DbSet<FeatureType> FeatureTypes { get; set; }
-
-        public FeatureTypeDbContext() : base ("MACA") {}
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            Database.SetInitializer<FeatureTypeDbContext>(null);
-            base.OnModelCreating(modelBuilder);
-        }
-    }
 }

@@ -65,12 +65,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
-
-    public class PublicationTypeLocalCoefDbContext : DbContext
-    {
-        public DbSet<PublicationTypeLocalCoef> PublicationTypesLocalCoef { get; set; }
-        public DbSet<PublicationTypeLocal> PublicationTypesLocal { get; set; }
-
-        public PublicationTypeLocalCoefDbContext() : base("MACA") { }
-    }
 }

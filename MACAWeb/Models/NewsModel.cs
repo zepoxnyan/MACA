@@ -114,11 +114,4 @@ namespace MACAWeb.Models
         [Display(Name = "Image description")]
         public string ImageDescription { get; set; }
     }
-
-    public class NewsDbContext : DbContext
-    {
-        public DbSet<News> News { get; set; }
-
-        public NewsDbContext() : base("MACA") { }
-    }
 }

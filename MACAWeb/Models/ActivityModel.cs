@@ -68,13 +68,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Remark { get; set; }
     }
-
-    public class ActivitiesDbContext : DbContext
-    {
-        public DbSet<Activity> Activities { get; set; }
-        public DbSet<ActivityType> ActivityTypes { get; set; }
-        public DbSet<Person> Persons { get; set; }
-
-        public ActivitiesDbContext() : base("MACA") { }
-    }
 }

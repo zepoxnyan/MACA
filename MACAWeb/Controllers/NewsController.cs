@@ -14,10 +14,10 @@ using PagedList;
 
 namespace MACAWeb.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Admin")]
     public class NewsController : Controller
     {
-        private NewsDbContext db = new NewsDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: News
         public ActionResult Index(string currentFilter, string searchString, int? page)

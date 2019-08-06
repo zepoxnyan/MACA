@@ -210,15 +210,4 @@ namespace MACAWeb.Models
         [Display(Name = "Anglicky Nazov")]
         public string TitleEN { get; set; }
     }
-
-    public class PublicationsDbContext : DbContext
-    {
-        public DbSet<Publication> Publications { get; set; }
-        public DbSet<PublicationType> PublicationTypes { get; set; }
-        public DbSet<PublicationTypeLocal> PublicationTypesLocal { get; set; }
-        public DbSet<PublicationClassification> PublicationClassifications { get; set; }
-        public DbSet<PublicationStatus> PublicationStatus { get; set; }
-
-        public PublicationsDbContext() : base("MACA") { }
-    }
 }

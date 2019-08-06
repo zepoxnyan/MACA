@@ -102,14 +102,4 @@ namespace MACAWeb.Models
         [Required(ErrorMessage = "Semester must be specified!")]
         public int Semester { get; set; }
     }
-
-    public class MentorshipsDbContext : DbContext
-    {
-        public DbSet<Mentorship> Mentorships { get; set; }
-        public DbSet<ThesisType> ThesisTypes { get; set; }
-        public DbSet<MentorshipType> MentorshipTypes { get; set; }
-        public DbSet<Person> Persons { get; set; }
-
-        public MentorshipsDbContext() : base("MACA") { }
-    }
 }

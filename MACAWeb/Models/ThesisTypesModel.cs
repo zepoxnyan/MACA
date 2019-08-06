@@ -56,11 +56,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
-
-    public class ThesisTypeDbContext : DbContext
-    {
-        public DbSet<ThesisType> ThesisTypes { get; set; }
-
-        public ThesisTypeDbContext() : base("MACA") { }
-    }
 }

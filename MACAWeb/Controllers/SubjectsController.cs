@@ -16,13 +16,12 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class SubjectsController : Controller
     {
-        private SubjectsDbContext dbSubjects = new SubjectsDbContext();
-        private TeachingsDbContext dbTeachings = new TeachingsDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: Subjects
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var subjects = dbSubjects.Subjects.OrderBy(x => x.Name).ThenBy(x => x.Year).ThenByDescending(x => x.Semester);
+            var subjects = db.Subjects.OrderBy(x => x.Name).ThenBy(x => x.Year).ThenByDescending(x => x.Semester);
 
             if (searchString != null)
             {
@@ -60,7 +59,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = dbSubjects.Subjects.Find(id);
+            Subject subject = db.Subjects.Find(id);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -100,8 +99,8 @@ namespace MACAWeb.Controllers
                 subject.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 subject.UserModifiedID = subject.UserCreatedID;
 
-                dbSubjects.Subjects.Add(subject);
-                dbSubjects.SaveChanges();
+                db.Subjects.Add(subject);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -116,7 +115,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = dbSubjects.Subjects.Find(id);
+            Subject subject = db.Subjects.Find(id);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -134,7 +133,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Subject subject = dbSubjects.Subjects.Find(subjectViewModel.SubjectID);
+                Subject subject = db.Subjects.Find(subjectViewModel.SubjectID);
 
                 subject.Name = subjectViewModel.Name;
                 //subject.StudyLevelID = subjectViewModel.StudyLevelID;
@@ -148,8 +147,8 @@ namespace MACAWeb.Controllers
                 subject.DateModified = DateTime.Now;
                 subject.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                dbSubjects.Entry(subject).State = EntityState.Modified;
-                dbSubjects.SaveChanges();
+                db.Entry(subject).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -164,7 +163,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subject subject = dbSubjects.Subjects.Find(id);
+            Subject subject = db.Subjects.Find(id);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -177,9 +176,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Subject subject = dbSubjects.Subjects.Find(id);
-            dbSubjects.Subjects.Remove(subject);
-            dbSubjects.SaveChanges();
+            Subject subject = db.Subjects.Find(id);
+            db.Subjects.Remove(subject);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -187,7 +186,7 @@ namespace MACAWeb.Controllers
         {
             if (disposing)
             {
-                dbSubjects.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -196,7 +195,7 @@ namespace MACAWeb.Controllers
 
         public ActionResult TeachersIndex(Guid subjectId)
         {
-            var teachers = dbTeachings.Teachings.Where(x => x.SubjectID == subjectId).OrderBy(x => x.Person.Surname);
+            var teachers = db.Teachings.Where(x => x.SubjectID == subjectId).OrderBy(x => x.Person.Surname);
 
             ViewBag.SubjectID = subjectId;
             return View(teachers);
@@ -213,7 +212,7 @@ namespace MACAWeb.Controllers
 
         private void PopulateTeachingTypesDropDownList(object selectedTeachingType = null)
         {
-            var teachingTypesQuery = from c in dbTeachings.TeachingTypes
+            var teachingTypesQuery = from c in db.TeachingTypes
                                         orderby c.Name
                                         select c;
             ViewBag.TeachingTypeID = new SelectList(teachingTypesQuery, "TeachingTypeID", "Name", selectedTeachingType);
@@ -221,7 +220,7 @@ namespace MACAWeb.Controllers
 
         private void PopulatePersonsDropDownList(object selectedPerson = null)
         {
-            var personQuery = from c in dbTeachings.Persons
+            var personQuery = from c in db.Persons
                               orderby c.Surname, c.Name
                               select new { c.PersonID, NameCombo = c.Surname + " " + c.Name };
             ViewBag.PersonID = new SelectList(personQuery, "PersonID", "NameCombo", selectedPerson);
@@ -241,8 +240,8 @@ namespace MACAWeb.Controllers
                 teaching.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 teaching.UserModifiedID = teaching.UserCreatedID;
 
-                dbTeachings.Teachings.Add(teaching);
-                dbTeachings.SaveChanges();
+                db.Teachings.Add(teaching);
+                db.SaveChanges();
                 return RedirectToAction("TeachersIndex", new { subjectId = subjectId });
             }
 
@@ -255,7 +254,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Teaching teaching = dbTeachings.Teachings.Find(id);
+            Teaching teaching = db.Teachings.Find(id);
             if (teaching == null)
             {
                 return HttpNotFound();
@@ -272,7 +271,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Teaching teaching = dbTeachings.Teachings.Find(teachingViewModel.TeachingID);
+                Teaching teaching = db.Teachings.Find(teachingViewModel.TeachingID);
 
                 teaching.TeachingTypeID = teachingViewModel.TeachingTypeID;
                 teaching.PersonID = teachingViewModel.PersonID;
@@ -283,8 +282,8 @@ namespace MACAWeb.Controllers
                 teaching.DateModified = DateTime.Now;
                 teaching.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                dbTeachings.Entry(teaching).State = EntityState.Modified;
-                dbTeachings.SaveChanges();
+                db.Entry(teaching).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("TeachersIndex", routeValues: new { subjectId = teaching.SubjectID });
             }
             return View(teachingViewModel);
@@ -296,7 +295,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Teaching teaching = dbTeachings.Teachings.Find(id);
+            Teaching teaching = db.Teachings.Find(id);
             if (teaching == null)
             {
                 return HttpNotFound();
@@ -310,9 +309,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TeachersDeleteConfirmed(Guid id)
         {
-            Teaching teaching = dbTeachings.Teachings.Find(id);
-            dbTeachings.Teachings.Remove(teaching);
-            dbTeachings.SaveChanges();
+            Teaching teaching = db.Teachings.Find(id);
+            db.Teachings.Remove(teaching);
+            db.SaveChanges();
             return RedirectToAction("TeachersIndex", routeValues: new { subjectId = teaching.SubjectID });
         }
 

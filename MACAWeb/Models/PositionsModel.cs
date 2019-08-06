@@ -68,12 +68,4 @@ namespace MACAWeb.Models
         public Guid PositionTypeID { get; set; }
         public virtual PositionType PositionType { get; set; }
     }
-
-    public class PositionDbContext : DbContext
-    {
-        public DbSet<Position> Positions { get; set; }
-        public DbSet<PositionType> PositionTypes { get; set; }
-
-        public PositionDbContext() : base("MACA") { }
-    }
 }

@@ -16,18 +16,12 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class PublicationsController : Controller
     {
-        private PublicationsDbContext dbPublications = new PublicationsDbContext();
-        private PublicationTypeDbContext dbPublicationTypes = new PublicationTypeDbContext();
-        private PublicationTypeLocalDbContext dbPublicationTypesLocal = new PublicationTypeLocalDbContext();
-        private PublicationClassificationDbContext dbPublicationClassifications = new PublicationClassificationDbContext();
-        private PublicationStatusDbContext dbPublicationStatus = new PublicationStatusDbContext();
-        private PublicationAuthorsDbContext dbPublicationAuthors = new PublicationAuthorsDbContext();
-        private AuthorsDbContext dbAuthors = new AuthorsDbContext();
-
+        private MACADbContext db = new MACADbContext();
+        
         // GET: Publications
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var publications = dbPublications.Publications
+            var publications = db.Publications
                 .Include(p => p.PublicationClassification)
                 .Include(p => p.PublicationStatus)
                 .Include(p => p.PublicationType)
@@ -67,7 +61,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Publication publication = dbPublications.Publications.Find(id);
+            Publication publication = db.Publications.Find(id);
             if (publication == null)
             {
                 return HttpNotFound();
@@ -89,13 +83,13 @@ namespace MACAWeb.Controllers
             object selectedPublicationTypeLocal = null)
         {
             ViewBag.PublicationClassificationID = 
-                new SelectList(dbPublications.PublicationClassifications.OrderBy(x => x.Name), "PublicationClassificationID", "Name", selectedPublicationClassification);
+                new SelectList(db.PublicationClassifications.OrderBy(x => x.Name), "PublicationClassificationID", "Name", selectedPublicationClassification);
             ViewBag.PublicationStatusID = 
-                new SelectList(dbPublications.PublicationStatus.OrderBy(x => x.Name), "PublicationStatusID", "Name", selectedPublicationStatus);
+                new SelectList(db.PublicationStatus.OrderBy(x => x.Name), "PublicationStatusID", "Name", selectedPublicationStatus);
             ViewBag.PublicationTypeID = 
-                new SelectList(dbPublications.PublicationTypes.OrderBy(x => x.Name), "PublicationTypeID", "Name", selectedPublicationType);
+                new SelectList(db.PublicationTypes.OrderBy(x => x.Name), "PublicationTypeID", "Name", selectedPublicationType);
             ViewBag.PublicationTypeLocalID = 
-                new SelectList(dbPublications.PublicationTypesLocal.OrderBy(x => x.Name), "PublicationTypeLocalID", "Name", selectedPublicationTypeLocal);
+                new SelectList(db.PublicationTypesLocal.OrderBy(x => x.Name), "PublicationTypeLocalID", "Name", selectedPublicationTypeLocal);
         }
 
         // POST: Publications/Create
@@ -115,8 +109,8 @@ namespace MACAWeb.Controllers
                 publication.UserCreatedID = new Guid(User.Identity.GetUserId());
                 publication.UserModifiedID = publication.UserCreatedID;
 
-                dbPublications.Publications.Add(publication);
-                dbPublications.SaveChanges();
+                db.Publications.Add(publication);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -131,7 +125,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Publication publication = dbPublications.Publications.Find(id);
+            Publication publication = db.Publications.Find(id);
             if (publication == null)
             {
                 return HttpNotFound();
@@ -150,7 +144,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Publication publication = dbPublications.Publications.Find(publicationViewModel.PublicationID);
+                Publication publication = db.Publications.Find(publicationViewModel.PublicationID);
 
                 publication.PublicationClassificationID = publicationViewModel.PublicationClassificationID;
                 publication.PublicationStatusID = publicationViewModel.PublicationStatusID;
@@ -183,8 +177,8 @@ namespace MACAWeb.Controllers
                 publication.DateModified = DateTime.Now;
                 publication.UserModifiedID = new Guid(User.Identity.GetUserId());
 
-                dbPublications.Entry(publication).State = EntityState.Modified;
-                dbPublications.SaveChanges();
+                db.Entry(publication).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             PopulateDropDownLists(publicationViewModel.PublicationClassificationID, publicationViewModel.PublicationStatusID,
@@ -199,7 +193,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Publication publication = dbPublications.Publications.Find(id);
+            Publication publication = db.Publications.Find(id);
             if (publication == null)
             {
                 return HttpNotFound();
@@ -212,9 +206,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Publication publication = dbPublications.Publications.Find(id);
-            dbPublications.Publications.Remove(publication);
-            dbPublications.SaveChanges();
+            Publication publication = db.Publications.Find(id);
+            db.Publications.Remove(publication);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -222,7 +216,7 @@ namespace MACAWeb.Controllers
         {
             if (disposing)
             {
-                dbPublications.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -232,7 +226,7 @@ namespace MACAWeb.Controllers
 
         public ActionResult PubAuthorsIndex(Guid publicationId)
         {
-            var pubAuthors = dbPublicationAuthors.PublicationAuthors.Where(x => x.PublicationID == publicationId).OrderBy(x => x.Author.Surname).ThenBy(x => x.Author.FirstName);
+            var pubAuthors = db.PublicationAuthors.Where(x => x.PublicationID == publicationId).OrderBy(x => x.Author.Surname).ThenBy(x => x.Author.FirstName);
             
             ViewBag.PublicationID = publicationId;
             return View(pubAuthors);
@@ -249,12 +243,12 @@ namespace MACAWeb.Controllers
 
         private void PopulateAuthorsDropDownList(object selectedAuthor = null, object selectedAuthorType = null)
         {
-            var authorsQuery = from c in dbPublicationAuthors.Authors
+            var authorsQuery = from c in db.Authors
                                      orderby c.Surname, c.FirstName                                     
                                      select new { c.AuthorID, Name = c.Surname + " " + c.FirstName };
             ViewBag.AuthorID = new SelectList(authorsQuery, "AuthorID", "Name", selectedAuthor);
 
-            var authorTypesQuery = from c in dbPublicationAuthors.AuthorTypes
+            var authorTypesQuery = from c in db.AuthorTypes
                                orderby c.Name
                                select c;
             ViewBag.AuthorTypeID = new SelectList(authorTypesQuery, "AuthorTypeID", "Name", selectedAuthorType);
@@ -278,8 +272,8 @@ namespace MACAWeb.Controllers
                 model.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 model.UserModifiedID = model.UserCreatedID;
 
-                dbPublicationAuthors.PublicationAuthors.Add(model);
-                dbPublicationAuthors.SaveChanges();
+                db.PublicationAuthors.Add(model);
+                db.SaveChanges();
                 return RedirectToAction("PubAuthorsIndex", new { publicationId = publicationId });
             }
 
@@ -293,7 +287,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationAuthor pubAuthor = dbPublicationAuthors.PublicationAuthors.Find(id);
+            PublicationAuthor pubAuthor = db.PublicationAuthors.Find(id);
             if (pubAuthor == null)
             {
                 return HttpNotFound();
@@ -309,7 +303,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                PublicationAuthor pubAuthor = dbPublicationAuthors.PublicationAuthors.Find(pubAuthorViewModel.PublicationAuthorID);
+                PublicationAuthor pubAuthor = db.PublicationAuthors.Find(pubAuthorViewModel.PublicationAuthorID);
 
                 pubAuthor.AuthorID = pubAuthorViewModel.AuthorID;
                 pubAuthor.AuthorTypeID = pubAuthorViewModel.AuthorTypeID;
@@ -318,8 +312,8 @@ namespace MACAWeb.Controllers
                 pubAuthor.DateModified = DateTime.Now;
                 pubAuthor.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                dbPublicationAuthors.Entry(pubAuthor).State = EntityState.Modified;
-                dbPublicationAuthors.SaveChanges();
+                db.Entry(pubAuthor).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("PubAuthorsIndex", new { publicationId = publicationId });
             }
             return View(pubAuthorViewModel);
@@ -331,7 +325,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationAuthor pubAuthor = dbPublicationAuthors.PublicationAuthors.Find(id);
+            PublicationAuthor pubAuthor = db.PublicationAuthors.Find(id);
             if (pubAuthor == null)
             {
                 return HttpNotFound();
@@ -345,9 +339,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PubAuthorsDeleteConfirmed(Guid id)
         {
-            PublicationAuthor pubAuthor = dbPublicationAuthors.PublicationAuthors.Find(id);
-            dbPublicationAuthors.PublicationAuthors.Remove(pubAuthor);
-            dbPublicationAuthors.SaveChanges();
+            PublicationAuthor pubAuthor = db.PublicationAuthors.Find(id);
+            db.PublicationAuthors.Remove(pubAuthor);
+            db.SaveChanges();
             return RedirectToAction("PubAuthorsIndex", routeValues: new { publicationId = pubAuthor.PublicationID });
         }
 
@@ -358,7 +352,7 @@ namespace MACAWeb.Controllers
 
         public ActionResult AuthorsIndex(string currentFilter, string searchString, int? page)
         {
-            var authors = dbAuthors.Authors.OrderBy(p => p.Surname).ThenBy(x => x.FirstName);
+            var authors = db.Authors.OrderBy(p => p.Surname).ThenBy(x => x.FirstName);
 
             if (searchString != null)
             {
@@ -389,7 +383,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = dbAuthors.Authors.Find(id);
+            Author author = db.Authors.Find(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -417,8 +411,8 @@ namespace MACAWeb.Controllers
                 model.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 model.UserModifiedID = model.UserCreatedID;
 
-                dbAuthors.Authors.Add(model);
-                dbAuthors.SaveChanges();
+                db.Authors.Add(model);
+                db.SaveChanges();
                 return RedirectToAction("AuthorsIndex");
             }
             return View(model);
@@ -430,7 +424,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = dbAuthors.Authors.Find(id);
+            Author author = db.Authors.Find(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -445,7 +439,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Author author = dbAuthors.Authors.Find(authorViewModel.AuthorID);
+                Author author = db.Authors.Find(authorViewModel.AuthorID);
 
                 author.Surname = authorViewModel.Surname;
                 author.FirstName = authorViewModel.FirstName;
@@ -455,8 +449,8 @@ namespace MACAWeb.Controllers
                 author.DateModified = DateTime.Now;
                 author.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                dbAuthors.Entry(author).State = EntityState.Modified;
-                dbAuthors.SaveChanges();
+                db.Entry(author).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("AuthorsIndex");
             }
             return View(authorViewModel);
@@ -468,7 +462,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = dbAuthors.Authors.Find(id);
+            Author author = db.Authors.Find(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -481,9 +475,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AuthorsDeleteConfirmed(Guid id)
         {
-            Author author = dbAuthors.Authors.Find(id);
-            dbAuthors.Authors.Remove(author);
-            dbAuthors.SaveChanges();
+            Author author = db.Authors.Find(id);
+            db.Authors.Remove(author);
+            db.SaveChanges();
             return RedirectToAction("AuthorsIndex");
         }
 

@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class PublicationStatusController : Controller
     {
-        private PublicationStatusDbContext db = new PublicationStatusDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: PublicationStatus
         public ActionResult Index()

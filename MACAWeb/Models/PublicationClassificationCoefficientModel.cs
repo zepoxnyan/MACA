@@ -76,13 +76,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
-
-    public class PublicationClassificationCoefficientDbContext : DbContext
-    {
-        public DbSet<PublicationClassificationCoefficient> PublicationClassificationCoefficients { get; set; }
-        public DbSet<PublicationClassification> PublicationClassifications { get; set; }
-        public DbSet<PublicationTypeGroup> PublicationTypeGroups { get; set; }
-
-        public PublicationClassificationCoefficientDbContext() : base("MACA") { }
-    }
 }

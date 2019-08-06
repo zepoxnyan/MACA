@@ -14,13 +14,12 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class PublicationClassificationsController : Controller
     {
-        private PublicationClassificationDbContext dbPubClass = new PublicationClassificationDbContext();
-        private PublicationClassificationCoefficientDbContext dbCoeffs = new PublicationClassificationCoefficientDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: PublicationClassifications
         public ActionResult Index()
         {
-            return View(dbPubClass.PublicationClassification.OrderBy(x => x.Name).ToList());
+            return View(db.PublicationClassifications.OrderBy(x => x.Name).ToList());
         }
 
         // GET: PublicationClassifications/Details/5
@@ -30,7 +29,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationClassification publicationClassification = dbPubClass.PublicationClassification.Find(id);
+            PublicationClassification publicationClassification = db.PublicationClassifications.Find(id);
             if (publicationClassification == null)
             {
                 return HttpNotFound();
@@ -61,8 +60,8 @@ namespace MACAWeb.Controllers
                 publicationClassification.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 publicationClassification.UserModifiedID = publicationClassification.UserCreatedID;
 
-                dbPubClass.PublicationClassification.Add(publicationClassification);
-                dbPubClass.SaveChanges();
+                db.PublicationClassifications.Add(publicationClassification);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -76,7 +75,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationClassification publicationClassification = dbPubClass.PublicationClassification.Find(id);
+            PublicationClassification publicationClassification = db.PublicationClassifications.Find(id);
             if (publicationClassification == null)
             {
                 return HttpNotFound();
@@ -93,7 +92,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                PublicationClassification model = dbPubClass.PublicationClassification.Find(publicationClassificationViewModel.PublicationClassificationID);
+                PublicationClassification model = db.PublicationClassifications.Find(publicationClassificationViewModel.PublicationClassificationID);
 
                 model.Name = publicationClassificationViewModel.Name;
                 model.Description = publicationClassificationViewModel.Description;
@@ -101,8 +100,8 @@ namespace MACAWeb.Controllers
                 model.DateModified = DateTime.Now;
                 model.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                dbPubClass.Entry(model).State = EntityState.Modified;
-                dbPubClass.SaveChanges();
+                db.Entry(model).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(publicationClassificationViewModel);
@@ -115,7 +114,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationClassification publicationClassification = dbPubClass.PublicationClassification.Find(id);
+            PublicationClassification publicationClassification = db.PublicationClassifications.Find(id);
             if (publicationClassification == null)
             {
                 return HttpNotFound();
@@ -128,9 +127,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            PublicationClassification publicationClassification = dbPubClass.PublicationClassification.Find(id);
-            dbPubClass.PublicationClassification.Remove(publicationClassification);
-            dbPubClass.SaveChanges();
+            PublicationClassification publicationClassification = db.PublicationClassifications.Find(id);
+            db.PublicationClassifications.Remove(publicationClassification);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -138,7 +137,7 @@ namespace MACAWeb.Controllers
         {
             if (disposing)
             {
-                dbPubClass.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -148,7 +147,7 @@ namespace MACAWeb.Controllers
 
         public ActionResult CoefficientsIndex(Guid pubClassId)
         {
-            var coeffs = dbCoeffs.PublicationClassificationCoefficients
+            var coeffs = db.PublicationClassificationCoefficients
                 .Where(x => x.PublicationClassificationID == pubClassId)
                 .OrderByDescending(x => x.Year).ThenBy(x => x.PublicationTypeGroup.Name);
 
@@ -166,7 +165,7 @@ namespace MACAWeb.Controllers
 
         private void PopulatePubTypeGroupsDropDownList(object selectedPubTypeGroup = null)
         {
-            var pubTypeGroupsQuery = from c in dbCoeffs.PublicationTypeGroups
+            var pubTypeGroupsQuery = from c in db.PublicationTypeGroups
                                         orderby c.Name
                                         select c;
             ViewBag.PublicationTypeGroupID = new SelectList(pubTypeGroupsQuery, "PublicationTypeGroupID", "Name", selectedPubTypeGroup);
@@ -187,8 +186,8 @@ namespace MACAWeb.Controllers
                 model.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 model.UserModifiedID = model.UserCreatedID;
 
-                dbCoeffs.PublicationClassificationCoefficients.Add(model);
-                dbCoeffs.SaveChanges();
+                db.PublicationClassificationCoefficients.Add(model);
+                db.SaveChanges();
                 return RedirectToAction("CoefficientsIndex", new { pubClassId = pubClassId });
             }
 
@@ -201,7 +200,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationClassificationCoefficient model = dbCoeffs.PublicationClassificationCoefficients.Find(id);
+            PublicationClassificationCoefficient model = db.PublicationClassificationCoefficients.Find(id);
             if (model == null)
             {
                 return HttpNotFound();
@@ -218,7 +217,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                PublicationClassificationCoefficient model = dbCoeffs.PublicationClassificationCoefficients.Find(viewModel.PublicationClassificationCoefficientID);
+                PublicationClassificationCoefficient model = db.PublicationClassificationCoefficients.Find(viewModel.PublicationClassificationCoefficientID);
 
                 model.PublicationTypeGroupID = viewModel.PublicationTypeGroupID;
                 model.Year = viewModel.Year;
@@ -228,8 +227,8 @@ namespace MACAWeb.Controllers
                 model.DateModified = DateTime.Now;
                 model.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                dbCoeffs.Entry(model).State = EntityState.Modified;
-                dbCoeffs.SaveChanges();
+                db.Entry(model).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("CoefficientsIndex", new { pubClassId = pubClassId });
             }
             return View(viewModel);
@@ -241,7 +240,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationClassificationCoefficient model = dbCoeffs.PublicationClassificationCoefficients.Find(id);
+            PublicationClassificationCoefficient model = db.PublicationClassificationCoefficients.Find(id);
             if (model == null)
             {
                 return HttpNotFound();
@@ -255,9 +254,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CoefficientsDeleteConfirmed(Guid id)
         {
-            PublicationClassificationCoefficient model = dbCoeffs.PublicationClassificationCoefficients.Find(id);
-            dbCoeffs.PublicationClassificationCoefficients.Remove(model);
-            dbCoeffs.SaveChanges();
+            PublicationClassificationCoefficient model = db.PublicationClassificationCoefficients.Find(id);
+            db.PublicationClassificationCoefficients.Remove(model);
+            db.SaveChanges();
             return RedirectToAction("CoefficientsIndex", routeValues: new { pubClassId = model.PublicationClassificationID });
         }
 
