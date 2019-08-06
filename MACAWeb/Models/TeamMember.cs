@@ -111,11 +111,4 @@ namespace MACAWeb.Models
         [Required(ErrorMessage = "Image is required!")]
         public HttpPostedFileBase Image { get; set; }
     }
-
-    public class TeamMemberDbContext : DbContext
-    {
-        public DbSet<TeamMember> TeamMembers { get; set; }
-
-        public TeamMemberDbContext() : base("MACA") { }
-    }
 }

@@ -52,11 +52,4 @@ namespace MACAWeb.Models
         public string Answer { get; set; }
         public string Author { get; set; }
     }
-
-    public class FAQDbContext : DbContext
-    {
-        public DbSet<FAQ> FAQs { get; set; }
-
-        public FAQDbContext() : base("MACA") { }
-    }
 }

@@ -63,12 +63,4 @@ namespace MACAWeb.Models
         public Guid GrantStatusID { get; set; }
         public virtual GrantStatus GrantStatus { get; set; }
     }
-
-    public class GrantDbContext : DbContext
-    {
-        public DbSet<Grant> Grants { get; set; }
-        public DbSet<GrantStatus> GrantStatuses { get; set; }
-
-        public GrantDbContext() : base("MACA") { }
-    }
 }

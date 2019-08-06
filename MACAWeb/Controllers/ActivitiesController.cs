@@ -16,12 +16,12 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class ActivitiesController : Controller
     {
-        private ActivitiesDbContext dbActivities = new ActivitiesDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: Activities
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
-            var activities = dbActivities.Activities.Include(x => x.ActivityType).OrderByDescending(x => x.ActivityType.Year).ThenBy(x => x.ActivityType.Name).ThenBy(x => x.Person.FullName);
+            var activities = db.Activities.Include(x => x.ActivityType).OrderByDescending(x => x.ActivityType.Year).ThenBy(x => x.ActivityType.Name).ThenBy(x => x.Person.FullName);
             
             if (searchString != null)
             {
@@ -53,7 +53,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Activity activity = dbActivities.Activities.Find(id);
+            Activity activity = db.Activities.Find(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -75,7 +75,7 @@ namespace MACAWeb.Controllers
                                    orderby c.Name
                                    select c;*/
 
-            var activityTypesQuery = dbActivities.ActivityTypes.Select(x => new
+            var activityTypesQuery = db.ActivityTypes.Select(x => new
                     {
                         ActivityTypeID = x.ActivityTypeID,
                         Name = x.Name + " (" + x.Year + ")"
@@ -86,7 +86,7 @@ namespace MACAWeb.Controllers
 
         private void PopulatePersonsDropDownList(object selectedPerson = null)
         {
-            var personQuery = from c in dbActivities.Persons
+            var personQuery = from c in db.Persons
                               orderby c.Surname, c.Name
                               select c;
             ViewBag.PersonID = new SelectList(personQuery, "PersonID", "Fullname", selectedPerson);
@@ -106,8 +106,8 @@ namespace MACAWeb.Controllers
                 activity.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 activity.UserModifiedID = activity.UserCreatedID;
 
-                dbActivities.Activities.Add(activity);
-                dbActivities.SaveChanges();
+                db.Activities.Add(activity);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -121,7 +121,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Activity activity = dbActivities.Activities.Find(id);
+            Activity activity = db.Activities.Find(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -140,7 +140,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Activity model = dbActivities.Activities.Find(activityViewModel.ActivityID);
+                Activity model = db.Activities.Find(activityViewModel.ActivityID);
 
                 model.PersonID = activityViewModel.PersonID;
                 model.ActivityTypeID = activityViewModel.ActivityTypeID;
@@ -150,8 +150,8 @@ namespace MACAWeb.Controllers
                 model.DateModified = DateTime.Now;
                 model.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                dbActivities.Entry(model).State = EntityState.Modified;
-                dbActivities.SaveChanges();
+                db.Entry(model).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(activityViewModel);
@@ -163,7 +163,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Activity activity = dbActivities.Activities.Find(id);
+            Activity activity = db.Activities.Find(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -175,9 +175,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Activity activity = dbActivities.Activities.Find(id);
-            dbActivities.Activities.Remove(activity);
-            dbActivities.SaveChanges();
+            Activity activity = db.Activities.Find(id);
+            db.Activities.Remove(activity);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -185,7 +185,7 @@ namespace MACAWeb.Controllers
         {
             if (disposing)
             {
-                dbActivities.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }                

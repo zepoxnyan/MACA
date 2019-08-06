@@ -14,12 +14,12 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class GrantStatusController : Controller
     {
-        private GrantStatusDbContext db = new GrantStatusDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: GrantStatus
         public ActionResult Index()
         {
-            return View(db.GrantStatus.OrderBy(x => x.Name).ToList());
+            return View(db.GrantStatuses.OrderBy(x => x.Name).ToList());
         }
 
         // GET: GrantStatus/Details/5
@@ -29,7 +29,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrantStatus grantStatus = db.GrantStatus.Find(id);
+            GrantStatus grantStatus = db.GrantStatuses.Find(id);
             if (grantStatus == null)
             {
                 return HttpNotFound();
@@ -60,7 +60,7 @@ namespace MACAWeb.Controllers
                 grantStatus.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 grantStatus.UserModifiedID = grantStatus.UserCreatedID;
 
-                db.GrantStatus.Add(grantStatus);
+                db.GrantStatuses.Add(grantStatus);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -75,7 +75,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrantStatus grantStatus = db.GrantStatus.Find(id);
+            GrantStatus grantStatus = db.GrantStatuses.Find(id);
             if (grantStatus == null)
             {
                 return HttpNotFound();
@@ -92,7 +92,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                GrantStatus model = db.GrantStatus.Find(grantStatusViewModel.GrantStatusID);
+                GrantStatus model = db.GrantStatuses.Find(grantStatusViewModel.GrantStatusID);
 
                 model.Name = grantStatusViewModel.Name;
                 model.Description = grantStatusViewModel.Description;
@@ -114,7 +114,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrantStatus grantStatus = db.GrantStatus.Find(id);
+            GrantStatus grantStatus = db.GrantStatuses.Find(id);
             if (grantStatus == null)
             {
                 return HttpNotFound();
@@ -127,8 +127,8 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            GrantStatus grantStatus = db.GrantStatus.Find(id);
-            db.GrantStatus.Remove(grantStatus);
+            GrantStatus grantStatus = db.GrantStatuses.Find(id);
+            db.GrantStatuses.Remove(grantStatus);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

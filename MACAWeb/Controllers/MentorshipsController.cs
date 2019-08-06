@@ -16,7 +16,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class MentorshipsController : Controller
     {
-        private MentorshipsDbContext db = new MentorshipsDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: Mentorships
         public ActionResult Index(string currentFilter, string searchString, int? page)

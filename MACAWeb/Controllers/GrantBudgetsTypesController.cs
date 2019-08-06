@@ -14,12 +14,12 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class GrantBudgetsTypesController : Controller
     {
-        private GrantBudgetsTypeDbContext db = new GrantBudgetsTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: GrantBudgetsTypes
         public ActionResult Index()
         {
-            return View(db.GrantBudgetsTypes.OrderBy(x => x.Name).ToList());
+            return View(db.GrantBudgetTypes.OrderBy(x => x.Name).ToList());
         }
 
         // GET: GrantBudgetsTypes/Details/5
@@ -29,7 +29,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrantBudgetsType grantBudgetsType = db.GrantBudgetsTypes.Find(id);
+            GrantBudgetsType grantBudgetsType = db.GrantBudgetTypes.Find(id);
             if (grantBudgetsType == null)
             {
                 return HttpNotFound();
@@ -60,7 +60,7 @@ namespace MACAWeb.Controllers
                 grantBudgetsType.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 grantBudgetsType.UserModifiedID = grantBudgetsType.UserCreatedID;
 
-                db.GrantBudgetsTypes.Add(grantBudgetsType);
+                db.GrantBudgetTypes.Add(grantBudgetsType);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -75,7 +75,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrantBudgetsType grantBudgetsType = db.GrantBudgetsTypes.Find(id);
+            GrantBudgetsType grantBudgetsType = db.GrantBudgetTypes.Find(id);
             if (grantBudgetsType == null)
             {
                 return HttpNotFound();
@@ -92,7 +92,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                GrantBudgetsType model = db.GrantBudgetsTypes.Find(grantBudgetsTypeViewModel.GrantBudgetsTypeID);
+                GrantBudgetsType model = db.GrantBudgetTypes.Find(grantBudgetsTypeViewModel.GrantBudgetsTypeID);
 
                 model.Name = grantBudgetsTypeViewModel.Name;
                 model.Description = grantBudgetsTypeViewModel.Description;
@@ -113,7 +113,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrantBudgetsType grantBudgetsType = db.GrantBudgetsTypes.Find(id);
+            GrantBudgetsType grantBudgetsType = db.GrantBudgetTypes.Find(id);
             if (grantBudgetsType == null)
             {
                 return HttpNotFound();
@@ -126,8 +126,8 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            GrantBudgetsType grantBudgetsType = db.GrantBudgetsTypes.Find(id);
-            db.GrantBudgetsTypes.Remove(grantBudgetsType);
+            GrantBudgetsType grantBudgetsType = db.GrantBudgetTypes.Find(id);
+            db.GrantBudgetTypes.Remove(grantBudgetsType);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

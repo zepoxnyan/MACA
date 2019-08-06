@@ -47,11 +47,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
-
-    public class PositionTypeDbContext : DbContext
-    {
-        public DbSet<PositionType> PositionTypes { get; set; }
-
-        public PositionTypeDbContext() : base("MACA") { }
-    }
 }

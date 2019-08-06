@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class ActivityTypesController : Controller
     {
-        private ActivityTypeDbContext db = new ActivityTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: ActivityTypes
         public ActionResult Index()

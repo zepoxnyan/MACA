@@ -16,7 +16,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Administrator")]
     public class FAQsController : Controller
     {
-        private FAQDbContext db = new FAQDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: FAQs
         public ActionResult Index(string currentFilter, string searchString, int? page)

@@ -72,7 +72,7 @@ namespace MACAWeb
             }
         }
 
-        public static void AddEvent(EventDbContext dbEvents, EventTypeDbContext dbEventTypes, string eventTypeCode, string dns, string ip, System.Security.Principal.IIdentity identity)
+        /*public static void AddEvent(MACADbContext dbEvents, MACADbContext dbEventTypes, string eventTypeCode, string dns, string ip, System.Security.Principal.IIdentity identity)
         {
             // Add event
             /*Event evt = new Event();
@@ -85,10 +85,10 @@ namespace MACAWeb
             else
                 evt.UserCreatedID = new Guid(identity.GetUserId());
             dbEvents.Events.Add(evt);
-            dbEvents.SaveChanges();*/
+            dbEvents.SaveChanges();
         }
 
-        /*
+        
          * Returns the Curent user Id as a Guid. 
          */
         public static Guid GetUserId(IPrincipal user)

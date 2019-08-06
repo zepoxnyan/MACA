@@ -70,14 +70,4 @@ namespace MACAWeb.Models
         [DefaultValue("1.0")]
         public double Percent { get; set; }
     }
-
-    public class PublicationAuthorsDbContext : DbContext
-    {
-        public DbSet<PublicationAuthor> PublicationAuthors { get; set; }
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<AuthorType> AuthorTypes { get; set; }
-        public DbSet<Publication> Publications { get; set; }
-
-        public PublicationAuthorsDbContext() : base("MACA") { }
-    }
 }

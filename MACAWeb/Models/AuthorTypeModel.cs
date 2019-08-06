@@ -47,11 +47,4 @@ namespace MACAWeb.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
-
-    public class AuthorTypeDbContext : DbContext
-    {
-        public DbSet<AuthorType> AuthorTypes { get; set; }
-
-        public AuthorTypeDbContext() : base("MACA") { }
-    }
 }

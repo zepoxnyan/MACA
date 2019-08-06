@@ -53,11 +53,4 @@ namespace MACAWeb.Models
         [Display(Name = "AISCode")]
         public string AISCode { get; set; }
     }
-
-    public class TeachingTypeDbContext : DbContext
-    {
-        public DbSet<TeachingType> TeachingTypes { get; set; }
-
-        public TeachingTypeDbContext() : base("MACA") { }
-    }
 }

@@ -60,12 +60,4 @@ namespace MACAWeb.Models
         [Display(Name = "ORC ID")]
         public string ORCID { get; set; }
     }
-
-    public class AuthorsDbContext : DbContext
-    {
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<AuthorType> AuthorTypes { get; set; }
-        
-        public AuthorsDbContext() : base("MACA") { }
-    }
 }

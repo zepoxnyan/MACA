@@ -9,7 +9,7 @@ namespace MACAWeb.Models
 {
     public class PublicationType
     {
-        [Key]        
+        [Key]
         public Guid PublicationTypeID { get; set; }
 
         public int Code { get; set; }
@@ -18,7 +18,7 @@ namespace MACAWeb.Models
         [Required(ErrorMessage = "The name must be specified!")]
         public string Name { get; set; }
 
-        [Display(Name = "Description")]   
+        [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
@@ -31,7 +31,7 @@ namespace MACAWeb.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime DateModified { get; set; }
-        
+
         public Guid UserCreatedID { get; set; }
 
         public Guid UserModifiedID { get; set; }
@@ -48,12 +48,5 @@ namespace MACAWeb.Models
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-    }
-
-    public class PublicationTypeDbContext : DbContext
-    {
-        public DbSet<PublicationType> PublicationTypes { get; set; }
-
-        public PublicationTypeDbContext() : base("MACA") { }
     }
 }

@@ -34,11 +34,4 @@ namespace MACAWeb.Models
 
         public Guid UserModifiedID { get; set; }
     }
-
-    public class EventTypeDbContext : DbContext
-    {
-        public DbSet<EventType> EventTypes { get; set; }
-
-        public EventTypeDbContext() : base("MACA") { }
-    }
 }

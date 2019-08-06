@@ -94,11 +94,4 @@ namespace MACAWeb.Models
         public HttpPostedFileBase ImageThumb { get; set; }
 
     }
-
-    public class PersonsDbContext : DbContext
-    {
-        public DbSet<Person> Persons { get; set; }        
-
-        public PersonsDbContext() : base("MACA") { }
-    }
 }

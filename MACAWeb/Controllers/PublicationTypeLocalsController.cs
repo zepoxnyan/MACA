@@ -14,13 +14,12 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class PublicationTypeLocalsController : Controller
     {
-        private PublicationTypeLocalDbContext dbPubTypesLocal = new PublicationTypeLocalDbContext();
-        private PublicationTypeLocalCoefDbContext dbCoeffs = new PublicationTypeLocalCoefDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: PublicationTypeLocals
         public ActionResult Index()
         {
-            var publicationTypesLocal = dbPubTypesLocal.PublicationTypesLocal.Include(p => p.PublicationTypeGroup).OrderBy(x => x.Name);
+            var publicationTypesLocal = db.PublicationTypesLocal.Include(p => p.PublicationTypeGroup).OrderBy(x => x.Name);
             return View(publicationTypesLocal.ToList());
         }
 
@@ -31,7 +30,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationTypeLocal publicationTypeLocal = dbPubTypesLocal.PublicationTypesLocal.Find(id);
+            PublicationTypeLocal publicationTypeLocal = db.PublicationTypesLocal.Find(id);
             if (publicationTypeLocal == null)
             {
                 return HttpNotFound();
@@ -41,7 +40,7 @@ namespace MACAWeb.Controllers
 
         private void PopulatePublicationTypeGroupDropDownList(object selectedPublicationTypeGroup = null)
         {
-            var publicationTypeGroupQuery = from c in dbPubTypesLocal.PublicationTypeGroups
+            var publicationTypeGroupQuery = from c in db.PublicationTypeGroups
                                    orderby c.Name
                                    select c;
             ViewBag.PublicationTypeGroupID = new SelectList(publicationTypeGroupQuery, "PublicationTypeGroupID", "Name", selectedPublicationTypeGroup);
@@ -71,8 +70,8 @@ namespace MACAWeb.Controllers
                 publicationTypeLocal.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 publicationTypeLocal.UserModifiedID = publicationTypeLocal.UserCreatedID;
 
-                dbPubTypesLocal.PublicationTypesLocal.Add(publicationTypeLocal);
-                dbPubTypesLocal.SaveChanges();
+                db.PublicationTypesLocal.Add(publicationTypeLocal);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -87,7 +86,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationTypeLocal publicationTypeLocal = dbPubTypesLocal.PublicationTypesLocal.Find(id);
+            PublicationTypeLocal publicationTypeLocal = db.PublicationTypesLocal.Find(id);
             if (publicationTypeLocal == null)
             {
                 return HttpNotFound();
@@ -106,7 +105,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                PublicationTypeLocal publicationTypeLocal = dbPubTypesLocal.PublicationTypesLocal.Find(publicationTypeLocalViewModel.PublicationTypeLocalID);
+                PublicationTypeLocal publicationTypeLocal = db.PublicationTypesLocal.Find(publicationTypeLocalViewModel.PublicationTypeLocalID);
 
                 publicationTypeLocal.Name = publicationTypeLocalViewModel.Name;
                 publicationTypeLocal.PublicationTypeGroupID = publicationTypeLocalViewModel.PublicationTypeGroupID;
@@ -116,8 +115,8 @@ namespace MACAWeb.Controllers
                 publicationTypeLocal.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
 
-                dbPubTypesLocal.Entry(publicationTypeLocal).State = EntityState.Modified;
-                dbPubTypesLocal.SaveChanges();
+                db.Entry(publicationTypeLocal).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             PopulatePublicationTypeGroupDropDownList(publicationTypeLocalViewModel.PublicationTypeGroupID);
@@ -131,7 +130,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationTypeLocal publicationTypeLocal = dbPubTypesLocal.PublicationTypesLocal.Find(id);
+            PublicationTypeLocal publicationTypeLocal = db.PublicationTypesLocal.Find(id);
             if (publicationTypeLocal == null)
             {
                 return HttpNotFound();
@@ -144,9 +143,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            PublicationTypeLocal publicationTypeLocal = dbPubTypesLocal.PublicationTypesLocal.Find(id);
-            dbPubTypesLocal.PublicationTypesLocal.Remove(publicationTypeLocal);
-            dbPubTypesLocal.SaveChanges();
+            PublicationTypeLocal publicationTypeLocal = db.PublicationTypesLocal.Find(id);
+            db.PublicationTypesLocal.Remove(publicationTypeLocal);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -154,7 +153,7 @@ namespace MACAWeb.Controllers
         {
             if (disposing)
             {
-                dbPubTypesLocal.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -163,7 +162,7 @@ namespace MACAWeb.Controllers
 
         public ActionResult CoefficientsIndex(Guid pubTypeLocalId)
         {
-            var coefficients = dbCoeffs.PublicationTypesLocalCoef.Where(x => x.PublicationTypeLocalID == pubTypeLocalId).OrderByDescending(x => x.Year).ThenBy(x => x.PublicationTypeLocal.Name);
+            var coefficients = db.PublicationTypesLocalCoef.Where(x => x.PublicationTypeLocalID == pubTypeLocalId).OrderByDescending(x => x.Year).ThenBy(x => x.PublicationTypeLocal.Name);
 
             ViewBag.PublicationTypeLocalID = pubTypeLocalId;
             return View(coefficients);
@@ -191,8 +190,8 @@ namespace MACAWeb.Controllers
                 model.UserCreatedID = Guid.Parse(User.Identity.GetUserId());
                 model.UserModifiedID = model.UserCreatedID;
 
-                dbCoeffs.PublicationTypesLocalCoef.Add(model);
-                dbCoeffs.SaveChanges();
+                db.PublicationTypesLocalCoef.Add(model);
+                db.SaveChanges();
                 return RedirectToAction("CoefficientsIndex", new { pubTypeLocalId = pubTypeLocalId });
             }
 
@@ -205,7 +204,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationTypeLocalCoef model = dbCoeffs.PublicationTypesLocalCoef.Find(id);
+            PublicationTypeLocalCoef model = db.PublicationTypesLocalCoef.Find(id);
             if (model == null)
             {
                 return HttpNotFound();
@@ -220,7 +219,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                PublicationTypeLocalCoef model = dbCoeffs.PublicationTypesLocalCoef.Find(viewModel.PublicationTypeLocalCoefID);
+                PublicationTypeLocalCoef model = db.PublicationTypesLocalCoef.Find(viewModel.PublicationTypeLocalCoefID);
 
                 model.Year = viewModel.Year;
                 model.Coefficient = viewModel.Coefficient;
@@ -229,8 +228,8 @@ namespace MACAWeb.Controllers
                 model.DateModified = DateTime.Now;
                 model.UserModifiedID = Guid.Parse(User.Identity.GetUserId());
 
-                dbCoeffs.Entry(model).State = EntityState.Modified;
-                dbCoeffs.SaveChanges();
+                db.Entry(model).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("CoefficientsIndex", new { pubTypeLocalId = pubTypeLocalId });
             }
             return View(viewModel);
@@ -242,7 +241,7 @@ namespace MACAWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PublicationTypeLocalCoef model = dbCoeffs.PublicationTypesLocalCoef.Find(id);
+            PublicationTypeLocalCoef model = db.PublicationTypesLocalCoef.Find(id);
             if (model == null)
             {
                 return HttpNotFound();
@@ -256,9 +255,9 @@ namespace MACAWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CoefficientsDeleteConfirmed(Guid id)
         {
-            PublicationTypeLocalCoef model = dbCoeffs.PublicationTypesLocalCoef.Find(id);
-            dbCoeffs.PublicationTypesLocalCoef.Remove(model);
-            dbCoeffs.SaveChanges();
+            PublicationTypeLocalCoef model = db.PublicationTypesLocalCoef.Find(id);
+            db.PublicationTypesLocalCoef.Remove(model);
+            db.SaveChanges();
             return RedirectToAction("CoefficientsIndex", routeValues: new { pubTypeLocalId = model.PublicationTypeLocalID });
         }
 

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MACAWeb.Models.SocialLinkType> 
+@{
+    ViewBag.Title = "Social Links";
+}
+
+<div class="main-content">
+    <h2>@ViewBag.Title</h2>
+    <hr />
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "Create")
+                </div>
+            </div>
+            <!--Search Form-->
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UrlShortcut)
+                </th>
+
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UrlShortcut)
+                    </td>
+                    <td class="column-glyph">
+                        <a href="@Url.Action("Edit", "SocialLinkTypes", new { id=item.SocialLinkTypeID })">
+                            <span title="Edit" class="fa fa-wrench action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("Details", "SocialLinkTypes", new { id=item.SocialLinkTypeID })">
+                            <span title="Details" class="fa fa-info action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("Delete", "SocialLinkTypes", new { id=item.SocialLinkTypeID })">
+                            <span title="Delete" class="fa fa-trash action-icons" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

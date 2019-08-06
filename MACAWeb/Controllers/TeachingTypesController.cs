@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class TeachingTypesController : Controller
     {
-        private TeachingTypeDbContext db = new TeachingTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: TeachingTypes
         public ActionResult Index()

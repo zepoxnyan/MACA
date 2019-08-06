@@ -11,7 +11,6 @@ namespace MACAWeb.Models
     public class PersonUser
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PersonUserID { get; set; }
                 
         [StringLength(128)]
@@ -22,12 +21,5 @@ namespace MACAWeb.Models
         //public virtual ApplicationUser User { get; set; }
         //public virtual Person Person { get; set; }
 
-    }
-
-    public class PersonUsersDbContext : DbContext
-    {
-        public DbSet<PersonUser> PersonUsers { get; set; }
-
-        public PersonUsersDbContext() : base("MACA") { }
     }
 }

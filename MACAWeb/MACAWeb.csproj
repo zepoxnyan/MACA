@@ -259,6 +259,7 @@
     <Compile Include="Controllers\PublicationTypeLocalsController.cs" />
     <Compile Include="Controllers\PublicationTypesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SocialLinkTypesController.cs" />
     <Compile Include="Controllers\StudyLevelsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\TeachingTypesController.cs" />
@@ -277,149 +278,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802182350212_Teachings.cs" />
-    <Compile Include="Migrations\201802182350212_Teachings.Designer.cs">
-      <DependentUpon>201802182350212_Teachings.cs</DependentUpon>
+    <Compile Include="Migrations\201908061416526_CreateDatabase.cs" />
+    <Compile Include="Migrations\201908061416526_CreateDatabase.Designer.cs">
+      <DependentUpon>201908061416526_CreateDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802191402531_Activities.cs" />
-    <Compile Include="Migrations\201802191402531_Activities.Designer.cs">
-      <DependentUpon>201802191402531_Activities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802191706218_Mentorships.cs" />
-    <Compile Include="Migrations\201802191706218_Mentorships.Designer.cs">
-      <DependentUpon>201802191706218_Mentorships.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804250835044_PublicationTypesLocal.cs" />
-    <Compile Include="Migrations\201804250835044_PublicationTypesLocal.Designer.cs">
-      <DependentUpon>201804250835044_PublicationTypesLocal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804301832502_PublicationTypesLocalCoefs.cs" />
-    <Compile Include="Migrations\201804301832502_PublicationTypesLocalCoefs.Designer.cs">
-      <DependentUpon>201804301832502_PublicationTypesLocalCoefs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805011525391_PublicationClassificationCoefs.cs" />
-    <Compile Include="Migrations\201805011525391_PublicationClassificationCoefs.Designer.cs">
-      <DependentUpon>201805011525391_PublicationClassificationCoefs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805012009577_Publications.cs" />
-    <Compile Include="Migrations\201805012009577_Publications.Designer.cs">
-      <DependentUpon>201805012009577_Publications.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805020708376_Authors.cs" />
-    <Compile Include="Migrations\201805020708376_Authors.Designer.cs">
-      <DependentUpon>201805020708376_Authors.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805020713419_PersonAuthorId.cs" />
-    <Compile Include="Migrations\201805020713419_PersonAuthorId.Designer.cs">
-      <DependentUpon>201805020713419_PersonAuthorId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805020718339_PersonAuthorIdFK.cs" />
-    <Compile Include="Migrations\201805020718339_PersonAuthorIdFK.Designer.cs">
-      <DependentUpon>201805020718339_PersonAuthorIdFK.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805020728086_AuthorsUpdate.cs" />
-    <Compile Include="Migrations\201805020728086_AuthorsUpdate.Designer.cs">
-      <DependentUpon>201805020728086_AuthorsUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805020730327_PublicationAuthors.cs" />
-    <Compile Include="Migrations\201805020730327_PublicationAuthors.Designer.cs">
-      <DependentUpon>201805020730327_PublicationAuthors.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805021322526_AuthorsUpdate1.cs" />
-    <Compile Include="Migrations\201805021322526_AuthorsUpdate1.Designer.cs">
-      <DependentUpon>201805021322526_AuthorsUpdate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805070854308_PeopleAisID.cs" />
-    <Compile Include="Migrations\201805070854308_PeopleAisID.Designer.cs">
-      <DependentUpon>201805070854308_PeopleAisID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805070859419_PeopleAisIDUpdate.cs" />
-    <Compile Include="Migrations\201805070859419_PeopleAisIDUpdate.Designer.cs">
-      <DependentUpon>201805070859419_PeopleAisIDUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805071125107_MentorshipTypesAIS.cs" />
-    <Compile Include="Migrations\201805071125107_MentorshipTypesAIS.Designer.cs">
-      <DependentUpon>201805071125107_MentorshipTypesAIS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805071131598_MentorshipsCOLMentorshipTypeID.cs" />
-    <Compile Include="Migrations\201805071131598_MentorshipsCOLMentorshipTypeID.Designer.cs">
-      <DependentUpon>201805071131598_MentorshipsCOLMentorshipTypeID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805071135544_MentorshipsStartYear.cs" />
-    <Compile Include="Migrations\201805071135544_MentorshipsStartYear.Designer.cs">
-      <DependentUpon>201805071135544_MentorshipsStartYear.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805071244576_ThesisTypeAIS.cs" />
-    <Compile Include="Migrations\201805071244576_ThesisTypeAIS.Designer.cs">
-      <DependentUpon>201805071244576_ThesisTypeAIS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805081123383_SubjectsUpdate.cs" />
-    <Compile Include="Migrations\201805081123383_SubjectsUpdate.Designer.cs">
-      <DependentUpon>201805081123383_SubjectsUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805081200191_TeachingTypesAIS.cs" />
-    <Compile Include="Migrations\201805081200191_TeachingTypesAIS.Designer.cs">
-      <DependentUpon>201805081200191_TeachingTypesAIS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805081300350_TeachingUpdate.cs" />
-    <Compile Include="Migrations\201805081300350_TeachingUpdate.Designer.cs">
-      <DependentUpon>201805081300350_TeachingUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805090847056_DeleteSubjectRecords.cs" />
-    <Compile Include="Migrations\201805090847056_DeleteSubjectRecords.Designer.cs">
-      <DependentUpon>201805090847056_DeleteSubjectRecords.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805141314211_PublicationTypesUpdate.cs" />
-    <Compile Include="Migrations\201805141314211_PublicationTypesUpdate.Designer.cs">
-      <DependentUpon>201805141314211_PublicationTypesUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805141319593_PublicationsUpdate.cs" />
-    <Compile Include="Migrations\201805141319593_PublicationsUpdate.Designer.cs">
-      <DependentUpon>201805141319593_PublicationsUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907081223599_ImgThumbnail.cs" />
-    <Compile Include="Migrations\201907081223599_ImgThumbnail.Designer.cs">
-      <DependentUpon>201907081223599_ImgThumbnail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907151524444_AddEmailToPersons.cs" />
-    <Compile Include="Migrations\201907151524444_AddEmailToPersons.Designer.cs">
-      <DependentUpon>201907151524444_AddEmailToPersons.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907231758283_PersonUser.cs" />
-    <Compile Include="Migrations\201907231758283_PersonUser.Designer.cs">
-      <DependentUpon>201907231758283_PersonUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907231812326_PersonUser-auto_ID_fix.cs" />
-    <Compile Include="Migrations\201907231812326_PersonUser-auto_ID_fix.Designer.cs">
-      <DependentUpon>201907231812326_PersonUser-auto_ID_fix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907241057419_PersonUser-upgrade1.cs" />
-    <Compile Include="Migrations\201907241057419_PersonUser-upgrade1.Designer.cs">
-      <DependentUpon>201907241057419_PersonUser-upgrade1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907241120107_PersonUser-upgrade2.cs" />
-    <Compile Include="Migrations\201907241120107_PersonUser-upgrade2.Designer.cs">
-      <DependentUpon>201907241120107_PersonUser-upgrade2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907241443528_DropPersonUser-droptable.cs" />
-    <Compile Include="Migrations\201907241443528_DropPersonUser-droptable.Designer.cs">
-      <DependentUpon>201907241443528_DropPersonUser-droptable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907241448451_PersonUsers-ForeinKey.cs" />
-    <Compile Include="Migrations\201907241448451_PersonUsers-ForeinKey.Designer.cs">
-      <DependentUpon>201907241448451_PersonUsers-ForeinKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907241457213_PersonUsers-ForeinKey2.cs" />
-    <Compile Include="Migrations\201907241457213_PersonUsers-ForeinKey2.Designer.cs">
-      <DependentUpon>201907241457213_PersonUsers-ForeinKey2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907241500179_AspNetLogin-AddCompundPrimaryKey.cs" />
-    <Compile Include="Migrations\201907241500179_AspNetLogin-AddCompundPrimaryKey.Designer.cs">
-      <DependentUpon>201907241500179_AspNetLogin-AddCompundPrimaryKey.cs</DependentUpon>
+    <Compile Include="Migrations\201908061422513_SL_addLogo.cs" />
+    <Compile Include="Migrations\201908061422513_SL_addLogo.Designer.cs">
+      <DependentUpon>201908061422513_SL_addLogo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
+    <Compile Include="Models\MACADbContext.cs" />
     <Compile Include="Models\PersonUser.cs" />
     <Compile Include="Models\PublicationAuthorModel.cs" />
     <Compile Include="Models\AuthorTypeModel.cs" />
@@ -437,6 +307,8 @@
     <Compile Include="Models\PublicationTypeLocalModel.cs" />
     <Compile Include="Models\PublicationTypeModel.cs" />
     <Compile Include="Models\AuthorModel.cs" />
+    <Compile Include="Models\SocialLinksModel.cs" />
+    <Compile Include="Models\SocialLinkTypeModel.cs" />
     <Compile Include="Models\TeachingsModel.cs" />
     <Compile Include="Models\SubjectsModel.cs" />
     <Compile Include="Models\PositionsModel.cs" />
@@ -452,7 +324,6 @@
     <Compile Include="Models\EventTypesModel.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\FeatureTypeModel.cs" />
-    <Compile Include="Models\InstanceModel.cs" />
     <Compile Include="Models\TeamMember.cs" />
     <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Models\FAQModel.cs" />
@@ -820,6 +691,11 @@
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Persons\PSLinkIndex.cshtml" />
     <Content Include="Views\Persons\PSLinkCreate.cshtml" />
+    <Content Include="Views\SocialLinkTypes\Index.cshtml" />
+    <Content Include="Views\SocialLinkTypes\Details.cshtml" />
+    <Content Include="Views\SocialLinkTypes\Create.cshtml" />
+    <Content Include="Views\SocialLinkTypes\Edit.cshtml" />
+    <Content Include="Views\SocialLinkTypes\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -831,110 +707,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802182350212_Teachings.resx">
-      <DependentUpon>201802182350212_Teachings.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908061416526_CreateDatabase.resx">
+      <DependentUpon>201908061416526_CreateDatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802191402531_Activities.resx">
-      <DependentUpon>201802191402531_Activities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802191706218_Mentorships.resx">
-      <DependentUpon>201802191706218_Mentorships.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804250835044_PublicationTypesLocal.resx">
-      <DependentUpon>201804250835044_PublicationTypesLocal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804301832502_PublicationTypesLocalCoefs.resx">
-      <DependentUpon>201804301832502_PublicationTypesLocalCoefs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805011525391_PublicationClassificationCoefs.resx">
-      <DependentUpon>201805011525391_PublicationClassificationCoefs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805012009577_Publications.resx">
-      <DependentUpon>201805012009577_Publications.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805020708376_Authors.resx">
-      <DependentUpon>201805020708376_Authors.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805020713419_PersonAuthorId.resx">
-      <DependentUpon>201805020713419_PersonAuthorId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805020718339_PersonAuthorIdFK.resx">
-      <DependentUpon>201805020718339_PersonAuthorIdFK.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805020728086_AuthorsUpdate.resx">
-      <DependentUpon>201805020728086_AuthorsUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805020730327_PublicationAuthors.resx">
-      <DependentUpon>201805020730327_PublicationAuthors.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805021322526_AuthorsUpdate1.resx">
-      <DependentUpon>201805021322526_AuthorsUpdate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805070854308_PeopleAisID.resx">
-      <DependentUpon>201805070854308_PeopleAisID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805070859419_PeopleAisIDUpdate.resx">
-      <DependentUpon>201805070859419_PeopleAisIDUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805071125107_MentorshipTypesAIS.resx">
-      <DependentUpon>201805071125107_MentorshipTypesAIS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805071131598_MentorshipsCOLMentorshipTypeID.resx">
-      <DependentUpon>201805071131598_MentorshipsCOLMentorshipTypeID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805071135544_MentorshipsStartYear.resx">
-      <DependentUpon>201805071135544_MentorshipsStartYear.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805071244576_ThesisTypeAIS.resx">
-      <DependentUpon>201805071244576_ThesisTypeAIS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805081123383_SubjectsUpdate.resx">
-      <DependentUpon>201805081123383_SubjectsUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805081200191_TeachingTypesAIS.resx">
-      <DependentUpon>201805081200191_TeachingTypesAIS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805081300350_TeachingUpdate.resx">
-      <DependentUpon>201805081300350_TeachingUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805090847056_DeleteSubjectRecords.resx">
-      <DependentUpon>201805090847056_DeleteSubjectRecords.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805141314211_PublicationTypesUpdate.resx">
-      <DependentUpon>201805141314211_PublicationTypesUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805141319593_PublicationsUpdate.resx">
-      <DependentUpon>201805141319593_PublicationsUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907081223599_ImgThumbnail.resx">
-      <DependentUpon>201907081223599_ImgThumbnail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907151524444_AddEmailToPersons.resx">
-      <DependentUpon>201907151524444_AddEmailToPersons.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907231758283_PersonUser.resx">
-      <DependentUpon>201907231758283_PersonUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907231812326_PersonUser-auto_ID_fix.resx">
-      <DependentUpon>201907231812326_PersonUser-auto_ID_fix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907241057419_PersonUser-upgrade1.resx">
-      <DependentUpon>201907241057419_PersonUser-upgrade1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907241120107_PersonUser-upgrade2.resx">
-      <DependentUpon>201907241120107_PersonUser-upgrade2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907241443528_DropPersonUser-droptable.resx">
-      <DependentUpon>201907241443528_DropPersonUser-droptable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907241448451_PersonUsers-ForeinKey.resx">
-      <DependentUpon>201907241448451_PersonUsers-ForeinKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907241457213_PersonUsers-ForeinKey2.resx">
-      <DependentUpon>201907241457213_PersonUsers-ForeinKey2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907241500179_AspNetLogin-AddCompundPrimaryKey.resx">
-      <DependentUpon>201907241500179_AspNetLogin-AddCompundPrimaryKey.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908061422513_SL_addLogo.resx">
+      <DependentUpon>201908061422513_SL_addLogo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

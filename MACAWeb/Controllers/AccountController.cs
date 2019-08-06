@@ -21,8 +21,8 @@ namespace MACAWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private EventDbContext dbEvents = new EventDbContext();
-        private EventTypeDbContext dbEventTypes = new EventTypeDbContext();
+        //private EventDbContext dbEvents = new EventDbContext();
+        //private EventTypeDbContext dbEventTypes = new EventTypeDbContext();
 
         //private const string urlAddress = "maca.fis.unm.si";
         private const string urlAddress = "178.172.53.248:9609";
@@ -100,7 +100,7 @@ namespace MACAWeb.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    Auxiliaries.AddEvent(dbEvents, dbEventTypes, "LOG_IN", Request.UserHostAddress, Request.UserHostName, User.Identity);
+                    //Auxiliaries.AddEvent(dbEvents, dbEventTypes, "LOG_IN", Request.UserHostAddress, Request.UserHostName, User.Identity);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -201,7 +201,7 @@ namespace MACAWeb.Controllers
                     //   + "before you can log in.";
                     ViewBag.Message = "Check your email and confirm the address. Only confirmed users can log in.";
 
-                    Auxiliaries.AddEvent(dbEvents, dbEventTypes, "REG", Request.UserHostAddress, Request.UserHostName, User.Identity);
+                    //Auxiliaries.AddEvent(dbEvents, dbEventTypes, "REG", Request.UserHostAddress, Request.UserHostName, User.Identity);
 
                     return View("Info");
                 }

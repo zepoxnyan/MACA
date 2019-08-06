@@ -16,7 +16,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class EventTypesController : Controller
     {
-        private EventTypeDbContext db = new EventTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: EventTypes
         public ActionResult Index(string currentFilter, string searchString, int? page)

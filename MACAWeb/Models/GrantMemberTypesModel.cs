@@ -47,11 +47,4 @@ namespace MACAWeb.Models
         public string Description { get; set; }
         public double Coefficient { get; set; }
     }
-
-    public class GrantMemberTypeDbContext : DbContext
-    {
-        public DbSet<GrantMemberType> GrantMemberTypes { get; set; }
-
-        public GrantMemberTypeDbContext() : base("MACA") { }
-    }
 }

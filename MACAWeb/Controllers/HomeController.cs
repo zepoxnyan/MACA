@@ -14,14 +14,7 @@ namespace MACAWeb.Controllers
 {
     public class HomeController : Controller
     {
-        /*private NewsDbContext dbNews = new NewsDbContext();
-        private TeamMemberDbContext dbTeamMembers = new TeamMemberDbContext();
-        private FunctionDbContext dbFunctions = new FunctionDbContext();*/
-        PersonsDbContext dbPeople = new PersonsDbContext();
-        MentorshipsDbContext dbMentorship = new MentorshipsDbContext();
-        TeachingsDbContext dbTeaching = new TeachingsDbContext();
-        PositionDbContext dbPositions = new PositionDbContext();
-        PublicationsDbContext dbPublications = new PublicationsDbContext();
+        MACADbContext db = new MACADbContext();
 
         public ActionResult Index()
         {
@@ -51,7 +44,7 @@ namespace MACAWeb.Controllers
 
         public ActionResult People(string currentFilter, string searchString, int? page)
         {
-            var persons = dbPeople.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
+            var persons = db.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
 
             /*
             var test = from person in dbPeople.Persons
@@ -91,9 +84,9 @@ namespace MACAWeb.Controllers
             if(personID == null)
                 return RedirectToAction("People");
 
-            Person person = dbPeople.Persons.Find(personID.Value);
+            Person person = db.Persons.Find(personID.Value);
 
-            var positionList = dbPositions.Positions.Where(x => x.PersonID == personID).OrderByDescending(x => x.Year).ThenBy(x => x.Semester);
+            var positionList = db.Positions.Where(x => x.PersonID == personID).OrderByDescending(x => x.Year).ThenBy(x => x.Semester);
             if (positionList.Count() > 0)
                 ViewBag.Position = positionList.First().PositionType.Name;
             else
@@ -104,8 +97,8 @@ namespace MACAWeb.Controllers
 
         public ActionResult PersonMentorships(Guid personID)
         {
-            List<Mentorship> lstMentorship = dbMentorship.Mentorships.Where(x => x.PersonID == personID).OrderBy(x => x.Year).ThenBy(x => x.Student).ToList();
-            Person per = dbPeople.Persons.Find(personID);
+            List<Mentorship> lstMentorship = db.Mentorships.Where(x => x.PersonID == personID).OrderBy(x => x.Year).ThenBy(x => x.Student).ToList();
+            Person per = db.Persons.Find(personID);
             ViewBag.Title = per.Name + " " + per.Surname;
             ViewBag.PersonID = personID;
             return View(lstMentorship);
@@ -113,8 +106,8 @@ namespace MACAWeb.Controllers
 
         public ActionResult PersonTeaching(Guid personID)
         {
-            List<Teaching> lstTeaching = dbTeaching.Teachings.Where(x => x.PersonID == personID).OrderByDescending(x => x.Subject.Year).ThenByDescending(x => x.Subject.Semester).ToList();
-            Person per = dbPeople.Persons.Find(personID);
+            List<Teaching> lstTeaching = db.Teachings.Where(x => x.PersonID == personID).OrderByDescending(x => x.Subject.Year).ThenByDescending(x => x.Subject.Semester).ToList();
+            Person per = db.Persons.Find(personID);
             ViewBag.Title = per.Name + " " + per.Surname;
             ViewBag.PersonID = personID;
             return View(lstTeaching);
@@ -123,7 +116,7 @@ namespace MACAWeb.Controllers
         public ActionResult PersonPublications(Guid personID)
         {
             List<Publication> lstPublications = new List<Publication>();
-            Person per = dbPeople.Persons.Find(personID);
+            Person per = db.Persons.Find(personID);
             ViewBag.Title = per.Name + " " + per.Surname;
             ViewBag.PersonID = personID;
             return View(lstPublications);
@@ -143,8 +136,8 @@ namespace MACAWeb.Controllers
 
         public ActionResult FAQs()
         {
-            FAQDbContext dbFAQs = new FAQDbContext();
-            List<FAQ> sortedFAQs = dbFAQs.FAQs.OrderBy(x => x.Title).ToList();
+            //FAQDbContext db = new FAQDbContext();
+            List<FAQ> sortedFAQs = db.FAQs.OrderBy(x => x.Title).ToList();
             return View(sortedFAQs);
         }
 
@@ -185,8 +178,8 @@ namespace MACAWeb.Controllers
             srPeople.Close();
 
             // Insert Persons
-            PersonsDbContext dbPersons = new PersonsDbContext();
-            AuthorsDbContext dbAuthors = new AuthorsDbContext();
+            /*PersonsDbContext db = new PersonsDbContext();
+            AuthorsDbContext db = new AuthorsDbContext();*/
 
             foreach (Person person in lstPeople)
             {
@@ -195,8 +188,8 @@ namespace MACAWeb.Controllers
                 person.UserCreatedID = User.Identity.GetUserId();
                 person.UserModifiedID = person.UserCreatedID;
 
-                dbPersons.Persons.Add(person);
-                dbPersons.SaveChanges();
+                db.Persons.Add(person);
+                db.SaveChanges();
 
                 // Automatically add a person to authors
                 Author author = new Author();
@@ -209,13 +202,13 @@ namespace MACAWeb.Controllers
                 author.UserCreatedID = new Guid(User.Identity.GetUserId());
                 author.UserModifiedID = author.UserCreatedID;
 
-                dbAuthors.Authors.Add(author);
-                dbAuthors.SaveChanges();
+                db.Authors.Add(author);
+                db.SaveChanges();
 
-                Person personTmp = dbPersons.Persons.Find(person.PersonID);
+                Person personTmp = db.Persons.Find(person.PersonID);
                 personTmp.AuthorID = author.AuthorID;
-                dbPersons.Entry(personTmp).State = EntityState.Modified;
-                dbPersons.SaveChanges();
+                db.Entry(personTmp).State = EntityState.Modified;
+                db.SaveChanges();
             }
 
             return RedirectToAction("Administration");
@@ -236,10 +229,10 @@ namespace MACAWeb.Controllers
             //string path = ""; // To prevent bad actions!
             StreamReader srMentors = new StreamReader(path);
             List<Mentorship> lstMentors = new List<Mentorship>();
-            MentorshipsDbContext dbMentors = new MentorshipsDbContext();
-            PersonsDbContext dbPersons = new PersonsDbContext();
-            MentorshipTypeDbContext dbMentorshipType = new MentorshipTypeDbContext();
-            ThesisTypeDbContext dbThesisType = new ThesisTypeDbContext();
+            /*MentorshipsDbContext db = new MentorshipsDbContext();
+            PersonsDbContext db = new PersonsDbContext();
+            MentorshipTypeDbContext db = new MentorshipTypeDbContext();
+            ThesisTypeDbContext db = new ThesisTypeDbContext();*/
 
             while (!srMentors.EndOfStream)
             {
@@ -247,12 +240,12 @@ namespace MACAWeb.Controllers
                 Mentorship mentor = new Mentorship();
                 mentor.MentorshipID = Guid.NewGuid();
                 string personCode = lineArr[0].Trim();
-                mentor.PersonID = dbPersons.Persons.Where(x => x.AISID == personCode).First().PersonID;
+                mentor.PersonID = db.Persons.Where(x => x.AISID == personCode).First().PersonID;
                 int mentortype = int.Parse(lineArr[1].Trim());
-                mentor.MentorshipTypeID = dbMentorshipType.MentorshipTypes.Where(x => x.AISCode == mentortype).First().MentorshipTypeID;
+                mentor.MentorshipTypeID = db.MentorshipTypes.Where(x => x.AISCode == mentortype).First().MentorshipTypeID;
                 mentor.Year = lineArr[2].Trim();
                 int thesistype = int.Parse(lineArr[3].Trim());
-                mentor.ThesisTypeID = dbThesisType.ThesisTypes.Where(x => x.AISCode == thesistype).First().ThesisTypeID;
+                mentor.ThesisTypeID = db.ThesisTypes.Where(x => x.AISCode == thesistype).First().ThesisTypeID;
                 mentor.Student = lineArr[4].Trim() + " " + lineArr[5].Trim();
                 mentor.ThesisTitle = lineArr[6].Trim();
                 lstMentors.Add(mentor);
@@ -269,8 +262,8 @@ namespace MACAWeb.Controllers
                 mentor.UserCreatedID = new Guid(User.Identity.GetUserId());
                 mentor.UserModifiedID = mentor.UserCreatedID;
 
-                dbMentors.Mentorships.Add(mentor);
-                dbMentors.SaveChanges();
+                db.Mentorships.Add(mentor);
+                db.SaveChanges();
             }
 
             return RedirectToAction("Administration");
@@ -321,9 +314,9 @@ namespace MACAWeb.Controllers
             srTeachings.Close();
 
             // Insert Persons
-            PersonsDbContext dbPersons = new PersonsDbContext();
-            SubjectsDbContext dbSubjects = new SubjectsDbContext();
-            TeachingsDbContext dbTeachings = new TeachingsDbContext();
+            /*PersonsDbContext db = new PersonsDbContext();
+            SubjectsDbContext db = new SubjectsDbContext();
+            TeachingsDbContext db = new TeachingsDbContext();*/
 
             List<Subject> lstSubjects = new List<Subject>();
             Dictionary<Guid, List<Teaching>> dicTeachings = new Dictionary<Guid, List<Teaching>>();
@@ -349,14 +342,14 @@ namespace MACAWeb.Controllers
                     t.Hours = tmp.HoursPerWeek;
                     try
                     {
-                        t.PersonID = dbPersons.Persons.Where(x => x.AISID == tmp.TeacherCode).First().PersonID;
+                        t.PersonID = db.Persons.Where(x => x.AISID == tmp.TeacherCode).First().PersonID;
                     }
                     catch
                     {
                         continue;
                     }
                     t.SubjectID = sub.SubjectID;
-                    t.TeachingTypeID = dbTeachings.TeachingTypes.Where(x => x.AISCode == tmp.TeachingType).First().TeachingTypeID;
+                    t.TeachingTypeID = db.TeachingTypes.Where(x => x.AISCode == tmp.TeachingType).First().TeachingTypeID;
 
                     dicTeachings.Add(sub.SubjectID, new List<Teaching>());
                     dicTeachings[sub.SubjectID].Add(t);
@@ -371,14 +364,14 @@ namespace MACAWeb.Controllers
                     t.Hours = tmp.HoursPerWeek;
                     try
                     {
-                        t.PersonID = dbPersons.Persons.Where(x => x.AISID == tmp.TeacherCode).First().PersonID;
+                        t.PersonID = db.Persons.Where(x => x.AISID == tmp.TeacherCode).First().PersonID;
                     }
                     catch
                     {
                         continue;
                     }
                     t.SubjectID = sub.SubjectID;
-                    t.TeachingTypeID = dbTeachings.TeachingTypes.Where(x => x.AISCode == tmp.TeachingType).First().TeachingTypeID;
+                    t.TeachingTypeID = db.TeachingTypes.Where(x => x.AISCode == tmp.TeachingType).First().TeachingTypeID;
 
                     dicTeachings[sub.SubjectID].Add(t);
                 }
@@ -391,8 +384,8 @@ namespace MACAWeb.Controllers
                 sub.UserCreatedID = new Guid(User.Identity.GetUserId());
                 sub.UserModifiedID = sub.UserCreatedID;
 
-                dbSubjects.Subjects.Add(sub);
-                dbSubjects.SaveChanges();
+                db.Subjects.Add(sub);
+                db.SaveChanges();
 
                 if (dicTeachings.ContainsKey(sub.SubjectID))
                 {
@@ -403,8 +396,8 @@ namespace MACAWeb.Controllers
                         t.UserCreatedID = new Guid(User.Identity.GetUserId());
                         t.UserModifiedID = t.UserCreatedID;
 
-                        dbTeachings.Teachings.Add(t);
-                        dbTeachings.SaveChanges();
+                        db.Teachings.Add(t);
+                        db.SaveChanges();
                     }
                 }
             }

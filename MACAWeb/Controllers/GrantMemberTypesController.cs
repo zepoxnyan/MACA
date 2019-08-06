@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class GrantMemberTypesController : Controller
     {
-        private GrantMemberTypeDbContext db = new GrantMemberTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: GrantMemberTypes
         public ActionResult Index()

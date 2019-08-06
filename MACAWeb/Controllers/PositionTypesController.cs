@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class PositionTypesController : Controller
     {
-        private PositionTypeDbContext db = new PositionTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: PositionTypes
         public ActionResult Index()

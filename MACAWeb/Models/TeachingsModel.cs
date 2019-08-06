@@ -86,14 +86,4 @@ namespace MACAWeb.Models
         [DefaultValue(1.0)]
         public double Weight { get; set; }
     }
-
-    public class TeachingsDbContext : DbContext
-    {
-        public DbSet<Teaching> Teachings { get; set; }
-        public DbSet<TeachingType> TeachingTypes { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Person> Persons { get; set; }
-
-        public TeachingsDbContext() : base("MACA") { }
-    }
 }

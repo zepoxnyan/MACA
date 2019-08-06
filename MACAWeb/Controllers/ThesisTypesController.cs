@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class ThesisTypesController : Controller
     {
-        private ThesisTypeDbContext db = new ThesisTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: ThesisTypes
         public ActionResult Index()

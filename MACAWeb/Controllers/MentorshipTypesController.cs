@@ -14,7 +14,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class MentorshipTypesController : Controller
     {
-        private MentorshipTypeDbContext db = new MentorshipTypeDbContext();
+        private MACADbContext db = new MACADbContext();
 
         // GET: MentorshipTypes
         public ActionResult Index()
