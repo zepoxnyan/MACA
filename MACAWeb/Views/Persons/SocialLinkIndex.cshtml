@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MACAWeb.Models.SocialLink>
+
+@{
+    ViewBag.Title = "People";
+}
+
+<div class="main-content">
+    <h2>Person's social links</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <div class="col col-md-6">
+                <div class="link-button">
+                    @Html.ActionLink("Add new", "SocialLinkCreate", routeValues: new { personId = ViewBag.PersonID })
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SocialLinkType.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProfileUrl)
+                </th>                
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SocialLinkType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProfileUrl)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("SocialLinkEdit", "Persons", new { id=item.SocialLinkID, personId = item.PersonID })">
+                            <span title="Edit" class="fa fa-wrench action-icons" />
+                        </a>&nbsp;
+                        <a href="@Url.Action("SocialLinkDelete", "Persons", new { id=item.SocialLinkID, personId = item.PersonID })">
+                            <span title="Delete" class="fa fa-trash action-icons" />
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to Editing Person", "Edit", routeValues: new { id = ViewBag.PersonID })
+    </div>
+</div>
+

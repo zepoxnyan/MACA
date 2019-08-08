@@ -6,10 +6,13 @@
 
 <div class="main-content">
     <div class="row" style="margin-bottom:10px;">
-        <div class="col-xs-12 col-sm-8">            
+        <div class="col-xs-12 col-sm-8">
             <h2>@Model.FullName</h2>
-            @if (ViewBag.Position != "NAN") {<h3>@ViewBag.Position</h3>}
-            <br />            
+            @if (ViewBag.Position != "NAN")
+            {<h3>@ViewBag.Position</h3>}
+            @if (ViewData["sociallinks"] != null)
+            {<h3>@ViewData["sociallinks"]</h3>}
+            <br />
             <ul class="list-group vbottom">
                 @{ if (Model.Email != null && Model.Email.Length > 0)
                     {
@@ -17,34 +20,28 @@
                     }
 
                 }
+                @{ if (ViewBag.SocialLinks != null)
+                    {
+                        foreach (var link in ViewBag.SocialLinks)
+                        {
+                            @:<li class="list-group-item"><i class="fa fa-envelope"></i><a href=mailto:@Model.Email> @link</a></li>
+                        }
+                    }
+
+                }
 
                 <li class="list-group-item">
                     <div class="social-btns">
-                        <div class="social-btn-holder">
-                            <a href="#">
-                                <i class="fa fa-google"></i>
-                            </a>
-                        </div>
-                        <div class="social-btn-holder">
-                            <a href="#">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </div>
-                        <div class="social-btn-holder">
-                            <a href="#">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </div>
-                        <div class="social-btn-holder">
-                            <a href="#">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </div>
-                        <div class="social-btn-holder">
-                            <a href="#">
-                                <i class="fa fa-github"></i>
-                            </a>
-                        </div>
+                        @{ if (ViewBag.SocialLinks != null)
+                            {
+                                foreach (var link in ViewBag.SocialLinks)
+                                {
+                                    @:<div class="social-btn-holder"><a href="@link"><i class="fa fa-google"></i></a></div>
+                                    @
+                                }
+                            }
+
+                          }
                     </div>
                 </li>
             </ul>
