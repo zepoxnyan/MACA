@@ -484,5 +484,113 @@ namespace MACAWeb.Controllers
 
         #endregion
 
+        #region SocialLinks
+
+        public ActionResult SocialLinkIndex(Guid personId)
+        {
+            var sociallinks = db.SocialLinks.Where(x => x.PersonID == personId);
+
+            Person person = db.Persons.Where(p => p.PersonID == personId).Single();
+            ViewBag.PersonID = personId;
+            return View(sociallinks);
+        }
+
+        // GET: Grants/Create
+        public ActionResult SocialLinkCreate(Guid personId)
+        {
+            PopulateSocialLinkTypesDropDownList();
+            ViewBag.PersonID = personId;
+
+            return View();
+        }
+
+        private void PopulateSocialLinkTypesDropDownList(object selectedSocialLinkType = null)
+        {
+            var TypesQuery = from c in db.SocialLinkTypes
+                                     orderby c.Name
+                                     select c;
+            ViewBag.SocialLinkTypeID = new SelectList(TypesQuery, "SocialLinkTypeID", "Name", selectedSocialLinkType);
+        }
+
+        // POST: Grants/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SocialLinkCreate([Bind(Include = "SocialLinkTypeID,ProfileUrl,PersonID")] SocialLink sl, string personId)
+        {
+            if (ModelState.IsValid)
+            {
+                sl.SocialLinkID = Guid.NewGuid(); 
+                db.SocialLinks.Add(sl);
+                db.SaveChanges();
+                return RedirectToAction("SocialLinkIndex", new { personId = personId });
+            }
+
+            return View(sl);
+        }
+
+        public ActionResult SocialLinkEdit(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SocialLink sl = db.SocialLinks.Find(id);
+            if (sl == null)
+            {
+                return HttpNotFound();
+            }
+            PopulateSocialLinkTypesDropDownList(sl.SocialLinkTypeID);
+            return View(sl);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SocialLinkEdit([Bind(Include = "SocialLinkID,SocialLinkTypeID,ProfileUrl,PersonID")] SocialLinkViewModel slViewModel, string personId)
+        {
+            if (ModelState.IsValid)
+            {
+                SocialLink sl = db.SocialLinks.Find(slViewModel.SocialLinkID);
+
+                sl.SocialLinkID = slViewModel.SocialLinkID;
+                sl.SocialLinkTypeID = slViewModel.SocialLinkTypeID;
+                sl.ProfileUrl = slViewModel.ProfileUrl;
+                
+                db.Entry(sl).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("SocialLinkIndex", new { personId = personId });
+            }
+            return View(slViewModel);
+        }
+
+        public ActionResult SocialLinkDelete(Guid? id, Guid personId)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SocialLink sl = db.SocialLinks.Find(id);
+            if (sl == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.PersonID = personId;
+
+            return View(sl);
+        }
+
+        [HttpPost, ActionName("SocialLinkDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult SocialLinkDeleteConfirmed(Guid id)
+        {
+            SocialLink sl = db.SocialLinks.Find(id);
+            db.SocialLinks.Remove(sl);
+            db.SaveChanges();
+            return RedirectToAction("SocialLinkIndex", routeValues: new { personId = sl.PersonID });
+        }
+
+        #endregion
+
     }
 }

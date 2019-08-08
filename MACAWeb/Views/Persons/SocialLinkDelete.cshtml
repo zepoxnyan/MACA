@@ -1,0 +1,38 @@
+﻿@model MACAWeb.Models.SocialLink
+
+@{
+    ViewBag.Title = "Social Links";
+}
+
+<div class="main-content">
+    <h2>Delete Person's social links</h2>
+
+    <hr />
+
+    <div class="inner-rectangle">
+        <h3>Are you sure you want to delete this social link?</h3>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.SocialLinkType.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SocialLinkType.Name)
+            </dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" />
+            </div>
+        }
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "SocialLinkIndex", routeValues: new { personId = ViewBag.PersonID }, htmlAttributes: new { })
+    </div>
+</div>

@@ -87,6 +87,32 @@ namespace MACAWeb.Controllers
             Person person = db.Persons.Find(personID.Value);
 
             var positionList = db.Positions.Where(x => x.PersonID == personID).OrderByDescending(x => x.Year).ThenBy(x => x.Semester);
+            //var socialLinks = db.SocialLinks.Where(x => x.PersonID == personID).ToList();
+            List<SocialLink> socialLinks = db.SocialLinks.Where(x => x.PersonID == personID).ToList();
+            List<string> sl = new List<string>();
+            object[] sa;
+
+
+            if (socialLinks.Count() > 0)
+            {
+                int forCounter = 0;
+                foreach (var entry in socialLinks)
+                {
+                    //string url = socialLinks.FirstOrDefault().SocialLinkType.UrlShortcut;
+                    string url = entry.SocialLinkType.UrlShortcut;
+
+                    //string profile = socialLinks.FirstOrDefault().ProfileUrl;
+                    string profile = entry.ProfileUrl;
+                    //sl.Add(url + profile);
+                    sl.Add(entry.ToString());
+                    
+                    forCounter++;
+
+                }
+                ViewBag.SocialLinks = sl;
+                //ViewBag.SocialLinks = socialLinks;
+                
+            }
             if (positionList.Count() > 0)
                 ViewBag.Position = positionList.First().PositionType.Name;
             else

@@ -286,6 +286,26 @@
     <Compile Include="Migrations\201908061422513_SL_addLogo.Designer.cs">
       <DependentUpon>201908061422513_SL_addLogo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908070829230_SocialLinks.cs" />
+    <Compile Include="Migrations\201908070829230_SocialLinks.Designer.cs">
+      <DependentUpon>201908070829230_SocialLinks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908070831505_SL_ProfileUrl.cs" />
+    <Compile Include="Migrations\201908070831505_SL_ProfileUrl.Designer.cs">
+      <DependentUpon>201908070831505_SL_ProfileUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908070905576_SL_v2.cs" />
+    <Compile Include="Migrations\201908070905576_SL_v2.Designer.cs">
+      <DependentUpon>201908070905576_SL_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908071247181_SL_v3.cs" />
+    <Compile Include="Migrations\201908071247181_SL_v3.Designer.cs">
+      <DependentUpon>201908071247181_SL_v3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908071341440_test.cs" />
+    <Compile Include="Migrations\201908071341440_test.Designer.cs">
+      <DependentUpon>201908071341440_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -696,6 +716,10 @@
     <Content Include="Views\SocialLinkTypes\Create.cshtml" />
     <Content Include="Views\SocialLinkTypes\Edit.cshtml" />
     <Content Include="Views\SocialLinkTypes\Delete.cshtml" />
+    <Content Include="Views\Persons\SocialLinkIndex.cshtml" />
+    <Content Include="Views\Persons\SocialLinkCreate.cshtml" />
+    <Content Include="Views\Persons\SocialLinkEdit.cshtml" />
+    <Content Include="Views\Persons\SocialLinkDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -712,6 +736,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908061422513_SL_addLogo.resx">
       <DependentUpon>201908061422513_SL_addLogo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908070829230_SocialLinks.resx">
+      <DependentUpon>201908070829230_SocialLinks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908070831505_SL_ProfileUrl.resx">
+      <DependentUpon>201908070831505_SL_ProfileUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908070905576_SL_v2.resx">
+      <DependentUpon>201908070905576_SL_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071247181_SL_v3.resx">
+      <DependentUpon>201908071247181_SL_v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071341440_test.resx">
+      <DependentUpon>201908071341440_test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
