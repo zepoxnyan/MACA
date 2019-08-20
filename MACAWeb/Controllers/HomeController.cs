@@ -90,28 +90,28 @@ namespace MACAWeb.Controllers
             //var socialLinks = db.SocialLinks.Where(x => x.PersonID == personID).ToList();
             List<SocialLink> socialLinks = db.SocialLinks.Where(x => x.PersonID == personID).ToList();
             List<string> sl = new List<string>();
-            object[] sa;
+            
 
 
             if (socialLinks.Count() > 0)
             {
-                int forCounter = 0;
                 foreach (var entry in socialLinks)
                 {
-                    //string url = socialLinks.FirstOrDefault().SocialLinkType.UrlShortcut;
-                    string url = entry.SocialLinkType.UrlShortcut;
-
-                    //string profile = socialLinks.FirstOrDefault().ProfileUrl;
-                    string profile = entry.ProfileUrl;
-                    //sl.Add(url + profile);
-                    sl.Add(entry.ToString());
+                    string url = entry.ToString();
+                    string logo="";
                     
-                    forCounter++;
-
+                    if (entry.SocialLinkType.Logo != null)
+                    {
+                        logo = Convert.ToBase64String(entry.SocialLinkType.Logo);
+                    }
+                    else
+                    {
+                        logo = "noLogo";
+                    }
+                    sl.Add(url+" |Split| "+logo);
+                                        
                 }
                 ViewBag.SocialLinks = sl;
-                //ViewBag.SocialLinks = socialLinks;
-                
             }
             if (positionList.Count() > 0)
                 ViewBag.Position = positionList.First().PositionType.Name;

@@ -55,17 +55,18 @@
                         else
                         {
                             prevYearSem = yearSem;
-                            @:</ul>
-                            @:<h4>@item.Subject.Year, @item.Subject.Semester. semester</h4>
-                            @:<ul>
-                                @:<li class="container-offer-company">
-                                    string text = item.Subject.Name + " (" + item.TeachingType.Name + ")";
-                                    @text
-                                @:</li>
+                        
+                        @:<h4>@item.Subject.Year, @item.Subject.Semester. semester</h4>
+                        
+                            @:<li class="container-offer-company">
+                                string text = item.Subject.Name + " (" + item.TeachingType.Name + ")";
+                                @text
+                            @:</li>
                         }
                     }
                 }
             </ul>
+            
         </div>
     </div>
 </div>

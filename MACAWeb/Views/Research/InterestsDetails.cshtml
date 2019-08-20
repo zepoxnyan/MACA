@@ -1,0 +1,43 @@
+﻿@model MACAWeb.Models.Interest
+
+@{
+    ViewBag.Title = "Interest details";
+}
+
+<div class="main-content">
+    <h2>Interest details</h2>
+    <hr />
+    <div class="inner-rectangle">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateModified)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateModified)
+            </dd>
+        </dl>
+    </div>
+
+    <div>
+        @Html.ActionLink("Edit Interests", "InterestsEdit", new { id = Model.InterestID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
