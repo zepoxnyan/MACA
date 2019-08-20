@@ -258,6 +258,7 @@
     <Compile Include="Controllers\PublicationTypeGroupsController.cs" />
     <Compile Include="Controllers\PublicationTypeLocalsController.cs" />
     <Compile Include="Controllers\PublicationTypesController.cs" />
+    <Compile Include="Controllers\ResearchController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SocialLinkTypesController.cs" />
     <Compile Include="Controllers\StudyLevelsController.cs" />
@@ -302,13 +303,23 @@
     <Compile Include="Migrations\201908071247181_SL_v3.Designer.cs">
       <DependentUpon>201908071247181_SL_v3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908071341440_test.cs" />
-    <Compile Include="Migrations\201908071341440_test.Designer.cs">
-      <DependentUpon>201908071341440_test.cs</DependentUpon>
+    <Compile Include="Migrations\201908181116300_AddInterests.cs" />
+    <Compile Include="Migrations\201908181116300_AddInterests.Designer.cs">
+      <DependentUpon>201908181116300_AddInterests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908181128028_AddConferenceTalks.cs" />
+    <Compile Include="Migrations\201908181128028_AddConferenceTalks.Designer.cs">
+      <DependentUpon>201908181128028_AddConferenceTalks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908181136132_AddSeminarTalks.cs" />
+    <Compile Include="Migrations\201908181136132_AddSeminarTalks.Designer.cs">
+      <DependentUpon>201908181136132_AddSeminarTalks.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
+    <Compile Include="Models\ConferenceTalksModel.cs" />
+    <Compile Include="Models\InterestsModel.cs" />
     <Compile Include="Models\MACADbContext.cs" />
     <Compile Include="Models\PersonUser.cs" />
     <Compile Include="Models\PublicationAuthorModel.cs" />
@@ -327,6 +338,8 @@
     <Compile Include="Models\PublicationTypeLocalModel.cs" />
     <Compile Include="Models\PublicationTypeModel.cs" />
     <Compile Include="Models\AuthorModel.cs" />
+    <Compile Include="Models\Research.cs" />
+    <Compile Include="Models\SeminarTalksModel.cs" />
     <Compile Include="Models\SocialLinksModel.cs" />
     <Compile Include="Models\SocialLinkTypeModel.cs" />
     <Compile Include="Models\TeachingsModel.cs" />
@@ -720,6 +733,22 @@
     <Content Include="Views\Persons\SocialLinkCreate.cshtml" />
     <Content Include="Views\Persons\SocialLinkEdit.cshtml" />
     <Content Include="Views\Persons\SocialLinkDelete.cshtml" />
+    <Content Include="Views\Research\InterestsIndex.cshtml" />
+    <Content Include="Views\Research\InterestsDetails.cshtml" />
+    <Content Include="Views\Research\InterestsCreate.cshtml" />
+    <Content Include="Views\Research\InterestsEdit.cshtml" />
+    <Content Include="Views\Research\InterestsDelete.cshtml" />
+    <Content Include="Views\Research\ConferenceTalksIndex.cshtml" />
+    <Content Include="Views\Research\ConferenceTalksCreate.cshtml" />
+    <Content Include="Views\Research\ConferenceTalksEdit.cshtml" />
+    <Content Include="Views\Research\ConferenceTalksDetails.cshtml" />
+    <Content Include="Views\Research\ConferenceTalksDelete.cshtml" />
+    <Content Include="Views\Research\SeminarTalksIndex.cshtml" />
+    <Content Include="Views\Research\SeminarTalksDetails.cshtml" />
+    <Content Include="Views\Research\SeminarTalksCreate.cshtml" />
+    <Content Include="Views\Research\SeminarTalksEdit.cshtml" />
+    <Content Include="Views\Research\SeminarTalksDelete.cshtml" />
+    <Content Include="Views\Research\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -749,8 +778,14 @@
     <EmbeddedResource Include="Migrations\201908071247181_SL_v3.resx">
       <DependentUpon>201908071247181_SL_v3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908071341440_test.resx">
-      <DependentUpon>201908071341440_test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908181116300_AddInterests.resx">
+      <DependentUpon>201908181116300_AddInterests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908181128028_AddConferenceTalks.resx">
+      <DependentUpon>201908181128028_AddConferenceTalks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908181136132_AddSeminarTalks.resx">
+      <DependentUpon>201908181136132_AddSeminarTalks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

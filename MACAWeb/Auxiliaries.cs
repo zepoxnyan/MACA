@@ -96,12 +96,15 @@ namespace MACAWeb
             return Guid.Parse(user.Identity.GetUserId());
         }
 
-        public static byte[] CreateThumbnail(byte[] image)
+        public static byte[] CreateThumbnail(byte[] image,int thumbWidth)
         {
             MemoryStream msImage = new MemoryStream(image);
             Image fullsizeImage = Image.FromStream(msImage);
 
-            int thumbWidth = int.Parse(ConfigurationManager.AppSettings["thumbnailWidth"]);
+            if (thumbWidth == 0)
+            {
+                thumbWidth = int.Parse(ConfigurationManager.AppSettings["thumbnailWidth"]);
+            }
             int thumbHeight = (int)(fullsizeImage.Height * thumbWidth / (double)fullsizeImage.Width);
 
             var thumbnailBitmap = new Bitmap(thumbWidth, thumbHeight);

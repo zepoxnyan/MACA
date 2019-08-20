@@ -1,0 +1,73 @@
+﻿@model MACAWeb.Models.ConferenceTalk
+
+@{
+    ViewBag.Title = "Conference talk";
+}
+
+<div class="main-content">
+    <h2>Conference talk details</h2>
+    <hr />
+    <div class="inner-rectangle">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ConferenceName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ConferenceName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Country)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Country)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Year)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Year)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.InvitedTalk)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.InvitedTalk)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PdfLink)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PdfLink)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateModified)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateModified)
+            </dd>
+        </dl>
+    </div>
+
+    <div>
+        @Html.ActionLink("Edit Conference talk", "ConferenceTalksEdit", new { id = Model.ConferenceTalkID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

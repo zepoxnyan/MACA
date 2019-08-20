@@ -120,7 +120,7 @@ namespace MACAWeb.Controllers
                         using (var reader = new BinaryReader(personView.Image.InputStream))
                         {
                             person.Image = reader.ReadBytes(personView.Image.ContentLength);
-                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image);
+                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image,0);
                         }
                     }
                 }
@@ -231,7 +231,7 @@ namespace MACAWeb.Controllers
                         using (var reader = new BinaryReader(personView.Image.InputStream))
                         {
                             person.Image = reader.ReadBytes(personView.Image.ContentLength);
-                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image);
+                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image,0);
                         }
                     }
                 }

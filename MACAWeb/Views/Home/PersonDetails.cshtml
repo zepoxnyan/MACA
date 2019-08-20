@@ -10,8 +10,6 @@
             <h2>@Model.FullName</h2>
             @if (ViewBag.Position != "NAN")
             {<h3>@ViewBag.Position</h3>}
-            @if (ViewData["sociallinks"] != null)
-            {<h3>@ViewData["sociallinks"]</h3>}
             <br />
             <ul class="list-group vbottom">
                 @{ if (Model.Email != null && Model.Email.Length > 0)
@@ -20,28 +18,33 @@
                     }
 
                 }
-                @{ if (ViewBag.SocialLinks != null)
-                    {
-                        foreach (var link in ViewBag.SocialLinks)
-                        {
-                            @:<li class="list-group-item"><i class="fa fa-envelope"></i><a href=mailto:@Model.Email> @link</a></li>
-                        }
-                    }
-
-                }
+                
 
                 <li class="list-group-item">
                     <div class="social-btns">
                         @{ if (ViewBag.SocialLinks != null)
                             {
-                                foreach (var link in ViewBag.SocialLinks)
+
+                                foreach (var entry in ViewBag.SocialLinks)
                                 {
-                                    @:<div class="social-btn-holder"><a href="@link"><i class="fa fa-google"></i></a></div>
-                                    @
+
+                                    string[] split = entry.Split(new[] { " |Split| " }, StringSplitOptions.None);
+                                    if (split[1] == "noLogo")
+                                    {
+                                        @:<div class="social-btn-holder"><a href="@split[0]"><img src="/Images/macaIcon.png" height="30" width="30" /></a></div>
+                                    }
+                                    else
+                                    {
+                                        var imgSrc = String.Format("data:image/gif;base64,{0}", split[1]);
+                                        @:<div class="social-btn-holder"><a href="@split[0]"><img src="@imgSrc" height="30" width="30" /></a></div>
+                                    }
+                                    
+
                                 }
                             }
 
-                          }
+                        }
+
                     </div>
                 </li>
             </ul>

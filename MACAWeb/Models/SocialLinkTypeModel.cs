@@ -37,6 +37,7 @@ namespace MACAWeb.Models
 
         public Guid UserModifiedID { get; set; }
 
+        [Display(Name = "Logo")]
         public byte[] Logo { get; set; }
     }
 
@@ -54,5 +55,8 @@ namespace MACAWeb.Models
 
         [Required(ErrorMessage = "Please fill in the description!")]
         public string Description { get; set; }
+
+        [Display(Name = "Logo")]
+        public HttpPostedFileBase Logo { get; set; }
     }
 }

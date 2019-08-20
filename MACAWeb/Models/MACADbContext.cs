@@ -46,6 +46,10 @@ namespace MACAWeb.Models
         public DbSet<Teaching> Teachings { get; set; }
         public DbSet<TeachingType> TeachingTypes { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
+        
+        public DbSet<Interest> Interests { get; set; }
+        public DbSet<ConferenceTalk> ConferenceTalks { get; set; }
+        public DbSet<SeminarTalk> SeminarTalks { get; set; }
   
         public MACADbContext() : base("MACA") { }
     }
