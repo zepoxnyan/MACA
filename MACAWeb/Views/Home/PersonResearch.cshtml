@@ -1,0 +1,83 @@
+﻿@model MACAWeb.Models.Research
+@{
+    ViewBag.Title = "Research";
+
+}
+<div class="main-content">
+
+    <h2>Research</h2>
+    <hr />
+
+    <div class="row inner-rectangle">
+        <div class="col-sm-12 col-lg-12 col-md-12">
+            <h4>Interests</h4>
+            <div>
+                <ul>
+                    @foreach (var item in Model.interest)
+                    {
+                        <li>
+                            <span style="font-weight:bold">@Html.DisplayFor(modelItem => item.Title)</span>
+                            <span>:</span>
+                            <span style="font-style:italic">@Html.DisplayFor(modelItem => item.Description)</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-12 col-md-12">
+            <h4>Conference talks</h4>
+            <div>
+                <ul>
+                    @foreach (var item in Model.conferenceTalk)
+                    {
+                        <li>
+                            <span style="font-style:italic">@Html.DisplayFor(modelItem => item.Title)</span>
+                            @if (item.InvitedTalk != false)
+                            {
+                                <span>[Invited talk],</span>
+                            }
+                            else
+                            {
+                                <span>,</span>
+                            }
+                            <span><a href="http://www.8ccgt.agh.edu.pl/index.php" target="new">@Html.DisplayFor(modelItem => item.ConferenceName)</a>, @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.Country) (@Html.DisplayFor(modelItem => item.Year)).</span>
+                            @if (item.PdfLink != null)
+                            {
+                                <span style="font-weight:bold;"><a target="new" href=@Html.DisplayFor(modelItem => item.PdfLink)>[ pdf ]</a></span>
+                            }
+
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-12 col-md-12">
+            <h4>Seminar talks</h4>
+            <div>
+                <ul>
+                    @foreach (var item in Model.seminarTalk)
+                    {
+                        <li>
+                            <span style="font-style:italic">@Html.DisplayFor(modelItem => item.Title)</span>
+                            <span>,</span>
+                            <span>
+                                @Html.DisplayFor(modelItem => item.SeminarName),
+                                @if (item.University != null)
+                                {
+                                    <span>@Html.DisplayFor(modelItem => item.University),</span>}
+                                @Html.DisplayFor(modelItem => item.City),
+                                @Html.DisplayFor(modelItem => item.Country)
+                                (@Html.DisplayFor(modelItem => item.Year))
+                            </span>
+                            @if (item.PdfLink != null)
+                            {
+                                <span style="font-weight:bold;"><a target="new" href=@Html.DisplayFor(modelItem => item.PdfLink)>[ pdf ]</a></span>
+                            }
+
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

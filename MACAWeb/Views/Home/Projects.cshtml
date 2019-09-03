@@ -1,0 +1,75 @@
+﻿@model PagedList.IPagedList<MACAWeb.Models.Grant>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Projects";
+}
+
+<div class="main-content">
+    <h2>@ViewBag.Title</h2>
+
+    <hr />
+
+    <div class="row index-row inner-rectangle">
+        <div class="row index-row">
+            <!--Search Form-->
+            <div class="col col-md-4 search-box">
+                @using (Html.BeginForm("Projects", "Home", FormMethod.Get))
+                {
+                    <div class="input-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                </th>
+                <th>
+                    Grant Status
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Start)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().End)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GrantStatus.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Start)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.End)
+                    </td>
+                    <td class="column-glyph">
+                        <a href="@Url.Action("Details", "Grants", new { id=item.GrantID })">
+                            <span title="Details" class="fa fa-info action-icons" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+        <!--Pagination-->
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Projects", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>

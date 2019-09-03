@@ -1,71 +1,68 @@
 ﻿@model IEnumerable<MACAWeb.Models.GrantMember>
 
 @{
-    ViewBag.Title = "Grants";
+    ViewBag.Title = "Grant Members";
 }
-
-<div class="main-content">
-    <h2>Grant Members</h2>
+<div>
+    <h2>@ViewBag.Title</h2>
 
     <hr />
+    <div class="row">
+        @Html.ActionLink("Add new", "GrantMembersCreate", new { grantId = ViewBag.GrantID }, new { @class = "btn btn-default" })
+    </div>
+    <br />
 
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <div class="col col-md-6">
-                <div class="link-button">
-                    @Html.ActionLink("Add new", "GrantMembersCreate", routeValues: new { grantId = ViewBag.GrantID })
-                </div>
-            </div>
+    <div class="row">
+
+        <div class="card col">
+            <table class="table card-body">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Person.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GrantMemberTypeID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Year)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Hours)
+                    </th>
+                    <th>Manage</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Person.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GrantMemberType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hours)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("GrantMembersEdit", "Grants", new { id=item.GrantMemberID, grantId = item.GrantID })">
+                                <span title="Edit" class="fa fa-wrench action-icons" />
+                            </a>&nbsp;
+                            <a href="@Url.Action("GrantMembersDelete", "Grants", new { id=item.GrantMemberID, grantId = item.GrantID })">
+                                <span title="Delete" class="fa fa-trash action-icons" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Person.FullName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.GrantMemberTypeID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Year)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Hours)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Person.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GrantMemberType.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Year)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Hours)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("GrantMembersEdit", "Grants", new { id=item.GrantMemberID, grantId = item.GrantID })">
-                            <span title="Edit" class="fa fa-wrench action-icons" />
-                        </a>&nbsp;
-                        <a href="@Url.Action("GrantMembersDelete", "Grants", new { id=item.GrantMemberID, grantId = item.GrantID })">
-                            <span title="Delete" class="fa fa-trash action-icons" />
-                        </a>
-                    </td>
-                </tr>
-            }
-
-        </table>
     </div>
-
     <div>
+        <hr />
         @Html.ActionLink("Back to Grant Editing", "Edit", routeValues: new { id = ViewBag.GrantID })
     </div>
 </div>
-

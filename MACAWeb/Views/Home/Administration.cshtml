@@ -6,49 +6,68 @@
     <h2>Administration</h2>
 
     <hr />
+    @if (User.IsInRole("SuperAdmin"))
+    {
+        <div class="card secondary">
+            <h3 class="col-md-12 card-header" style="margin-top:-5px;">Technical Entities</h3>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 style="margin-top:-5px;">Persons</h4>
+                    </div>
+                    <div class="card-body">
+                        <div>@Html.ActionLink("Position Types", "Index", "PositionTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                    </div>
+                </div>
+                <br />
+                <div class="card">
+                    <div class="card-header">
+                        <h4 style="margin-top:-5px;">Grants</h4>
+                    </div>
+                    <div class="card-body">
+                        <div>@Html.ActionLink("Grant Statuses", "Index", "GrantStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Grant Budget Types", "Index", "GrantBudgetsTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Grant Member Types", "Index", "GrantMemberTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                    </div>
+                </div>
+                <br />
+                <div class="card">
+                    <div class="card-header">
+                        <h4 style="margin-top:-5px;">Activities &amp; Teaching</h4>
+                    </div>
+                    <div class="card-body">
+                        <div>@Html.ActionLink("Activity Types", "Index", "ActivityTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Teaching Types", "Index", "TeachingTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Mentorship Types", "Index", "MentorshipTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Thesis Types", "Index", "ThesisTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                    </div>
+                </div>
+                <br />
+                <div class="card">
+                    <div class="card-header">
+                        <h4 style="margin-top:-5px;">Publications</h4>
+                    </div>
+                    <div class="card-body">
+                        <div>@Html.ActionLink("Publication Statuses", "Index", "PublicationStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Publication Types", "Index", "PublicationTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Local Publication Type Groups", "Index", "PublicationTypeGroups", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Local Publication Types", "Index", "PublicationTypeLocals", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Publication Classifications", "Index", "PublicationClassifications", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                        <div>@Html.ActionLink("Author Types", "Index", "AuthorTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
+                    </div>
+                </div>
+                
 
-    <div class="row inner-rectangle-small">
-        @if (User.IsInRole("SuperAdmin"))
-        {
-            <h3 class="col-md-12" style="margin-top:-5px;">Technical Entities</h3>
 
-            <h4 style="margin-top:-5px;">Persons</h4>
-            <div class="row col-md-12">
-                <div>@Html.ActionLink("Position Types", "Index", "PositionTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
             </div>
-            <br />
-            <h4 style="margin-top:-5px;">Grants</h4>
-            <div class="row col-md-12">                
-                <div>@Html.ActionLink("Grant Statuses", "Index", "GrantStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Grant Budget Types", "Index", "GrantBudgetsTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Grant Member Types", "Index", "GrantMemberTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-            </div>
-            <br />
-            <h4 style="margin-top:-5px;">Activities &amp; Teaching</h4>
-            <div class="row col-md-12">                
-                <div>@Html.ActionLink("Activity Types", "Index", "ActivityTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Teaching Types", "Index", "TeachingTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Mentorship Types", "Index", "MentorshipTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Thesis Types", "Index", "ThesisTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>                
-            </div>
-            <br />
-            <h4 style="margin-top:-5px;">Publications</h4>
-            <div class="row col-md-12">
-                <div>@Html.ActionLink("Publication Statuses", "Index", "PublicationStatus", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Publication Types", "Index", "PublicationTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Local Publication Type Groups", "Index", "PublicationTypeGroups", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Local Publication Types", "Index", "PublicationTypeLocals", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Publication Classifications", "Index", "PublicationClassifications", null, htmlAttributes: new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Author Types", "Index", "AuthorTypes", null, htmlAttributes: new { @class = "big-button-link" })</div>
-            </div>
-        }
-    </div>
-
-    <div class="row inner-rectangle-small">
-        @if (User.IsInRole("Admin"))
-        {
-            <h3 class="col-md-12" style="margin-top:-5px;">Content Management</h3>
-            <div class="row-administration col-md-12">
+        </div>
+        <br />
+    }
+    @if (User.IsInRole("Employee"))
+    {
+        <div class="card secondary">
+            <h3 class="col-md-12 card-header" style="margin-top:-5px;">Content Management</h3>
+            <div class="card-body">
                 <div>@Html.ActionLink("People", "Index", "Persons", null, new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Grants", "Index", "Grants", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Subjects", "Index", "Subjects", null, htmlAttributes: new { @class = "big-button-link" })</div>
@@ -57,30 +76,32 @@
                 <div>@Html.ActionLink("Publications", "Index", "Publications", null, htmlAttributes: new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Authors", "AuthorsIndex", "Publications", null, htmlAttributes: new { @class = "big-button-link" })</div>
             </div>
-        }
-    </div>
+        </div>
+        <br />
+    }
 
-    <div class="row inner-rectangle-small">
-        @if (User.IsInRole("SuperAdmin"))
-        {
-            <h3 class="col-md-12" style="margin-top:-5px;">Users & Events</h3>
-            <div class="row-administration col-md-12">
+    @if (User.IsInRole("SuperAdmin"))
+    {
+        <div class="card secondary">
+            <h3 class="col-md-12 card-header" style="margin-top:-5px;">Users</h3>
+            <div class="card-body">
                 <div>@Html.ActionLink("Users", "Index", "Users", null, new { @class = "big-button-link" })</div>
-                <div>@Html.ActionLink("Event Types", "Index", "EventTypes", null, new { @class = "big-button-link" })</div>
             </div>
-        }
-    </div>
+        </div>
+        <br />
+    }
 
-    <div class="row inner-rectangle-small">
-        @if (User.IsInRole("SuperAdmin"))
-        {
-            <h3 class="col-md-12" style="margin-top:-5px;">Data Migration</h3>
-            <div class="row-administration col-md-12">
+    @if (User.IsInRole("SuperAdmin"))
+    {
+        <div class="card secondary">
+            <h3 class="col-md-12 card-header" style="margin-top:-5px;">Data Migration</h3>
+            <div class="card-body">
                 <div>@Html.ActionLink("Insert People", "InsertPeople", "Home", null, new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Insert Mentors", "InsertMentors", "Home", null, new { @class = "big-button-link" })</div>
                 <div>@Html.ActionLink("Insert Subjects", "InsertSubjects", "Home", null, new { @class = "big-button-link" })</div>
             </div>
-        }
-    </div>
+        </div>
+        
+    }
 
 </div>

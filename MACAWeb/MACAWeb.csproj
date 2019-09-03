@@ -315,6 +315,14 @@
     <Compile Include="Migrations\201908181136132_AddSeminarTalks.Designer.cs">
       <DependentUpon>201908181136132_AddSeminarTalks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908231638027_PublicatonViewFix.cs" />
+    <Compile Include="Migrations\201908231638027_PublicatonViewFix.Designer.cs">
+      <DependentUpon>201908231638027_PublicatonViewFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908231714008_PublicationAddBibtex.cs" />
+    <Compile Include="Migrations\201908231714008_PublicationAddBibtex.Designer.cs">
+      <DependentUpon>201908231714008_PublicationAddBibtex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -403,9 +411,14 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\NavbarStyle.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\StaticSites.css" />
+    <Content Include="Content\Style.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="ikona.ico" />
+    <Content Include="Images\aboutMACA.png" />
+    <Content Include="Images\aboutPeople.png" />
+    <Content Include="Images\aboutPublication.png" />
     <Content Include="Images\biqbinIcon.png" />
     <Content Include="Images\featureIcon.png" />
     <Content Include="Images\gb.png" />
@@ -414,7 +427,6 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Images\logo-fis.png" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -749,6 +761,8 @@
     <Content Include="Views\Research\SeminarTalksEdit.cshtml" />
     <Content Include="Views\Research\SeminarTalksDelete.cshtml" />
     <Content Include="Views\Research\Index.cshtml" />
+    <Content Include="Views\Home\PersonResearch.cshtml" />
+    <Content Include="Views\Home\Projects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -786,6 +800,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908181136132_AddSeminarTalks.resx">
       <DependentUpon>201908181136132_AddSeminarTalks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908231638027_PublicatonViewFix.resx">
+      <DependentUpon>201908231638027_PublicatonViewFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908231714008_PublicationAddBibtex.resx">
+      <DependentUpon>201908231714008_PublicationAddBibtex.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

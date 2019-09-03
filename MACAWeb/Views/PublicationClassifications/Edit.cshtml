@@ -35,7 +35,10 @@
             <div class="form-group">
                 <label class="control-label col-md-2">&nbsp;</label>
                 <div class="col-md-10">
-                    @Html.ActionLink("Add/Edit Coefficients", "CoefficientsIndex", new { pubClassId = @Model.PublicationClassificationID }, htmlAttributes: new { @class = "big-button-link" })
+                    <div class="row">
+                        @Html.ActionLink("Add new", "CoefficientsCreate", new { pubClassId = ViewBag.PublicationClassificationID }, new { @class = "btn btn-default" })
+                    </div>
+                    @Html.ActionLink("Add/Edit Coefficients", "CoefficientsIndex", new { pubClassId = @Model.PublicationClassificationID }, htmlAttributes: new { @class = "btn btn-default" })
                 </div>
             </div>
 

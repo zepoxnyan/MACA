@@ -36,7 +36,7 @@ namespace MACAWeb.Models
         [Display(Name = "Nazov")]
         [Required(ErrorMessage = "Enter the title!")]
         public string Title { get; set; }
-        
+
         [Display(Name = "Journal")]
         public string Journal { get; set; }
 
@@ -58,6 +58,9 @@ namespace MACAWeb.Models
 
         [Display(Name = "Hyperlink")]
         public string Link { get; set; }
+
+        [Display(Name = "Bibtex File")]
+        public string BibtexFile { get; set; }
 
         [Display(Name = "Preprint link")]
         public string PreprintLink { get; set; }
@@ -88,7 +91,7 @@ namespace MACAWeb.Models
 
         [Display(Name = "Chapter")]
         public string Chapter { get; set; }
-        
+
         [Display(Name = "Keywords")]
         public string Keywords { get; set; }
 
@@ -115,6 +118,8 @@ namespace MACAWeb.Models
         public Guid UserCreatedID { get; set; }
 
         public Guid UserModifiedID { get; set; }
+
+        public virtual List<PublicationAuthor> PublicationAuthors { get; set; }
     }
 
     public class PublicationViewModel
@@ -167,6 +172,9 @@ namespace MACAWeb.Models
         [Display(Name = "Hyperlink")]
         public string Link { get; set; }
 
+        [Display(Name = "Bibtex File")]
+        public string BibtexFile { get; set; }
+
         [Display(Name = "Preprint link")]
         public string PreprintLink { get; set; }
 
@@ -210,4 +218,6 @@ namespace MACAWeb.Models
         [Display(Name = "Anglicky Nazov")]
         public string TitleEN { get; set; }
     }
+    
+
 }

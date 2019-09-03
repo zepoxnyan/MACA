@@ -19,53 +19,44 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar fixed-top navbar-light navbar-inverse bg-light navbar-expand-lg">
-        <div class="container navbar-header">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top mb-5 shadow primary">
+        <div class="container primary">
             <a href="@Url.Action("Index", "Home")" class="navbar-brand">
                 <img src="~/Images/macaIcon.png" width="40" />
             </a>
-
-            <button type="button" class="navbar-toggler navbar-light" data-toggle="collapse" data-target="#navbarCollapsed" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="navbar-collapse collapse" id="navbarCollapsed">
-                <ul class="nav navbar-nav mr-auto">
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">@Html.ActionLink("About MACA", "About", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("People", "People", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink(MACAWeb.Resources.Navbar.Navbar.Papers, "Publications", "Home", null, new { @class = "nav-link" })</li>
-                    @if (Context.User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">@Html.ActionLink("Administration", "Administration", "Home", null, new { @class = "nav-link" })</li>
-                        }
-                        if (User.IsInRole("Employee"))
-                        {
-                            <li class="nav-item">@Html.ActionLink("Edit profile", "Edit", "Persons", null , new { @class = "nav-link"})</li>
-                            
-
-                        }
-                    }
+                    <li class="nav-item">@Html.ActionLink("Publications", "Publications", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Projects", "Projects", "Home", null, new { @class = "nav-link" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
+    <!--Page Content-->
     <div class="container">
-        @RenderBody()
+        <div class="card border-1 shadow my-5 primary">
+            <div class="card-body p-4">
+                @RenderBody()
+            </div>
+        </div>
         <hr />
-        <footer class="page-footer foot-row footer-style">
-            <div class="row">
-                <div class="mr-auto">
-                        <a href="https://www.upjs.sk/prirodovedecka-fakulta/ustav/umv/" target="_new" class="block-link">&copy; @DateTime.Now.Year - Univerzita Pavla Jozefa Šafárika v Košiciach, Prírodovedecká fakulta</a>
-                </div>
-                <div class="ml-auto">
+        <footer id="sticky-footer" class="py-4 primary border-1">
+                    <div class="col-md-8">
+                        <a href="https://www.upjs.sk/prirodovedecka-fakulta/ustav/umv/" target="_new">&copy; @DateTime.Now.Year - Univerzita Pavla Jozefa Šafárika v Košiciach, Prírodovedecká fakulta</a>
+                    </div>
+                    <div class="col-md-4">
                         @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "block-link" })
                         @Html.ActionLink("Press", "Press", "Home", null, new { @class = "block-link" })
-                </div>
-            </div>
+                    </div>
         </footer>
+        
     </div>
 
     @Scripts.Render("~/bundles/jquery")

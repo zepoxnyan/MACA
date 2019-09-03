@@ -1,65 +1,62 @@
 ﻿@model IEnumerable<MACAWeb.Models.PublicationAuthor>
 
 @{
-    ViewBag.Title = "Publications";
+    ViewBag.Title = "Publication's Authors";
 }
-
-<div class="main-content">
-    <h2>Publication's Authors</h2>
+<div>
+    <h2>@ViewBag.Title</h2>
 
     <hr />
+    <div class="row">
+        @Html.ActionLink("Add new", "PubAuthorsCreate", new { publicationId = ViewBag.PublicationId }, new { @class = "btn btn-default" })
+    </div>
+    <br />
 
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <div class="col col-md-6">
-                <div class="link-button">
-                    @Html.ActionLink("Add new", "PubAuthorsCreate", routeValues: new { publicationId = ViewBag.PublicationId })
-                </div>
-            </div>
+    <div class="row">
+
+        <div class="card col">
+            <table class="table card-body">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Author.Surname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Author.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AuthorTypeID)
+                    </th>
+                    <th>Manage</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author.Surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuthorType.Name)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("PubAuthorsEdit", "Publications", new { id=item.PublicationAuthorID, publicationId = item.PublicationID })">
+                                <span title="Edit" class="fa fa-wrench action-icons" />
+                            </a>&nbsp;
+                            <a href="@Url.Action("PubAuthorsDelete", "Publications", new { id=item.PublicationAuthorID, publicationId = item.PublicationID })">
+                                <span title="Delete" class="fa fa-trash action-icons" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Author.Surname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Author.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AuthorTypeID)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Author.Surname)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Author.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AuthorType.Name)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("PubAuthorsEdit", "Publications", new { id=item.PublicationAuthorID, publicationId = item.PublicationID })">
-                            <span title="Edit" class="fa fa-wrench action-icons" />
-                        </a>&nbsp;
-                        <a href="@Url.Action("PubAuthorsDelete", "Publications", new { id=item.PublicationAuthorID, publicationId = item.PublicationID })">
-                            <span title="Delete" class="fa fa-trash action-icons" />
-                        </a>
-                    </td>
-                </tr>
-            }
-
-        </table>
     </div>
-
     <div>
+        <hr />
         @Html.ActionLink("Back to Editing Publication", "Edit", routeValues: new { id = ViewBag.PublicationId })
     </div>
 </div>
-

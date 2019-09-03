@@ -5,82 +5,80 @@
 @{
     ViewBag.Title = "Mentorships";
 }
-
-<div class="main-content">
+<div>
     <h2>@ViewBag.Title</h2>
 
     <hr />
-
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <div class="col col-md-6">
-                <div class="link-button">
-                    @Html.ActionLink("Add new", "Create")
-                </div>
-            </div>
-            <!--Search Form-->
-            <div class="col col-md-4 search-box">
-                @using (Html.BeginForm("Index", "Mentorships", FormMethod.Get))
-                {
-                    <div class="input-group">
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                        </span>
-                    </div>
-                }
-            </div>
-        </div>
-
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Person.FullName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Student)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().ThesisTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Year)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
+    <div class="row">
+        @if (User.IsInRole("Employee"))
+        {
+            <div class="col col-md-8">@Html.ActionLink("Add new", "Create", null, new { @class = "btn btn-default" })</div>
+        }
+        <div class="col col-md-4 search-box">
+            @using (Html.BeginForm("Index", "Mentorships", FormMethod.Get))
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Person.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Student)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ThesisTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Year)
-                    </td>
-                    <td class="column-glyph">
-                        <a href="@Url.Action("Edit", "Mentorships", new { id=item.MentorshipID })">
-                            <span title="Edit" class="fa fa-wrench action-icons" />
-                        </a>&nbsp;
-                        <a href="@Url.Action("Details", "Mentorships", new { id=item.MentorshipID })">
-                            <span title="Details" class="fa fa-info action-icons" />
-                        </a>&nbsp;
-                        <a href="@Url.Action("Delete", "Mentorships", new { id=item.MentorshipID })">
-                            <span title="Delete" class="fa fa-trash action-icons" />
-                        </a>
-                    </td>
-                </tr>
+                <div class="input-group">
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
+                    </span>
+                </div>
             }
-        </table>
-        <!--Pagination-->
-        <br />
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
     </div>
+    <br />
+
+    <div class="row">
+
+        <div class="card col">
+            <table class="table card-body">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Person.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Student)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().ThesisTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Year)
+                    </th>
+                    <th>Manage</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Person.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ThesisTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td class="column-glyph">
+                            <a href="@Url.Action("Edit", "Mentorships", new { id=item.MentorshipID })">
+                                <span title="Edit" class="fa fa-wrench action-icons" />
+                            </a>&nbsp;
+                            <a href="@Url.Action("Details", "Mentorships", new { id=item.MentorshipID })">
+                                <span title="Details" class="fa fa-info action-icons" />
+                            </a>&nbsp;
+                            <a href="@Url.Action("Delete", "Mentorships", new { id=item.MentorshipID })">
+                                <span title="Delete" class="fa fa-trash action-icons" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>

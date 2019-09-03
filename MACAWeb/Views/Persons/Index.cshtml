@@ -6,76 +6,70 @@
 @{
     ViewBag.Title = "People";
 }
-
-<div class="main-content">
+<div>
     <h2>@ViewBag.Title</h2>
 
     <hr />
-
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <div class="col col-md-6">
-                @if (User.IsInRole("Admin")) {
-                <div class="link-button">
-                    @Html.ActionLink("Add new", "Create")
-                </div>}
-            </div>
-            <!--Search Form-->
-            <div class="col col-md-4 search-box">
-                @using (Html.BeginForm("Index", "Persons", FormMethod.Get))
-                {
-                    <div class="input-group">
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                        </span>
-                    </div>
-                }
-            </div>
-        </div>
-
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Surname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
+    <div class="row">
+        @if (User.IsInRole("Employee"))
+        {
+            <div class="col col-md-8">@Html.ActionLink("Add new", "Create", null, new { @class = "btn btn-default" })</div>
+        }
+        <div class="col col-md-4 search-box">
+            @using (Html.BeginForm("Index", "Persons", FormMethod.Get))
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Surname)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                    <td>
-                        <a href="@Url.Action("Edit", "Persons", new { id = item.PersonID })">
-                            <span title="Edit" class="fa fa-wrench action-icons" />
-                        </a>&nbsp;
-                        <a href="@Url.Action("Details", "Persons", new { id = item.PersonID })">
-                            <span title="Details" class="fa fa-info-circle action-icons" />
-                        </a>&nbsp;
-                        <a href="@Url.Action("Delete", "Persons", new { id = item.PersonID })">
-                            <span title="Delete" class="fa fa-trash action-icons" />
-                        </a>
-                    </td>}
-                </tr>
+                <div class="input-group">
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
+                    </span>
+                </div>
             }
-
-        </table>
-        <!--Pagination-->
-        <br />
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-        <br />
-        
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
     </div>
+    <br />
+
+    <div class="row">
+
+        <div class="card col">
+            <table class="table card-body">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Surname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                    </th>
+                    <th>Manage</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>
+                                <a href="@Url.Action("Edit", "Persons", new { id = item.PersonID })">
+                                    <span title="Edit" class="fa fa-wrench action-icons" />
+                                </a>&nbsp;
+                                <a href="@Url.Action("Details", "Persons", new { id = item.PersonID })">
+                                    <span title="Details" class="fa fa-info-circle action-icons" />
+                                </a>&nbsp;
+                                <a href="@Url.Action("Delete", "Persons", new { id = item.PersonID })">
+                                    <span title="Delete" class="fa fa-trash action-icons" />
+                                </a>
+                            </td>}
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>

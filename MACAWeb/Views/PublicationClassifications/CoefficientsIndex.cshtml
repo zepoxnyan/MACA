@@ -3,63 +3,56 @@
 @{
     ViewBag.Title = "Publication Classifications";
 }
-
-<div class="main-content">
-    <h2>Publication Classifications' Coefficients</h2>
+<div>
+    <h2>@ViewBag.Title</h2>
 
     <hr />
+    <div class="row">
+        @Html.ActionLink("Add new", "CoefficientsCreate", new { pubClassId = ViewBag.PublicationClassificationID }, new { @class = "btn btn-default" })
+    </div>
+    <br />
 
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <div class="col col-md-6">
-                <div class="link-button">
-                    @Html.ActionLink("Add new", "CoefficientsCreate", routeValues: new { pubClassId = ViewBag.PublicationClassificationID })
-                </div>
-            </div>
+    <div class="row">
+
+        <div class="card col">
+            <table class="table card-body">
+                <tr>
+                    <th>
+                        Publication Type Group
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Year)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Coefficient)
+                    </th>
+                    <th>Manage</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PublicationTypeGroup.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Coefficient)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("CoefficientsEdit", "PublicationClassifications", new { id=item.PublicationClassificationCoefficientID, pubClassId = item.PublicationClassificationID })">
+                                <span title="Edit" class="fa fa-wrench action-icons" />
+                            </a>&nbsp;
+                            <a href="@Url.Action("CoefficientsDelete", "PublicationClassifications", new { id=item.PublicationClassificationCoefficientID, pubClassId = item.PublicationClassificationID })">
+                                <span title="Delete" class="fa fa-trash action-icons" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
 
-        <table class="table">
-            <tr>
-                <th>
-                    Publication Type Group
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Year)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Coefficient)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PublicationTypeGroup.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Year)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Coefficient)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("CoefficientsEdit", "PublicationClassifications", new { id=item.PublicationClassificationCoefficientID, pubClassId = item.PublicationClassificationID })">
-                            <span title="Edit" class="fa fa-wrench action-icons" />
-                        </a>&nbsp;
-                        <a href="@Url.Action("CoefficientsDelete", "PublicationClassifications", new { id=item.PublicationClassificationCoefficientID, pubClassId = item.PublicationClassificationID })">
-                            <span title="Delete" class="fa fa-trash action-icons" />
-                        </a>
-                    </td>
-                </tr>
-            }
-
-        </table>
-    </div>
-
-    <div>
-        @Html.ActionLink("Back to Publication Classification Editing", "Edit", routeValues: new { id = ViewBag.PublicationClassificationID })
     </div>
 </div>
-
