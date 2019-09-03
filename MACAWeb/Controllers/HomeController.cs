@@ -44,7 +44,7 @@ namespace MACAWeb.Controllers
 
         public ActionResult People(string currentFilter, string searchString, int? page)
         {
-            var persons = db.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Names);
+            var persons = db.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
 
             
 
