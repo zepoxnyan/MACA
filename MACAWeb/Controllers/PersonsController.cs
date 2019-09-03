@@ -94,7 +94,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Guid authorGuid = Guid.NewGuid();
+                
 
                 Person person = new Person();
                 person.PersonID = Guid.NewGuid();
@@ -129,6 +129,7 @@ namespace MACAWeb.Controllers
                 db.SaveChanges();
 
                 // Automatically add a person to authors
+                Guid authorGuid = Guid.NewGuid();
                 Author author = new Author();
                 author.AuthorID = authorGuid;
                 author.Surname = person.Surname;

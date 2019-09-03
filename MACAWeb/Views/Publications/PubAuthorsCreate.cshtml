@@ -19,8 +19,9 @@
 
             <div class="row index-row">
                 <div class="col col-md-6">
-                    <div class="link-button">
-                        @Html.ActionLink("Add New Author", "AuthorsIndex", routeValues: new { publicationId = ViewBag.PublicationId })
+                    <div>
+                        @Html.ActionLink("Add New Author", "AuthorsIndex", new { publicationId = ViewBag.PublicationId }, new { @class = "btn btn-default" })
+                        
                     </div>
                 </div>
             </div>

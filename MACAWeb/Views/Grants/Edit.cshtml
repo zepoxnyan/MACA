@@ -61,16 +61,14 @@
             <div class="form-group">
                 <label class="control-label col-md-2">&nbsp;</label>
                 <div class="col-md-10">
-                    @Html.ActionLink("Add/Edit Grant Budget", "GrantBudgetsIndex", new { grantId = @Model.GrantID }, htmlAttributes: new { @class = "big-button-link" })
+
+                    @Html.ActionLink("Add/Edit Grant Budget", "GrantBudgetsIndex", new { grantId = @Model.GrantID }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Add/Edit Grant Member", "GrantMembersIndex", new { grantId = @Model.GrantID }, new { @class = "btn btn-default" })
+
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="control-label col-md-2">&nbsp;</label>
-                <div class="col-md-10">
-                    @Html.ActionLink("Add/Edit Grant Members", "GrantMembersIndex", new { grantId = @Model.GrantID }, htmlAttributes: new { @class = "big-button-link" })
-                </div>
-            </div>
+          
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

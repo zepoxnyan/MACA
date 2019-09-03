@@ -44,15 +44,9 @@ namespace MACAWeb.Controllers
 
         public ActionResult People(string currentFilter, string searchString, int? page)
         {
-            var persons = db.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
+            var persons = db.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Names);
 
-            /*
-            var test = from person in dbPeople.Persons
-                      where person.FullName.Contains("a")
-                      select new {
-                            Name = (person.Name.Length > person.Surname.Length ? person.Name : person.Surname)
-                      };
-            */
+            
 
             if (searchString != null)
             {
@@ -142,10 +136,31 @@ namespace MACAWeb.Controllers
         public ActionResult PersonPublications(Guid personID)
         {
             List<Publication> lstPublications = new List<Publication>();
+            var author = db.Persons.Where(x => x.PersonID == personID).Select(x => x.AuthorID).FirstOrDefault();
+            List<PublicationAuthor> pubAuthor = db.PublicationAuthors.Where(x => x.AuthorID == author).ToList();
+            foreach (var item in pubAuthor)
+            {
+                Publication pub = db.Publications.Find(item.PublicationID);
+                lstPublications.Add(pub);
+            }
+            lstPublications = lstPublications.OrderByDescending(x => x.Year).ThenByDescending(x => x.Title).ToList();
             Person per = db.Persons.Find(personID);
             ViewBag.Title = per.Name + " " + per.Surname;
             ViewBag.PersonID = personID;
             return View(lstPublications);
+        }
+        public ActionResult PersonResearch(Guid personID)
+        {
+            var iinterest = db.Interests.Where(i => i.PersonID == personID).OrderBy(x => x.Title);
+            var cTalk = db.ConferenceTalks.Where(i => i.PersonID == personID).OrderBy(x => x.Title);
+            var sTalk = db.SeminarTalks.Where(i => i.PersonID == personID).OrderBy(x => x.Title);
+            Research research = new Research { };
+            research.interest = iinterest;
+            research.conferenceTalk = cTalk;
+            research.seminarTalk = sTalk;
+
+
+            return View(research);
         }
 
         public ActionResult News()
@@ -154,10 +169,75 @@ namespace MACAWeb.Controllers
             return View();
         }
 
-        public ActionResult Publications()
+        public ActionResult Publications(string currentFilter, string searchString, int? page)
         {
-            //List<TeamMember> teamMembers = dbTeamMembers.TeamMembers.OrderByDescending(x => x.PagePosition).ThenBy(x => x.LastName).ToList();
-            return View();
+            //List<Publication> publications = db.Publications.ToList();
+            //List<PublicationAuthor> publicationAuthors = db.PublicationAuthors.ToList();
+
+            var publications = db.Publications
+                 .Include(p => p.PublicationClassification)
+                 .Include(p => p.PublicationStatus)
+                 .Include(p => p.PublicationType)
+                 .Include(p => p.PublicationTypeLocal)
+                 .OrderByDescending(p => p.Year)
+                 .ThenBy(p => p.Title);
+            
+            
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                publications = publications.Where(m => m.Year.ToString().Contains(searchString)
+                                      || m.Title.Contains(searchString)
+                                      || m.PublicationStatus.Name.Contains(searchString))
+                                      .OrderByDescending(p => p.Year)
+                                      .ThenBy(p => p.Title);
+            }
+            
+            int pageSize = int.Parse(ConfigurationManager.AppSettings["generalItemsOnPage"]);
+            int pageNumber = (page ?? 1);
+
+            return View(publications.ToPagedList(pageNumber, pageSize));
+            
+        }
+        public ActionResult Projects(string currentFilter, string searchString, int? page)
+        {
+            var grants = db.Grants
+                .Include(x => x.GrantStatus)
+                .OrderByDescending(x => x.Start).ThenBy(x => x.Name);
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                grants = grants.Where(m => m.Name.Contains(searchString)
+                                      || m.Description.Contains(searchString)
+                                      || m.GrantStatus.Name.Contains(searchString)
+                                      || m.Start.ToString().Contains(searchString)
+                                      || m.End.ToString().Contains(searchString))
+                                      .OrderBy(m => m.Name);
+            }
+
+            int pageSize = int.Parse(ConfigurationManager.AppSettings["generalItemsOnPage"]);
+            int pageNumber = (page ?? 1);
+
+            return View(grants.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult FAQs()

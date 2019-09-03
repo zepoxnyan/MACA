@@ -1,33 +1,67 @@
-﻿@model PagedList.IPagedList<MACAWeb.Models.Person>
+﻿@model PagedList.IPagedList<MACAWeb.Models.Publication>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-@Scripts.Render("~/bundles/jquery")
 
 @{
     ViewBag.Title = "Publications";
 }
 
 <div class="main-content">
-    <h2>@ViewBag.Title</h2>
-
-    <hr />
-
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <!--Search Form-->
-            <div class="col col-md-4 search-box">
-                @using (Html.BeginForm("Publications", "Home", FormMethod.Get))
-                {
-                    <div class="input-group">
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                        </span>
-                    </div>
-                }
-            </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>@ViewBag.Title</h2>
         </div>
-        <br />
-        <h2>Under Construction!</h2>
+        <div class="col col-md-4 search-box">
+            @using (Html.BeginForm("Publications", "Home", FormMethod.Get))
+            {
+                <div class="bg-light rounded rounded-pill shadow-sm pl-3">
+                    <div class="input-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control border-0 bg-light" })
+                        <div class="input-group-append">
+                            <button id="button-search" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
+    <div class="row index-row">
+
+        <div class="col-md-12">
+            <ul>
+                @foreach (var publication in Model)
+                {
+                    <li>
+                        @{string seperator = "";
+                            <span>
+                                @foreach (var aut in publication.PublicationAuthors)
+                                {
+                                    string fullName = seperator + aut.Author.FirstName + " " + aut.Author.Surname;
+                                    @Html.DisplayFor(modelItem => fullName)
+                                    seperator = ", ";
+                                }
+                            </span>
+                            <span>:</span>
+                            <span style="font-style:italic;padding-left:10px;">@publication.Title</span><span>, </span><br />
+                            <span>Submitted in @publication.Year</span><br />
+                            <span><a href="www.google.com" target="new">Hyperlinks</a></span>
+                        }
+
+                    </li>
+                }
+
+            </ul>
+        </div>
+
+
+    </div>
+
+
+    <!--Pagination-->
+    <br />
+    <hr />
+    <div>
+        @Html.PagedListPager(Model, page => Url.Action("Publications", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
     </div>
 </div>

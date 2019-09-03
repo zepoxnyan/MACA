@@ -9,79 +9,73 @@
 }
 
 <div class="main-content">
-    <h2>@ViewBag.Title</h2>
-
-    <hr />
-
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <!--Search Form-->
-            <div class="col col-md-4 search-box">
-                @using (Html.BeginForm("People", "Home", FormMethod.Get))
-                {
-                    <div class="input-group">
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                        </span>
-                    </div>
-                }
-            </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>@ViewBag.Title</h2>
         </div>
-        <br />
-        <div class="row index-row">
-            @*@{
-        var counter = 0;
-        foreach (var item in Model)
-        {
-            @:<div class="col-md-6 div-vertical-align @(counter % 2 == 0 ? "div-vertical-right-1" : "div-vertical-left-1") ">
-                @:<a href="/Home/PersonDetails?personID=@item.PersonID" class="a-offer-link popup">
-                    @:<div class="container-offer-company">
-                        if (item.Image != null && item.Image.Length > 0){
-                            var base64 = Convert.ToBase64String(item.Image);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            @:<div><img src="@imgSrc" class="thumb"/></div>
-                            }
-                        @:<p class="p-company-name">@item.FullName</p>
-                    @:</div>
-                @:</a>
-            @:</div>
-            counter++;
-        }
-    }*@
+        <div class="col col-md-4 search-box">
+            @using (Html.BeginForm("People", "Home", FormMethod.Get))
+            {
+            
+                <div class="bg-light rounded rounded-pill shadow-sm pl-3">
+                    <div class="input-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control border-0 bg-light"})
+                        <div class="input-group-append">
+                            <button id="button-search" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+            
+            }
+        </div>
+    </div>
+    <hr />
+    <div class="row index-row">
+
+        <div class="col-md-12">
             @{
                 foreach (var item in Model)
                 {
-                    @:<div class="col-md-12 div-vertical-align">
-                        @:<table>
-                            @:<tr>
-                                @:<td>
+                    @:<div class="col-md-12 div-vertical-align list-item secondary">
+                        @:<div class="row">
+                            
+                                @:<div class="col-md-1">
                                     if (item.ImageThumb != null && item.ImageThumb.Length > 0)
                                     {
-                                    var base64 = Convert.ToBase64String(item.ImageThumb);
-                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                    @:<img src="@imgSrc" class="img-thumbnail" style="width:70px;height:70px;"/>
+                                        var base64 = Convert.ToBase64String(item.ImageThumb);
+                                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                        @:<img src="@imgSrc" class="img-thumbnail" style="width:90px;height:80px;" />
                                     }
                                     else
                                     {
-                                    @:<img src="/Images/NoImageAcc.png" class="img-thumbnail" style="width:70px;height:70px;"/>
+                                        @:<img src="/Images/NoImageAcc.png" class="img-thumbnail" style="width:70px;height:70px;" />
+
+
+
+
+
+
+
 
                                     }
-                                @:</td>
-                                @:<td style="padding-left:10px">
-                                    @:<a href="/Home/PersonDetails?personID=@item.PersonID" class="a-offer-link"><p class="p-company-name">@item.FullName</p></a>
-                                @:</td>
-                            @:</tr>
-                        @:</table>
-                        @:<hr />
+                                @:</div>
+                                @:<div class="col-md-9  my-auto" style="padding-left:10px">
+                                    @:<a href="/Home/PersonDetails?personID=@item.PersonID" class="a-offer-link"><span class="link">@item.FullName</span></a>
+                                @:</div>
+                            
+                        @:</div>
                     @:</div>
                 }
             }
+
         </div>
+    </div>
+    
+
         <!--Pagination-->
         <br />
         <div class="clearfix row">
             @Html.PagedListPager(Model, page => Url.Action("People", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
         </div>
     </div>
-</div>

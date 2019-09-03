@@ -18,7 +18,7 @@
                     }
 
                 }
-                
+
 
                 <li class="list-group-item">
                     <div class="social-btns">
@@ -38,7 +38,7 @@
                                         var imgSrc = String.Format("data:image/gif;base64,{0}", split[1]);
                                         @:<div class="social-btn-holder"><a href="@split[0]"><img src="@imgSrc" height="30" width="30" /></a></div>
                                     }
-                                    
+
 
                                 }
                             }
@@ -56,11 +56,11 @@
                     {
                         var base64 = Convert.ToBase64String(Model.ImageThumb);
                         var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        @:<img src="@imgSrc" class="img-thumbnail img-responsive" alt="" style="height:240px; width:240px;"/>
+                        @:<img src="@imgSrc" class="img-thumbnail img-responsive" alt="" style="height:240px; width:240px;" />
                     }
                     else
                     {
-                        @:<img src="/Images/NoImageAcc.png" class="img-thumbnail img-responsive" alt="" style="height:240px; width:240px;"/>
+                        @:<img src="/Images/NoImageAcc.png" class="img-thumbnail img-responsive" alt="" style="height:240px; width:240px;" />
                     }
                 }
             </figure>
@@ -72,6 +72,9 @@
         <p>
             @Model.Description
         </p>
+    </div>
+    <div class="bs-callout bs-callout-danger">
+        <h4><a href="/Home/PersonResearch?personID=@Model.PersonID" class="a-div-link">Research</a></h4>
     </div>
     <div class="bs-callout bs-callout-danger">
         <h4><a href="/Home/PersonPublications?personID=@Model.PersonID" class="a-div-link">Publications</a></h4>

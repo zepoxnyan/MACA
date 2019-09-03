@@ -17,6 +17,11 @@
                     </div>
                     <div class="col col-md-3">
                         <div class="link-button">
+                            @Html.ActionLink("Research", "PersonResearch", routeValues: new { personID = ViewBag.PersonID })
+                        </div>
+                    </div>
+                    <div class="col col-md-3">
+                        <div class="link-button">
                             @Html.ActionLink("Publications", "PersonPublications", routeValues: new { personID = ViewBag.PersonID })
                         </div>
                     </div>
@@ -30,6 +35,7 @@
                             @Html.ActionLink("Mentorships", "PersonMentorships", routeValues: new { personID = ViewBag.PersonID })
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -38,7 +44,18 @@
 
     <div class="row index-row inner-rectangle">
         <div class="row index-row">
-            <h2>Under Construction!</h2>
+            <ul>
+                @{
+                    foreach (var item in Model)
+                    {
+                        @:<li class="container-offer-company">
+                                string text = item.Title + " (" + item.PublicationType + ")";
+                                @text
+                        @:</li>
+                        
+                    }
+                }
+            </ul>
         </div>
     </div>
 </div>
