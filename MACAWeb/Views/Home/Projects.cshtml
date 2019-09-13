@@ -7,25 +7,25 @@
 }
 
 <div class="main-content">
-    <h2>@ViewBag.Title</h2>
-
-    <hr />
-
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <!--Search Form-->
-            <div class="col col-md-4 search-box">
-                @using (Html.BeginForm("Projects", "Home", FormMethod.Get))
-                {
-                    <div class="input-group">
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                        </span>
-                    </div>
-                }
-            </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>@ViewBag.Title</h2>
         </div>
+        <div class="col col-md-4 search-box">
+            @using (Html.BeginForm("Projects", "Home", FormMethod.Get))
+            {
+                <div class="bg-light rounded rounded-pill shadow-sm pl-3">
+                    <div class="input-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control border-0 bg-light" })
+                        <div class="input-group-append">
+                            <button id="button-search" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
 
         <table class="table">
             <tr>
@@ -72,4 +72,3 @@
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
         @Html.PagedListPager(Model, page => Url.Action("Projects", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
     </div>
-</div>

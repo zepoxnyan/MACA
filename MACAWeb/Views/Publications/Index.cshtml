@@ -6,8 +6,24 @@
     ViewBag.Title = "Publications";
 }
 <div>
-    <h2>@ViewBag.Title</h2>
-
+    <div class="row">
+        <div class="col-md-8">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="col col-md-4 search-box">
+            @using (Html.BeginForm("Projects", "Home", FormMethod.Get))
+            {
+                <div class="bg-light rounded rounded-pill shadow-sm pl-3">
+                    <div class="input-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control border-0 bg-light" })
+                        <div class="input-group-append">
+                            <button id="button-search" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
     <hr />
     <div class="row">
         @if (User.IsInRole("Employee"))
@@ -17,17 +33,7 @@
                 @Html.ActionLink("Add new", "Create", null, new { @class = "btn btn-default" })
             </div>
         }
-        <div class="col col-md-4 search-box">
-            @using (Html.BeginForm("Index", "Publications", FormMethod.Get))
-            {
-                <div class="input-group">
-                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                    </span>
-                </div>
-            }
-        </div>
+       
     </div>
     <br />
 
