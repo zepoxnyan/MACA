@@ -12,9 +12,7 @@
     <div class="row index-row inner-rectangle">
         <div class="row index-row">
             <div class="col col-md-6">
-                <div class="link-button">
-                    @Html.ActionLink("Add new", "SocialLinkCreate", routeValues: new { personId = ViewBag.PersonID })
-                </div>
+                @Html.ActionLink("Add new", "SocialLinkCreate", new { personID = ViewBag.PersonID }, new { @class = "btn btn-default" })
             </div>
         </div>
 

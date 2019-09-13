@@ -570,7 +570,6 @@
     <Content Include="Views\FeatureTypes\Index.cshtml" />
     <Content Include="Views\Home\Team.cshtml" />
     <Content Include="Views\Home\Press.cshtml" />
-    <Content Include="Views\Home\Papers.cshtml" />
     <Content Include="Views\Home\People.cshtml" />
     <Content Include="Views\TeamMembers\Create.cshtml" />
     <Content Include="Views\TeamMembers\Delete.cshtml" />
