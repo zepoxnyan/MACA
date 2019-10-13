@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace MACAWeb.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Employee, SuperAdmin")]
     public class SubjectsController : Controller
     {
         private MACADbContext db = new MACADbContext();

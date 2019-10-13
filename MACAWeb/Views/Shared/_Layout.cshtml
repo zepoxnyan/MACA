@@ -47,14 +47,44 @@
             </div>
         </div>
         <hr />
-        <footer id="sticky-footer" class="py-4 primary border-1">
-                    <div class="col-md-8">
-                        <a href="https://www.upjs.sk/prirodovedecka-fakulta/ustav/umv/" target="_new">&copy; @DateTime.Now.Year - Univerzita Pavla Jozefa Šafárika v Košiciach, Prírodovedecká fakulta</a>
-                    </div>
-                    <div class="col-md-4">
+        <footer id="sticky-footer" class="py-4 primary border-1 p-2">
+            <div class="row">
+                <div class="col-md-3 mr-auto" style="">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="http://www.fis.unm.si" target="_new" class="block-link">Faculty of Information Studies</a>
+                        </li>
+                        <li>
+                            <span>Ljubljanska cesta 31a</span>
+                        </li>
+                        <li>
+                            <span>SI-8000 Novo mesto</span>
+                        </li>
+                        <li>
+                            <span>Slovenia</span>
+                        </li>
+                        <li>
+                            <span>&nbsp;</span>
+                        </li>
+                        <li>
+                            <span>&copy; @DateTime.Now.Year Copyright: Rudolf Bele</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6 mr-auto">
+                    <a href="https://www.fis.unm.si/en/" class="" target="new">
+                        <img src="~/Images/logo-fis.png" class="mx-auto d-block"/>
+                    </a>
+                </div>
+                <div class="ml-auto">
+                    <div class="col-md-1">
                         @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "block-link" })
+                    </div>
+                    <div class="col-md-1">
                         @Html.ActionLink("Press", "Press", "Home", null, new { @class = "block-link" })
                     </div>
+                </div>
+            </div>
         </footer>
         
     </div>

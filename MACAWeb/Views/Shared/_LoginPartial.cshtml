@@ -19,7 +19,7 @@
                 {
                     @Html.ActionLink("Edit profile", "Edit", "Persons", null, new { @class = "dropdown-item" })
                 }
-                if (User.IsInRole("Admin"))
+                if (User.IsInRole("Admin") || User.IsInRole("Employee") || User.IsInRole("SuperAdmin"))
                 {
                     @Html.ActionLink("Administration", "Administration", "Home", null, new { @class = "dropdown-item" })
                     

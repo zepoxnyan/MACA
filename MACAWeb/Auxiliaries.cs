@@ -96,6 +96,15 @@ namespace MACAWeb
             return Guid.Parse(user.Identity.GetUserId());
         }
 
+        public static Guid GetConnectedPerson(string LoggedUser)
+        {
+            Guid PersonID = new Guid();
+            MACADbContext db = new MACADbContext();
+            var selectedUser = db.PersonUsers.Where(x => x.UserID == LoggedUser).FirstOrDefault()?.PersonID.ToString();
+            if (selectedUser != null) { PersonID = Guid.Parse(selectedUser); }
+            return PersonID;
+        }
+
         public static byte[] CreateThumbnail(byte[] image,int thumbWidth)
         {
             MemoryStream msImage = new MemoryStream(image);

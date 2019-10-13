@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace MACAWeb.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "Admin, Employee, SuperAdmin")]
     public class AuthorTypesController : Controller
     {
         private MACADbContext db = new MACADbContext();

@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace MACAWeb.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Employee")]
     public class MentorshipsController : Controller
     {
         private MACADbContext db = new MACADbContext();
@@ -24,6 +24,7 @@ namespace MACAWeb.Controllers
             var mentorships = db.Mentorships.Include(m => m.Person).Include(m => m.ThesisType)
                                 .OrderBy(x => x.Year).ThenByDescending(x => x.Semester).ThenBy(x => x.Person.Surname);
 
+            
             if (searchString != null)
             {
                 page = 1;
@@ -45,7 +46,11 @@ namespace MACAWeb.Controllers
                                       || m.Semester.ToString().Contains(searchString))
                                       .OrderBy(x => x.Year).ThenByDescending(x => x.Semester).ThenBy(x => x.Person.Surname);
             }
-
+            if (User.IsInRole("Employee") && !(User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
+            {
+                var loggedPerson = Auxiliaries.GetConnectedPerson(User.Identity.GetUserId());
+                mentorships = mentorships.Where(m => m.Person.PersonID == loggedPerson).OrderBy(m => m.Year).OrderBy(x => x.Year).ThenByDescending(x => x.Semester).ThenBy(x => x.Person.Surname);
+            }
             int pageSize = int.Parse(ConfigurationManager.AppSettings["generalItemsOnPage"]);
             int pageNumber = (page ?? 1);
 

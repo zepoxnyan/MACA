@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace MACAWeb.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Employee, SuperAdmin")]
     public class PublicationsController : Controller
     {
         private MACADbContext db = new MACADbContext();
@@ -46,6 +46,13 @@ namespace MACAWeb.Controllers
                                       || m.PublicationStatus.Name.Contains(searchString))
                                       .OrderByDescending(p => p.Year)
                                       .ThenBy(p => p.Title);
+            }
+
+            if (User.IsInRole("Employee") && !(User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
+            {
+                Person person = db.Persons.Find(Auxiliaries.GetConnectedPerson(User.Identity.GetUserId()));
+                var personID = Guid.Parse(User.Identity.GetUserId());
+                publications = db.PublicationAuthors.Where(ttp => ttp.AuthorID == person.AuthorID).Select(tp => tp.Publication).OrderByDescending(p => p.Year).ThenBy(p => p.Title);
             }
 
             int pageSize = int.Parse(ConfigurationManager.AppSettings["generalItemsOnPage"]);
@@ -111,7 +118,9 @@ namespace MACAWeb.Controllers
 
                 db.Publications.Add(publication);
                 db.SaveChanges();
+               
                 return RedirectToAction("Index");
+                
             }
 
             PopulateDropDownLists();

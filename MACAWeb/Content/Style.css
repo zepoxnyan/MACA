@@ -12,6 +12,10 @@ body {
     padding-top: 40px;
 }
 
+.jumbotron-custom{
+    background-color: var(--secondary-color);
+}
+
 .card {
     border: 1px solid black;
 }
@@ -194,6 +198,7 @@ a:visited {
 .border-1{
     border:1px solid black;
 }
+
 
 
 

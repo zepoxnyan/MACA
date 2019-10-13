@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<MACAWeb.Models.Mentorship>
 @using PagedList.Mvc;
+@using Microsoft.AspNet.Identity;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
@@ -69,15 +70,22 @@
                             @Html.DisplayFor(modelItem => item.Year)
                         </td>
                         <td class="column-glyph">
-                            <a href="@Url.Action("Edit", "Mentorships", new { id=item.MentorshipID })">
-                                <span title="Edit" class="fa fa-wrench action-icons" />
-                            </a>&nbsp;
+                            @{
+                                
+                                if (User.IsInRole("Admin") || item.PersonID == Auxiliaries.GetConnectedPerson(User.Identity.GetUserId()))
+                                {
+                                    <a href="@Url.Action("Delete", "Mentorships", new { id = item.MentorshipID })">
+                                        <span title="Delete" class="fa fa-trash action-icons" />
+                                    </a>
+                                    <a href="@Url.Action("Edit", "Mentorships", new { id = item.MentorshipID })">
+                                        <span title="Edit" class="fa fa-wrench action-icons" />
+                                    </a>
+                                }
+                            }
                             <a href="@Url.Action("Details", "Mentorships", new { id=item.MentorshipID })">
                                 <span title="Details" class="fa fa-info action-icons" />
-                            </a>&nbsp;
-                            <a href="@Url.Action("Delete", "Mentorships", new { id=item.MentorshipID })">
-                                <span title="Delete" class="fa fa-trash action-icons" />
                             </a>
+
                         </td>
                     </tr>
                 }

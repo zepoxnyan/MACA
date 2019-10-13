@@ -247,7 +247,7 @@ namespace MACAWeb.Controllers
             return View(sortedFAQs);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,SuperAdmin,Employee")]
         public ActionResult Administration()
         {
             ViewBag.Message = "Administration";
