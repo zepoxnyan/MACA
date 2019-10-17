@@ -33,7 +33,7 @@ namespace MACAWeb.Models
         public Guid PublicationStatusID { get; set; }
         public virtual PublicationStatus PublicationStatus { get; set; }
 
-        [Display(Name = "Nazov")]
+        [Display(Name = "Title")]
         [Required(ErrorMessage = "Enter the title!")]
         public string Title { get; set; }
 
@@ -98,7 +98,7 @@ namespace MACAWeb.Models
         [Display(Name = "KeywordsEN")]
         public string KeywordsEN { get; set; }
 
-        [Display(Name = "Anglicky Nazov")]
+        [Display(Name = "English title")]
         public string TitleEN { get; set; }
 
         [Display(Name = "Abstract")]
@@ -173,7 +173,7 @@ namespace MACAWeb.Models
         public string Link { get; set; }
 
         [Display(Name = "Bibtex File")]
-        public string BibtexFile { get; set; }
+        public HttpPostedFileBase BibtexFile { get; set; }
 
         [Display(Name = "Preprint link")]
         public string PreprintLink { get; set; }
@@ -215,8 +215,22 @@ namespace MACAWeb.Models
         [Display(Name = "KeywordsEN")]
         public string KeywordsEN { get; set; }
 
-        [Display(Name = "Anglicky Nazov")]
+        [Display(Name = "English title")]
         public string TitleEN { get; set; }
+
+        [Display(Name = "Created")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        public DateTime DateCreated { get; set; }
+
+        [Display(Name = "Modified")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        public DateTime DateModified { get; set; }
+
+        public Guid UserCreatedID { get; set; }
+
+        public Guid UserModifiedID { get; set; }
     }
     
 

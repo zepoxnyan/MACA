@@ -10,6 +10,7 @@ using MACAWeb.Models;
 using System.Configuration;
 using PagedList;
 using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace MACAWeb.Controllers
 {
@@ -17,7 +18,7 @@ namespace MACAWeb.Controllers
     public class PublicationsController : Controller
     {
         private MACADbContext db = new MACADbContext();
-        
+
         // GET: Publications
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
@@ -89,13 +90,13 @@ namespace MACAWeb.Controllers
             object selectedPublicationType = null,
             object selectedPublicationTypeLocal = null)
         {
-            ViewBag.PublicationClassificationID = 
+            ViewBag.PublicationClassificationID =
                 new SelectList(db.PublicationClassifications.OrderBy(x => x.Name), "PublicationClassificationID", "Name", selectedPublicationClassification);
-            ViewBag.PublicationStatusID = 
+            ViewBag.PublicationStatusID =
                 new SelectList(db.PublicationStatus.OrderBy(x => x.Name), "PublicationStatusID", "Name", selectedPublicationStatus);
-            ViewBag.PublicationTypeID = 
+            ViewBag.PublicationTypeID =
                 new SelectList(db.PublicationTypes.OrderBy(x => x.Name), "PublicationTypeID", "Name", selectedPublicationType);
-            ViewBag.PublicationTypeLocalID = 
+            ViewBag.PublicationTypeLocalID =
                 new SelectList(db.PublicationTypesLocal.OrderBy(x => x.Name), "PublicationTypeLocalID", "Name", selectedPublicationTypeLocal);
         }
 
@@ -104,11 +105,40 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PublicationTypeID,PublicationTypeLocalID,PublicationClassificationID,PublicationStatusID,Title,TitleEN,Journal,Year,Volume,Issue,Pages,DOI,Link,Note,Editors,Publisher,Series,Address,Edition,BookTitle,Organization,Chapter,Keywords,KeywordsEN,Abstract")] Publication publication)
+        public ActionResult Create([Bind(Include = "PublicationTypeID,PublicationTypeLocalID,PublicationClassificationID,PublicationStatusID,Title,TitleEN,Journal,Year,Volume,Issue,Pages,DOI,Link,Note,Editors,Publisher,Series,Address,Edition,BookTitle,Organization,Chapter,Keywords,KeywordsEN,Abstract,BibtexFile")] PublicationViewModel publicationView)
         {
             if (ModelState.IsValid)
             {
+                Publication publication = new Publication();
                 publication.PublicationID = Guid.NewGuid();
+
+                publication.PublicationTypeID = publicationView.PublicationTypeID;
+                publication.PublicationTypeLocalID = publicationView.PublicationTypeLocalID;
+                publication.PublicationClassificationID = publicationView.PublicationClassificationID;
+                publication.PublicationStatusID = publicationView.PublicationStatusID;
+                publication.Title = publicationView.Title;
+                publication.TitleEN = publicationView.TitleEN;
+                publication.Journal = publicationView.Journal;
+                publication.Year = publicationView.Year;
+                publication.Volume = publicationView.Volume;
+                publication.Issue = publicationView.Issue;
+                publication.Pages = publicationView.Pages;
+                publication.DOI = publicationView.DOI;
+                publication.Link = publicationView.Link;
+                publication.Note = publicationView.Note;
+                publication.Editors = publicationView.Editors;
+                publication.Publisher = publicationView.Publisher;
+                publication.Series = publicationView.Series;
+                publication.Address = publicationView.Address;
+                publication.Edition = publicationView.Edition;
+                publication.BookTitle = publicationView.BookTitle;
+                publication.Organization = publicationView.Organization;
+                publication.Chapter = publicationView.Chapter;
+                publication.Keywords = publicationView.Keywords;
+                publication.KeywordsEN = publicationView.KeywordsEN;
+                publication.Abstract = publicationView.Abstract;
+
+
 
                 publication.DateCreated = DateTime.Now;
                 publication.DateModified = publication.DateCreated;
@@ -116,15 +146,32 @@ namespace MACAWeb.Controllers
                 publication.UserCreatedID = new Guid(User.Identity.GetUserId());
                 publication.UserModifiedID = publication.UserCreatedID;
 
+                var test = publicationView.BibtexFile;
+                Console.WriteLine(test);
+
+                if (publicationView.BibtexFile != null)
+                {
+
+
+                    using (var reader = new BinaryReader(publicationView.BibtexFile.InputStream))
+                    {
+                        string data = Convert.ToBase64String(reader.ReadBytes(publicationView.BibtexFile.ContentLength));
+                        
+                        publication.BibtexFile = data;
+                        
+                    }
+
+                }
+
                 db.Publications.Add(publication);
                 db.SaveChanges();
-               
+
                 return RedirectToAction("Index");
-                
+
             }
 
             PopulateDropDownLists();
-            return View(publication);
+            return View(publicationView);
         }
 
         // GET: Publications/Edit/5
@@ -139,6 +186,9 @@ namespace MACAWeb.Controllers
             {
                 return HttpNotFound();
             }
+
+            
+
             PopulateDropDownLists(publication.PublicationClassificationID, publication.PublicationStatusID,
                 publication.PublicationTypeID, publication.PublicationTypeLocalID);
             return View(publication);
@@ -149,7 +199,7 @@ namespace MACAWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PublicationID,PublicationTypeID,PublicationTypeLocalID,PublicationClassificationID,PublicationStatusID,Title,TitleEN,Journal,Year,Volume,Issue,Pages,DOI,Link,Note,Editors,Publisher,Series,Address,Edition,BookTitle,Organization,Chapter,Keywords,KeywordsEN,Abstract")] PublicationViewModel publicationViewModel)
+        public ActionResult Edit([Bind(Include = "PublicationID,PublicationTypeID,PublicationTypeLocalID,PublicationClassificationID,PublicationStatusID,Title,TitleEN,Journal,Year,Volume,Issue,Pages,DOI,Link,Note,Editors,Publisher,Series,Address,Edition,BookTitle,Organization,Chapter,Keywords,KeywordsEN,Abstract,BibtexFile")] PublicationViewModel publicationViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -185,6 +235,20 @@ namespace MACAWeb.Controllers
 
                 publication.DateModified = DateTime.Now;
                 publication.UserModifiedID = new Guid(User.Identity.GetUserId());
+
+                if (publicationViewModel.BibtexFile != null)
+                {
+
+
+                    using (var reader = new BinaryReader(publicationViewModel.BibtexFile.InputStream))
+                    {
+                        string data = Convert.ToBase64String(reader.ReadBytes(publicationViewModel.BibtexFile.ContentLength));
+
+                        publication.BibtexFile = data;
+
+                    }
+
+                }
 
                 db.Entry(publication).State = EntityState.Modified;
                 db.SaveChanges();
@@ -236,7 +300,7 @@ namespace MACAWeb.Controllers
         public ActionResult PubAuthorsIndex(Guid publicationId)
         {
             var pubAuthors = db.PublicationAuthors.Where(x => x.PublicationID == publicationId).OrderBy(x => x.Author.Surname).ThenBy(x => x.Author.FirstName);
-            
+
             ViewBag.PublicationID = publicationId;
             return View(pubAuthors);
         }
@@ -253,13 +317,13 @@ namespace MACAWeb.Controllers
         private void PopulateAuthorsDropDownList(object selectedAuthor = null, object selectedAuthorType = null)
         {
             var authorsQuery = from c in db.Authors
-                                     orderby c.Surname, c.FirstName                                     
-                                     select new { c.AuthorID, Name = c.Surname + " " + c.FirstName };
+                               orderby c.Surname, c.FirstName
+                               select new { c.AuthorID, Name = c.Surname + " " + c.FirstName };
             ViewBag.AuthorID = new SelectList(authorsQuery, "AuthorID", "Name", selectedAuthor);
 
             var authorTypesQuery = from c in db.AuthorTypes
-                               orderby c.Name
-                               select c;
+                                   orderby c.Name
+                                   select c;
             ViewBag.AuthorTypeID = new SelectList(authorTypesQuery, "AuthorTypeID", "Name", selectedAuthorType);
         }
 

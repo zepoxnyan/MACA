@@ -104,6 +104,22 @@ namespace MACAWeb
             if (selectedUser != null) { PersonID = Guid.Parse(selectedUser); }
             return PersonID;
         }
+        public static string GetUserAcc(string UserID)
+        {
+            MACADbContext db = new MACADbContext();
+            ApplicationDbContext dbApplication = new ApplicationDbContext();
+            string selectedUser = db.PersonUsers.Where(x => x.UserID == UserID).FirstOrDefault()?.UserID.ToString();
+            if (selectedUser != null)
+            {
+                ApplicationUser user = dbApplication.Users.Where(u => u.Id.Equals(selectedUser)).FirstOrDefault();
+                return user.UserName;
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
 
         public static byte[] CreateThumbnail(byte[] image,int thumbWidth)
         {
@@ -133,7 +149,10 @@ namespace MACAWeb
 
             return msThumb.ToArray();
         }
+        
     }
+
+
 
     public class MemoryPostedFile : HttpPostedFileBase
     {
@@ -149,5 +168,6 @@ namespace MACAWeb
 
         public override string FileName { get; }        
     }
+    
 
 }

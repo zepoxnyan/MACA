@@ -5,89 +5,95 @@
 @{
     ViewBag.Title = "Conference talks";
 }
+<div>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>@ViewBag.Title</h2>
 
-<div class="main-content">
-    <h2>@ViewBag.Title</h2>
-
-    <hr />
-    <span>@ViewBag.PersonID</span>
-
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <div class="col col-md-6">
-                <div class="link-button">
-                    @Html.ActionLink("Add new", "ConferenceTalksCreate", routeValues: new { personID = ViewBag.PersonID })
-                </div>
-            </div>
-            <!--Search Form-->
-            <div class="col col-md-4 search-box">
-                @using (Html.BeginForm("ConferenceTalksIndex", "Research", FormMethod.Get))
-                {
+        </div>
+        <div class="col col-md-4 search-box">
+            @using (Html.BeginForm("ConferenceTalksIndex", "Research", FormMethod.Get))
+            {
+                <div class="bg-light rounded rounded-pill shadow-sm pl-3">
                     <div class="input-group">
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control" })
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                        </span>
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control border-0 bg-light" })
+                        <div class="input-group-append">
+                            <button id="button-search" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                        </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+
+        <div class="col col-md-8">
+            @Html.ActionLink("Add new", "ConferenceTalksCreate", routeValues: new { personID = ViewBag.PersonID }, htmlAttributes: new { @class = "btn btn-default" })
+
         </div>
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().ConferenceName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Country)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Year)
-                </th>
-                <th></th>
-            </tr>
 
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ConferenceName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Country)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Year)
-                </td>
-                <td class="column-glyph">
-                    <a href="@Url.Action("ConferenceTalksEdit", "Research", new { id=item.ConferenceTalkID })">
-                        <span title="Edit" class="fa fa-wrench action-icons" />
-                    </a>&nbsp;
-                    <a href="@Url.Action("ConferenceTalksDetails", "Research", new { id=item.ConferenceTalkID })">
-                        <span title="Details" class="fa fa-info action-icons" />
-                    </a>&nbsp;
-                    <a href="@Url.Action("ConferenceTalksDelete", "Research", new { id=item.ConferenceTalkID })">
-                        <span title="Delete" class="fa fa-trash action-icons" />
-                    </a>
-                </td>
-            </tr>
-            }
-        </table>
-        <!--Pagination-->
-        <br />
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("ConferenceTalksIndex", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
     </div>
+    <br />
+
+    <div class="row">
+
+        <div class="card col">
+            <table class="table card-body">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().ConferenceName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().City)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Country)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Year)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ConferenceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Country)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td class="column-glyph">
+                            <a href="@Url.Action("ConferenceTalksEdit", "Research", new { id=item.ConferenceTalkID })">
+                                <span title="Edit" class="fa fa-wrench action-icons" />
+                            </a>&nbsp;
+                            <a href="@Url.Action("ConferenceTalksDetails", "Research", new { id=item.ConferenceTalkID })">
+                                <span title="Details" class="fa fa-info action-icons" />
+                            </a>&nbsp;
+                            <a href="@Url.Action("ConferenceTalksDelete", "Research", new { id=item.ConferenceTalkID })">
+                                <span title="Delete" class="fa fa-trash action-icons" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("ConferenceTalksIndex", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>

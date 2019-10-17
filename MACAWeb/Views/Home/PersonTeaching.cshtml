@@ -1,72 +1,70 @@
-﻿@model List<MACAWeb.Models.Teaching>
+﻿@using Microsoft.AspNet.Identity;
+@model List<MACAWeb.Models.Teaching>
 @Scripts.Render("~/bundles/jquery")
 
-<div class="main-content">
-    <div class="row">
-        <div class="col-md-4">
-            <h2>@ViewBag.Title</h2>
-            <h3>Teachings</h3>
+
+
+@{
+    ViewBag.Title = "Teaching";
+    var LogPerson = Auxiliaries.GetConnectedPerson(User.Identity.GetUserId());
+
+
+    Boolean showManage = false;
+    if (LogPerson == ViewBag.PersonID || LogPerson != null) { showManage = true; }
+}
+<div class="card">
+    <div class="col-12 row justify-content-between m-0 pb-0 card-header">
+        <div class="p-2">
+            <h2>@ViewBag.Pname</h2>
         </div>
-        <div class="col-md-8">
-            <div class="container">
-                <div class="row">
-                    <div class="col col-md-3">
-                        <div class="link-button">
-                            @Html.ActionLink("Home", "PersonDetails", routeValues: new { personID = ViewBag.PersonID })
-                        </div>
-                    </div>
-                    <div class="col col-md-3">
-                        <div class="link-button">
-                            @Html.ActionLink("Publications", "PersonPublications", routeValues: new { personID = ViewBag.PersonID })
-                        </div>
-                    </div>
-                    <div class="col col-md-3">
-                        <div class="link-button">
-                            @Html.ActionLink("Teaching", "PersonTeaching", routeValues: new { personID = ViewBag.PersonID })
-                        </div>
-                    </div>
-                    <div class="col col-md-3">
-                        <div class="link-button">
-                            @Html.ActionLink("Mentorships", "PersonMentorships", routeValues: new { personID = ViewBag.PersonID })
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <nav class="nav nav-tabs mt-3">
+            <a href="/Home/PersonDetails?personID=@ViewBag.PersonID" class="nav-item nav-link">About</a>
+            <a href="/Home/PersonResearch?personID=@ViewBag.PersonID" class="nav-item nav-link">Research</a>
+            <a href="/Home/PersonPublications?personID=@ViewBag.PersonID" class="nav-item nav-link">Publications</a>
+            <a href="/Home/PersonTeaching?personID=@ViewBag.PersonID" class="nav-item nav-link active">Teaching</a>
+            <a href="/Home/PersonMentorships?personID=@ViewBag.PersonID" class="nav-item nav-link">Mentorships</a>
+        </nav>
     </div>
-    <hr />
 
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <ul>
-                @{
-                    string prevYearSem = "";
+    <div class="col-12 card-body">
 
-                    foreach (var item in Model)
+        <ul class="pl-2">
+            @{
+                string prevYearSem = "";
+
+                foreach (var item in Model)
+                {
+                    string yearSem = item.Subject.Year + "/" + item.Subject.Semester;
+                    if (prevYearSem == yearSem)
                     {
-                        string yearSem = item.Subject.Year + "/" + item.Subject.Semester;
-                        if (prevYearSem == yearSem)
-                        {
-                            @:<li class="container-offer-company">
-                                string text = item.Subject.Name + " (" + item.TeachingType.Name + ")";
-                                @text
-                            @:</li>
-                        }
-                        else
-                        {
-                            prevYearSem = yearSem;
-                        
-                        @:<h4>@item.Subject.Year, @item.Subject.Semester. semester</h4>
-                        
-                            @:<li class="container-offer-company">
-                                string text = item.Subject.Name + " (" + item.TeachingType.Name + ")";
-                                @text
-                            @:</li>
-                        }
+                        @:<li class="ml-5">
+                            string text = item.Subject.Name + " (" + item.TeachingType.Name + ")";
+                            @text
+                        @:</li>
                     }
+                    else
+                    {
+                        if (prevYearSem != "")
+                        {
+                            @:<br />
+                        }
+                        prevYearSem = yearSem;
+
+
+                        @:<h4>@item.Subject.Year, @item.Subject.Semester. semester</h4>
+                        @:<li class="ml-5">
+                            string text = item.Subject.Name + " (" + item.TeachingType.Name + ")";
+                            @text
+                        @:</li>
+                    }
+
                 }
-            </ul>
-            
-        </div>
+            }
+        </ul>
+
+
     </div>
+
+
 </div>

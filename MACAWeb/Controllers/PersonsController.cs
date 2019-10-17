@@ -17,7 +17,7 @@ namespace MACAWeb.Controllers
     [Authorize(Roles = "Employee, Admin, SuperAdmin")]
     public class PersonsController : Controller
     {
-        private MACADbContext db = new MACADbContext ();
+        private MACADbContext db = new MACADbContext();
         private ApplicationDbContext dbApplication = new ApplicationDbContext();
 
 
@@ -28,7 +28,7 @@ namespace MACAWeb.Controllers
         public ActionResult Index(string currentFilter, string searchString, int? page)
         {
             var persons = db.Persons.OrderBy(x => x.Surname).ThenBy(x => x.Name);
-            
+
             if (searchString != null)
             {
                 page = 1;
@@ -94,7 +94,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
 
                 Person person = new Person();
                 person.PersonID = Guid.NewGuid();
@@ -120,7 +120,7 @@ namespace MACAWeb.Controllers
                         using (var reader = new BinaryReader(personView.Image.InputStream))
                         {
                             person.Image = reader.ReadBytes(personView.Image.ContentLength);
-                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image,0);
+                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image, 0);
                         }
                     }
                 }
@@ -160,12 +160,12 @@ namespace MACAWeb.Controllers
         //------------------------------
         public ActionResult Edit(Guid? id)
         {
-            if (User.IsInRole("Employee") && id==null)
+            if (User.IsInRole("Employee") && id == null)
             {
                 string loggedUser = User.Identity.GetUserId();
                 var selectedUser = db.PersonUsers.Where(x => x.UserID == loggedUser).FirstOrDefault()?.PersonID.ToString();
                 if (selectedUser != null) { id = Guid.Parse(selectedUser); }
-               
+
             }
             if (id == null)
             {
@@ -232,14 +232,14 @@ namespace MACAWeb.Controllers
                         using (var reader = new BinaryReader(personView.Image.InputStream))
                         {
                             person.Image = reader.ReadBytes(personView.Image.ContentLength);
-                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image,0);
+                            person.ImageThumb = Auxiliaries.CreateThumbnail(person.Image, 0);
                         }
                     }
                 }
 
                 db.Entry(person).State = EntityState.Modified;
                 db.SaveChanges();
-                
+
                 return RedirectToAction("Index");
             }
             return View(personView);
@@ -267,7 +267,7 @@ namespace MACAWeb.Controllers
         {
             Person person = db.Persons.Find(id);
             PersonUser PSlink = db.PersonUsers.Where(ps => ps.PersonID == person.PersonID)?.FirstOrDefault();
-            if(PSlink != null)
+            if (PSlink != null)
             {
                 db.PersonUsers.Remove(PSlink);
                 db.SaveChanges();
@@ -321,8 +321,8 @@ namespace MACAWeb.Controllers
         private void PopulatePositionTypesDropDownList(object selectedPositionType = null)
         {
             var positionTypesQuery = from c in db.PositionTypes
-                                   orderby c.Name
-                                   select c;
+                                     orderby c.Name
+                                     select c;
             ViewBag.PositionTypeID = new SelectList(positionTypesQuery, "PositionTypeID", "Name", selectedPositionType);
         }
 
@@ -345,7 +345,7 @@ namespace MACAWeb.Controllers
 
                 db.Positions.Add(position);
                 db.SaveChanges();
-                return RedirectToAction("PositionsIndex", new { personId = personId});
+                return RedirectToAction("PositionsIndex", new { personId = personId });
             }
 
             return View(position);
@@ -436,7 +436,6 @@ namespace MACAWeb.Controllers
         {
             var pslinks = db.PersonUsers.Where(x => x.PersonID == personId);
             Person person = db.Persons.Where(p => p.PersonID == personId).Single();
-            
             ViewBag.PersonID = personId;
             return View(pslinks);
         }
@@ -449,7 +448,7 @@ namespace MACAWeb.Controllers
             return View();
         }
 
-        
+
 
         // POST: Grants/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -508,8 +507,8 @@ namespace MACAWeb.Controllers
         private void PopulateSocialLinkTypesDropDownList(object selectedSocialLinkType = null)
         {
             var TypesQuery = from c in db.SocialLinkTypes
-                                     orderby c.Name
-                                     select c;
+                             orderby c.Name
+                             select c;
             ViewBag.SocialLinkTypeID = new SelectList(TypesQuery, "SocialLinkTypeID", "Name", selectedSocialLinkType);
         }
 
@@ -522,7 +521,7 @@ namespace MACAWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                sl.SocialLinkID = Guid.NewGuid(); 
+                sl.SocialLinkID = Guid.NewGuid();
                 db.SocialLinks.Add(sl);
                 db.SaveChanges();
                 return RedirectToAction("SocialLinkIndex", new { personId = personId });
@@ -557,7 +556,7 @@ namespace MACAWeb.Controllers
                 sl.SocialLinkID = slViewModel.SocialLinkID;
                 sl.SocialLinkTypeID = slViewModel.SocialLinkTypeID;
                 sl.ProfileUrl = slViewModel.ProfileUrl;
-                
+
                 db.Entry(sl).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("SocialLinkIndex", new { personId = personId });

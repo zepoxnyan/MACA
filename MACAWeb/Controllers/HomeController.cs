@@ -119,7 +119,7 @@ namespace MACAWeb.Controllers
         {
             List<Mentorship> lstMentorship = db.Mentorships.Where(x => x.PersonID == personID).OrderBy(x => x.Year).ThenBy(x => x.Student).ToList();
             Person per = db.Persons.Find(personID);
-            ViewBag.Title = per.Name + " " + per.Surname;
+            ViewBag.Pname = per.Name + " " + per.Surname;
             ViewBag.PersonID = personID;
             return View(lstMentorship);
         }
@@ -128,7 +128,7 @@ namespace MACAWeb.Controllers
         {
             List<Teaching> lstTeaching = db.Teachings.Where(x => x.PersonID == personID).OrderByDescending(x => x.Subject.Year).ThenByDescending(x => x.Subject.Semester).ToList();
             Person per = db.Persons.Find(personID);
-            ViewBag.Title = per.Name + " " + per.Surname;
+            ViewBag.Pname = per.Name + " " + per.Surname;
             ViewBag.PersonID = personID;
             return View(lstTeaching);
         }
@@ -145,7 +145,7 @@ namespace MACAWeb.Controllers
             }
             lstPublications = lstPublications.OrderByDescending(x => x.Year).ThenByDescending(x => x.Title).ToList();
             Person per = db.Persons.Find(personID);
-            ViewBag.Title = per.Name + " " + per.Surname;
+            ViewBag.Pname = per.Name + " " + per.Surname;
             ViewBag.PersonID = personID;
             return View(lstPublications);
         }
@@ -159,7 +159,9 @@ namespace MACAWeb.Controllers
             research.conferenceTalk = cTalk;
             research.seminarTalk = sTalk;
 
-
+            Person per = db.Persons.Find(personID);
+            ViewBag.Pname = per.Name + " " + per.Surname;
+            ViewBag.PersonID = personID;
             return View(research);
         }
 
@@ -253,6 +255,15 @@ namespace MACAWeb.Controllers
             ViewBag.Message = "Administration";
 
             return View();
+        }
+
+
+        public FileResult GetBibtex(Guid id)
+        {
+            Publication pub = db.Publications.Find(id);
+            byte[] byteContent = Convert.FromBase64String(pub.BibtexFile);
+            var filename = pub.Address + ".bib";
+            return File(byteContent, filename);
         }
 
         /// <summary>

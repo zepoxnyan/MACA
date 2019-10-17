@@ -144,6 +144,9 @@ a::selection {
 .social-btn-holder {
     margin-right: 5px;
 }
+.nav-tabs{
+    border-bottom:0 !important;
+}
 
 .fa {
     padding: 5px;

@@ -2,9 +2,92 @@
 
 @{
     ViewBag.Title = Model.Name + " " + Model.Surname;
+    
 }
 
-<div class="main-content">
+
+<div class="card">
+    <div class="col-12 row justify-content-between m-0 pb-0 card-header">
+        <div class="p-2">
+            <h2>@Model.FullName</h2>
+        </div>
+
+        <nav class="nav nav-tabs mt-3">
+            <a href="/Home/PersonDetails?personID=@Model.PersonID" class="nav-item nav-link active">About</a>
+            <a href="/Home/PersonResearch?personID=@Model.PersonID" class="nav-item nav-link">Research</a>
+            <a href="/Home/PersonPublications?personID=@Model.PersonID" class="nav-item nav-link">Publications</a>
+            <a href="/Home/PersonTeaching?personID=@Model.PersonID" class="nav-item nav-link">Teaching</a>
+            <a href="/Home/PersonMentorships?personID=@Model.PersonID" class="nav-item nav-link">Mentorships</a>
+        </nav>
+    </div>
+    <div class="col-12 secondary">
+        <div class="col-12 card-body p-3 row ">
+            <div class="col-3 ">
+                @{
+                    if (Model.Image != null && Model.Image.Length > 0)
+                    {
+                        var base64 = Convert.ToBase64String(Model.ImageThumb);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        @:<img src="@imgSrc" class="img-thumbnail img-responsive" alt="" style="height:240px; width:240px;" />
+                    }
+                    else
+                    {
+                        @:<img src="/Images/NoImageAcc.png" class="img-thumbnail img-responsive" alt="" style="height:240px; width:240px;" />
+                    }
+                }
+                <div>
+                    <div class="social-btns mt-2 justify-content-center">
+                        @{ if (ViewBag.SocialLinks != null)
+                            {
+
+                                foreach (var entry in ViewBag.SocialLinks)
+                                {
+
+                                    string[] split = entry.Split(new[] { " |Split| " }, StringSplitOptions.None);
+                                    if (split[1] == "noLogo")
+                                    {
+                                        @:<div class="social-btn-holder"><a href="@split[0]"><img src="/Images/macaIcon.png" height="30" width="30" /></a></div>
+                                    }
+                                    else
+                                    {
+                                        var imgSrc = String.Format("data:image/gif;base64,{0}", split[1]);
+                                        @:<div class="social-btn-holder"><a href="@split[0]"><img src="@imgSrc" height="30" width="30" /></a></div>
+                                    }
+
+
+                                }
+                            }
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col ml-3 border-left">
+                <h5>About</h5><hr />
+                <p>
+                    @Model.Description
+                </p>
+                <div>
+                    @{ if (Model.Email != null && Model.Email.Length > 0)
+                        {
+                            @:Contact: <a href=mailto:@Model.Email> @Model.Email</a></li>
+                        }
+
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<!--<div class="main-content">
     <div class="row" style="margin-bottom:10px;">
         <div class="col-xs-12 col-sm-8">
             <h2>@Model.FullName</h2>
@@ -87,3 +170,4 @@
         <h4><a href="/Home/PersonMentorships?personID=@Model.PersonID" class="a-div-link">Mentorships</a></h4>
     </div>
 </div>
+-->

@@ -1,16 +1,43 @@
-﻿@model MACAWeb.Models.Research
+﻿@using Microsoft.AspNet.Identity;
+@model MACAWeb.Models.Research
 @{
     ViewBag.Title = "Research";
+    var LogPerson = Auxiliaries.GetConnectedPerson(User.Identity.GetUserId());
 
+
+    Boolean showManage = false;
+    if (LogPerson == ViewBag.PersonID || LogPerson != null) { showManage = true; }
 }
-<div class="main-content">
+<div class="card">
+    <div class="col-12 row justify-content-between m-0 pb-0 card-header">
+        <div class="p-2">
+            <h2>@ViewBag.Pname</h2>
+        </div>
 
-    <h2>Research</h2>
-    <hr />
-
-    <div class="row inner-rectangle">
+        <nav class="nav nav-tabs mt-3">
+            <a href="/Home/PersonDetails?personID=@ViewBag.PersonID" class="nav-item nav-link">About</a>
+            <a href="/Home/PersonResearch?personID=@ViewBag.PersonID" class="nav-item nav-link active">Research</a>
+            <a href="/Home/PersonPublications?personID=@ViewBag.PersonID" class="nav-item nav-link">Publications</a>
+            <a href="/Home/PersonTeaching?personID=@ViewBag.PersonID" class="nav-item nav-link">Teaching</a>
+            <a href="/Home/PersonMentorships?personID=@ViewBag.PersonID" class="nav-item nav-link">Mentorships</a>
+        </nav>
+    </div>
+    <div class="col-12 card-body p-3">
         <div class="col-sm-12 col-lg-12 col-md-12">
-            <h4>Interests</h4>
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <h4>Interests</h4>
+                </div>
+                <div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (showManage)
+                        {
+                            <a href=" @Url.Action("InterestsIndex", "Research")"><span title="Edit" class="fa fa-wrench action-icons" /></a>
+                        }
+                    }
+                </div>
+            </div>
             <div>
                 <ul>
                     @foreach (var item in Model.interest)
@@ -25,7 +52,21 @@
             </div>
         </div>
         <div class="col-sm-12 col-lg-12 col-md-12">
-            <h4>Conference talks</h4>
+
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <h4>Conference talks</h4>
+                </div>
+                <div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (showManage)
+                        {
+                            <a href=" @Url.Action("ConferenceTalksIndex", "Research")"><span title="Edit" class="fa fa-wrench action-icons" /></a>
+                        }
+                    }
+                </div>
+            </div>
             <div>
                 <ul>
                     @foreach (var item in Model.conferenceTalk)
@@ -52,7 +93,145 @@
             </div>
         </div>
         <div class="col-sm-12 col-lg-12 col-md-12">
-            <h4>Seminar talks</h4>
+
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <h4>Seminar talks</h4>
+                </div>
+                <div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (showManage)
+                        {
+                            <a href=" @Url.Action("SeminarTalksIndex", "Research")"><span title="Edit" class="fa fa-wrench action-icons" /></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div>
+                <ul>
+                    @foreach (var item in Model.seminarTalk)
+                    {
+                        <li>
+                            <span style="font-style:italic">@Html.DisplayFor(modelItem => item.Title)</span>
+                            <span>,</span>
+                            <span>
+                                @Html.DisplayFor(modelItem => item.SeminarName),
+                                @if (item.University != null)
+                                {
+                                    <span>@Html.DisplayFor(modelItem => item.University),</span>}
+                                @Html.DisplayFor(modelItem => item.City),
+                                @Html.DisplayFor(modelItem => item.Country)
+                                (@Html.DisplayFor(modelItem => item.Year))
+                            </span>
+                            @if (item.PdfLink != null)
+                            {
+                                <span style="font-weight:bold;"><a target="new" href=@Html.DisplayFor(modelItem => item.PdfLink)>[ pdf ]</a></span>
+                            }
+
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+<!--
+<div class="main-content">
+
+    <h2>Research</h2>
+    <hr />
+
+    <div class="row inner-rectangle">
+        <div class="col-sm-12 col-lg-12 col-md-12">
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <h4>Interests</h4>
+                </div>
+                <div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (showManage)
+                        {
+                            <a href=" @Url.Action("InterestsIndex", "Research")"><span title="Edit" class="fa fa-wrench action-icons" /></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div>
+                <ul>
+                    @foreach (var item in Model.interest)
+                    {
+                        <li>
+                            <span style="font-weight:bold">@Html.DisplayFor(modelItem => item.Title)</span>
+                            <span>:</span>
+                            <span style="font-style:italic">@Html.DisplayFor(modelItem => item.Description)</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-12 col-md-12">
+
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <h4>Conference talks</h4>
+                </div>
+                <div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (showManage)
+                        {
+                            <a href=" @Url.Action("ConferenceTalksIndex", "Research")"><span title="Edit" class="fa fa-wrench action-icons" /></a>
+                        }
+                    }
+                </div>
+            </div>
+            <div>
+                <ul>
+                    @foreach (var item in Model.conferenceTalk)
+                    {
+                        <li>
+                            <span style="font-style:italic">@Html.DisplayFor(modelItem => item.Title)</span>
+                            @if (item.InvitedTalk != false)
+                            {
+                                <span>[Invited talk],</span>
+                            }
+                            else
+                            {
+                                <span>,</span>
+                            }
+                            <span><a href="http://www.8ccgt.agh.edu.pl/index.php" target="new">@Html.DisplayFor(modelItem => item.ConferenceName)</a>, @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.Country) (@Html.DisplayFor(modelItem => item.Year)).</span>
+                            @if (item.PdfLink != null)
+                            {
+                                <span style="font-weight:bold;"><a target="new" href=@Html.DisplayFor(modelItem => item.PdfLink)>[ pdf ]</a></span>
+                            }
+
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-12 col-md-12">
+
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <h4>Seminar talks</h4>
+                </div>
+                <div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (showManage)
+                        {
+                            <a href=" @Url.Action("SeminarTalksIndex", "Research")"><span title="Edit" class="fa fa-wrench action-icons" /></a>
+                        }
+                    }
+                </div>
+            </div>
             <div>
                 <ul>
                     @foreach (var item in Model.seminarTalk)
@@ -81,3 +260,4 @@
         </div>
     </div>
 </div>
+    -->

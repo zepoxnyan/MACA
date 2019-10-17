@@ -1,76 +1,80 @@
-﻿@model List<MACAWeb.Models.Mentorship>
+﻿@using Microsoft.AspNet.Identity;
+@model List<MACAWeb.Models.Mentorship>
 @Scripts.Render("~/bundles/jquery")
 
-<div class="main-content">
-    <div class="row">
-        <div class="col-md-4">
-            <h2>@ViewBag.Title</h2>
-            <h3>Mentorships</h3>
+@{
+    ViewBag.Title = "Teaching";
+    var LogPerson = Auxiliaries.GetConnectedPerson(User.Identity.GetUserId());
+
+
+    Boolean showManage = false;
+    if (LogPerson == ViewBag.PersonID || LogPerson != null) { showManage = true; }
+}
+<div class="card">
+    <div class="col-12 row justify-content-between m-0 pb-0 card-header">
+        <div class="p-2">
+            <h2>@ViewBag.Pname</h2>
         </div>
-        <div class="col-md-8">
-            <!--<div class="container">-->
-            <div class="row">
-                @Html.ActionLink("Home", "PersonDetails", new { personID = ViewBag.PersonID }, new { @class = "btn btn-default m-2" })
-                @Html.ActionLink("Publications", "PersonPublications", new { personID = ViewBag.PersonID }, new { @class = "btn btn-default  m-2" })
-                @Html.ActionLink("Teaching", "PersonTeaching", new { personID = ViewBag.PersonID }, new { @class = "btn btn-default  m-2" })
-                @Html.ActionLink("Mentorships", "PersonMentorships", new { personID = ViewBag.PersonID }, new { @class = "btn btn-default  m-2" })
-                
-            </div>
-            <!--</div>-->
-        </div>
+
+        <nav class="nav nav-tabs mt-3">
+            <a href="/Home/PersonDetails?personID=@ViewBag.PersonID" class="nav-item nav-link">About</a>
+            <a href="/Home/PersonResearch?personID=@ViewBag.PersonID" class="nav-item nav-link">Research</a>
+            <a href="/Home/PersonPublications?personID=@ViewBag.PersonID" class="nav-item nav-link">Publications</a>
+            <a href="/Home/PersonTeaching?personID=@ViewBag.PersonID" class="nav-item nav-link active">Teaching</a>
+            <a href="/Home/PersonMentorships?personID=@ViewBag.PersonID" class="nav-item nav-link">Mentorships</a>
+        </nav>
     </div>
-    <hr />
 
-    <div class="row index-row inner-rectangle">
-        <div class="col-12">
-            @{ 
-                List<MACAWeb.Models.Mentorship> lstBak = Model.Where(x => x.ThesisType.AISCode == 1).OrderByDescending(x => x.Year).ToList();
-                List<MACAWeb.Models.Mentorship> lstDip = Model.Where(x => x.ThesisType.AISCode == 2).OrderByDescending(x => x.Year).ToList();
-                List<MACAWeb.Models.Mentorship> lstDis = Model.Where(x => x.ThesisType.AISCode == 3).OrderByDescending(x => x.Year).ToList();
+    <div class="col-12 card-body">
+        @{
+            List<MACAWeb.Models.Mentorship> lstBak = Model.Where(x => x.ThesisType.AISCode == 1).OrderByDescending(x => x.Year).ToList();
+            List<MACAWeb.Models.Mentorship> lstDip = Model.Where(x => x.ThesisType.AISCode == 2).OrderByDescending(x => x.Year).ToList();
+            List<MACAWeb.Models.Mentorship> lstDis = Model.Where(x => x.ThesisType.AISCode == 3).OrderByDescending(x => x.Year).ToList();
 
-                if (lstBak.Count > 0)
-                {
-                    @:<h4>Bachelor's Theses</h4>
-                    @:<ol>
+            if (lstBak.Count > 0)
+            {
+                @:<h4>Bachelor's Theses</h4>
+                @:<ol>
+                    {
+                        foreach (var item in lstBak)
                         {
-                            foreach (var item in lstBak)
-                            {
-                                <li class="container-offer-company">
-                                    @item.Student: @item.ThesisTitle, (@item.Year)
-                                </li>
-                            }
+                            <li class="container-offer-company">
+                                @item.Student: @item.ThesisTitle, (@item.Year)
+                            </li>
                         }
-                    @:</ol>
-                }
-                if (lstDip.Count > 0)
-                {
-                    @:<h4>Master's Theses</h4>
-                    @:<ol>
-                        {
-                            foreach (var item in lstDip)
-                            {
-                                <li class="container-offer-company">
-                                    @item.Student: @item.ThesisTitle, (@item.Year)
-                                </li>
-                            }
-                        }
-                    @:</ol>
-                }
-                if (lstDis.Count > 0)
-                {
-                    @:<h4>Doctoral Theses</h4>
-                    @:<ol>
-                        {
-                            foreach (var item in lstDis)
-                            {
-                                <li class="container-offer-company">
-                                    @item.Student: @item.ThesisTitle, (@item.Year)
-                                </li>
-                            }
-                        }
-                    @:</ol>
-                }
+                    }
+                @:</ol>
             }
-        </div>
+            if (lstDip.Count > 0)
+            {
+                @:<h4>Master's Theses</h4>
+                @:<ol>
+                    {
+                        foreach (var item in lstDip)
+                        {
+                            <li class="container-offer-company">
+                                @item.Student: @item.ThesisTitle, (@item.Year)
+                            </li>
+                        }
+                    }
+                @:</ol>
+            }
+            if (lstDis.Count > 0)
+            {
+                @:<h4>Doctoral Theses</h4>
+                @:<ol>
+                    {
+                        foreach (var item in lstDis)
+                        {
+                            <li class="container-offer-company">
+                                @item.Student: @item.ThesisTitle, (@item.Year)
+                            </li>
+                        }
+                    }
+                @:</ol>
+            }
+        }
     </div>
+
+
 </div>

@@ -323,6 +323,14 @@
     <Compile Include="Migrations\201908231714008_PublicationAddBibtex.Designer.cs">
       <DependentUpon>201908231714008_PublicationAddBibtex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910170825367_test.cs" />
+    <Compile Include="Migrations\201910170825367_test.Designer.cs">
+      <DependentUpon>201910170825367_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910171914492_test2.cs" />
+    <Compile Include="Migrations\201910171914492_test2.Designer.cs">
+      <DependentUpon>201910171914492_test2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
@@ -805,6 +813,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908231714008_PublicationAddBibtex.resx">
       <DependentUpon>201908231714008_PublicationAddBibtex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170825367_test.resx">
+      <DependentUpon>201910170825367_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910171914492_test2.resx">
+      <DependentUpon>201910171914492_test2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -3,31 +3,32 @@
     ViewBag.Title = "Social Links";
 }
 
-<div class="main-content">
+<div>
     <h2>@ViewBag.Title</h2>
-    <hr />
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <div class="col col-md-6">
-                <div class="link-button">
-                    @Html.ActionLink("Add new", "Create")
-                </div>
-            </div>
-            <!--Search Form-->
-        </div>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UrlShortcut)
-                </th>
 
-                <th></th>
-            </tr>
-            @foreach (var item in Model)
-            {
+    <hr />
+    <div class="row">
+        @Html.ActionLink("Add new", "Create", null, new { @class = "btn btn-default" })
+    </div>
+    <br />
+
+    <div class="row">
+
+        <div class="card col">
+            <table class="table card-body">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UrlShortcut)
+                    </th>
+
+                    <th>Manage</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
@@ -47,7 +48,9 @@
                         </a>
                     </td>
                 </tr>
-            }
-        </table>
+                }
+            </table>
+        </div>
+
     </div>
 </div>

@@ -32,23 +32,70 @@
             <ul>
                 @foreach (var publication in Model)
                 {
-                    <li>
-                        @{string seperator = "";
+                <li class="mb-3 secondary">
+                    @{
+                        string seperator = "";
+                        <span>
+                            @foreach (var aut in publication.PublicationAuthors)
+                            {
+                                string fullName = seperator + aut.Author.FirstName + " " + aut.Author.Surname;
+                                @Html.DisplayFor(modelItem => fullName)
+                                seperator = ", ";
+                            }
+                        </span>
+                        <span>:</span>
+                        <span style="font-style:italic;padding-left:10px;">@publication.Title</span><span>, </span><br />
+                        <span>Submitted in @publication.Year</span><br />
+                        if (publication.DOI != null)
+                        {
                             <span>
-                                @foreach (var aut in publication.PublicationAuthors)
-                                {
-                                    string fullName = seperator + aut.Author.FirstName + " " + aut.Author.Surname;
-                                    @Html.DisplayFor(modelItem => fullName)
-                                    seperator = ", ";
-                                }
+                                <a href=https://doi.org/@publication.DOI target="new">DOI: @publication.DOI</a>
                             </span>
-                            <span>:</span>
-                            <span style="font-style:italic;padding-left:10px;">@publication.Title</span><span>, </span><br />
-                            <span>Submitted in @publication.Year</span><br />
-                            <span><a href="www.google.com" target="new">Hyperlinks</a></span>
+                            <span style="color: #808080;"> | </span>
+
+
+                        }
+                        if (publication.Link != null)
+                        {
+                            if (publication.Link.Contains("http"))
+                            {
+                                <span>
+                                    <a href=https://@publication.Link target="new">Official print</a>
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    <a href=https://@publication.Link target="new">Official print</a>
+                                </span>
+                            }
+                        }
+                        if (publication.PreprintLink != null)
+                        {
+                            <span style="color: #808080;"> | </span>
+                            <span>
+                                <a href=http://arxiv.org/@publication.PreprintLink target="new">arXiv Preprint</a>
+                            </span>
+
+
+
+                        }
+                        if (publication.BibtexFile != null)
+                        {
+                            <span style="color: #808080;"> | </span>
+                            <span>
+                                @Html.ActionLink("Bibtex", "GetBibtex", "Home", new {id = publication.PublicationID}, htmlAttributes: new { @target = "new" })
+                            </span>
+
+
+
                         }
 
-                    </li>
+
+                    }
+
+                </li>
+                    
                 }
 
             </ul>

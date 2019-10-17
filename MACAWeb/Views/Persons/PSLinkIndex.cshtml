@@ -4,87 +4,46 @@
     ViewBag.Title = "AddUserLink";
 }
 
-<div class="main-content">
-    <h2>Link User to Person</h2>
+
+<div>
+    <h2>@ViewBag.Title</h2>
 
     <hr />
-
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <div class="col col-md-6">
-                <div class="link-button">
-                    @Html.ActionLink("Add link", "PSLinkCreate", routeValues: new { personId = ViewBag.PersonID })
-                </div>
-            </div>
-        </div>
-
-        <!--<table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PersonUserID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PersonID)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PersonUserID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PersonID)
-                </td>
-                <td>
-                    <a href="@Url.Action("PSLinkEdit", "Persons", new { id=item.PersonUserID, personId = item.PersonID })">
-                        <span title="Edit" class="fa fa-wrench action-icons" />
-                    </a>&nbsp;
-                    <a href="@Url.Action("PSLinkDelete", "Persons", new { id=item.PersonUserID, personId = item.PersonID })">
-                        <span title="Delete" class="fa fa-trash action-icons" />
-                    </a>
-                </td>
-            </tr>
-        }
-
-    </table>-->
-        <div class="col-sm-12 col-lg-12 col-md-12">
-            <div class="card m-2">
-                <div class="card-header">
-                    <h4>Current links</h4>
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped table-hover col-sm-12 col-lg-12 col-md-12 ">
-                        <tbody>
-                            @foreach (var link in Model)
-                            {
-                                <tr>
-                                    <td class="col-sm-1 col-lg-5 col-md-5">
-                                        <strong>@link.PersonUserID </strong>
-                                    </td>
-                                    <td class="col-sm-1 col-lg-1 col-md-1">
-                                        <a href="@Url.Action("PSLinkDelete", "Persons", new { selectedLink=link.PersonUserID, personId = ViewBag.PersonID })">
-                                            <span title="Delete" class="fa fa-trash action-icons" />
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+        
+        @Html.ActionLink("Add link", "PSLinkCreate", routeValues: new { personId = ViewBag.PersonID }, htmlAttributes: new { @class = "btn btn-default" })
     </div>
+    <br />
 
-    <div>
-        @Html.ActionLink("Back to Editing Person", "Edit", routeValues: new { id = ViewBag.PersonID })
+    <div class="row">
+
+        <div class="card col">
+            <table class="table card-body">
+                <tr>
+                    <th>
+                        Current user
+                    </th>
+                    <th>Manage</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    
+                    string UserAcc = Auxiliaries.GetUserAcc(item.UserID);
+
+                <tr>
+                    <td class="col-sm-1 col-lg-5 col-md-5">
+                        <strong>@UserAcc </strong>
+                    </td>
+                    <td class="col-sm-1 col-lg-1 col-md-1">
+                        <a href="@Url.Action("PSLinkDelete", "Persons", new { selectedLink=item.PersonUserID, personId = ViewBag.PersonID })">
+                            <span title="Delete" class="fa fa-trash action-icons" />
+                        </a>
+                    </td>
+                </tr>
+                }
+            </table>
+        </div>
+
     </div>
 </div>

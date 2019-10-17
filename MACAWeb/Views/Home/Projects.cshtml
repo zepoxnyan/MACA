@@ -26,8 +26,8 @@
         </div>
     </div>
     <hr />
-
-        <table class="table">
+    <div class="card col">
+        <table class="table card-body">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
@@ -41,7 +41,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.FirstOrDefault().End)
                 </th>
-                <th></th>
             </tr>
 
             @foreach (var item in Model)
@@ -59,16 +58,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.End)
                     </td>
-                    <td class="column-glyph">
-                        <a href="@Url.Action("Details", "Grants", new { id=item.GrantID })">
-                            <span title="Details" class="fa fa-info action-icons" />
-                        </a>
-                    </td>
+                    
                 </tr>
             }
         </table>
-        <!--Pagination-->
-        <br />
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("Projects", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
     </div>
+    <!--Pagination-->
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Projects", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
