@@ -1,61 +1,90 @@
 ﻿@model List<MACAWeb.Models.Publication>
 @Scripts.Render("~/bundles/jquery")
-
-<div class="main-content">
-    <div class="row">
-        <div class="col-md-4">
-            <h2>@ViewBag.Title</h2>
-            <h3>Publications</h3>
+<div class="card">
+    <div class="col-12 row justify-content-between m-0 pb-0 card-header">
+        <div class="p-2">
+            <h2>@ViewBag.Pname</h2>
         </div>
-        <div class="col-md-8">
-            <div class="container">
-                <div class="row">
-                    <div class="col col-md-3">
-                        <div class="link-button">
-                            @Html.ActionLink("Home", "PersonDetails", routeValues: new { personID = ViewBag.PersonID })
-                        </div>
-                    </div>
-                    <div class="col col-md-3">
-                        <div class="link-button">
-                            @Html.ActionLink("Research", "PersonResearch", routeValues: new { personID = ViewBag.PersonID })
-                        </div>
-                    </div>
-                    <div class="col col-md-3">
-                        <div class="link-button">
-                            @Html.ActionLink("Publications", "PersonPublications", routeValues: new { personID = ViewBag.PersonID })
-                        </div>
-                    </div>
-                    <div class="col col-md-3">
-                        <div class="link-button">
-                            @Html.ActionLink("Teaching", "PersonTeaching", routeValues: new { personID = ViewBag.PersonID })
-                        </div>
-                    </div>
-                    <div class="col col-md-3">
-                        <div class="link-button">
-                            @Html.ActionLink("Mentorships", "PersonMentorships", routeValues: new { personID = ViewBag.PersonID })
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-        </div>
+        <nav class="nav nav-tabs mt-3">
+            <a href="/Home/PersonDetails?personID=@ViewBag.PersonID" class="nav-item nav-link">About</a>
+            <a href="/Home/PersonResearch?personID=@ViewBag.PersonID" class="nav-item nav-link">Research</a>
+            <a href="/Home/PersonPublications?personID=@ViewBag.PersonID" class="nav-item nav-link active">Publications</a>
+            <a href="/Home/PersonTeaching?personID=@ViewBag.PersonID" class="nav-item nav-link">Teaching</a>
+            <a href="/Home/PersonMentorships?personID=@ViewBag.PersonID" class="nav-item nav-link">Mentorships</a>
+        </nav>
     </div>
-    <hr />
+    <div class="col-12 card-body p-3">
+        <ul>
+            @foreach (var publication in Model)
+            {
+                <li class="mb-3 secondary">
+                    @{
+                        string seperator = "";
+                        <span>
+                            @foreach (var aut in publication.PublicationAuthors)
+                            {
+                                string fullName = seperator + aut.Author.FirstName + " " + aut.Author.Surname;
+                                @Html.DisplayFor(modelItem => fullName)
+                                seperator = ", ";
+                            }
+                        </span>
+                        <span>:</span>
+                        <span style="font-style:italic;padding-left:10px;">@publication.Title</span><span>, </span><br />
+                        <span>Submitted in @publication.Year</span><br />
+                        if (publication.DOI != null)
+                        {
+                            <span>
+                                <a href=https://doi.org/@publication.DOI target="new">DOI: @publication.DOI</a>
+                            </span>
+                            <span style="color: #808080;"> | </span>
 
-    <div class="row index-row inner-rectangle">
-        <div class="row index-row">
-            <ul>
-                @{
-                    foreach (var item in Model)
-                    {
-                        @:<li class="container-offer-company">
-                                string text = item.Title + " (" + item.PublicationType + ")";
-                                @text
-                        @:</li>
-                        
+
+                        }
+                        if (publication.Link != null)
+                        {
+                            if (publication.Link.Contains("http"))
+                            {
+                                <span>
+                                    <a href=https://@publication.Link target="new">Official print</a>
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    <a href=https://@publication.Link target="new">Official print</a>
+                                </span>
+                            }
+                        }
+                        if (publication.PreprintLink != null)
+                        {
+                            <span style="color: #808080;"> | </span>
+                            <span>
+                                <a href=http://arxiv.org/@publication.PreprintLink target="new">arXiv Preprint</a>
+                            </span>
+
+
+
+                        }
+                        if (publication.BibtexFile != null)
+                        {
+                            <span style="color: #808080;"> | </span>
+                            <span>
+                                @Html.ActionLink("Bibtex", "GetBibtex", "Home", new { id = publication.PublicationID }, htmlAttributes: new { @target = "new" })
+                            </span>
+
+
+
+                        }
+
+
                     }
-                }
-            </ul>
-        </div>
+
+                </li>
+
+            }
+
+        </ul>
     </div>
 </div>
+
